@@ -1,11 +1,11 @@
 import mongoose, { Schema } from 'mongoose';
 
 export interface Guild {
-    id: string,
+    guildID: string,
 }
 
 const guildSchema = new Schema<Guild>({
-  id: {
+  guildID: {
     type: mongoose.SchemaTypes.String,
     required: true,
     unique: true,

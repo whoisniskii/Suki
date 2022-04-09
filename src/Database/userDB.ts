@@ -2,6 +2,7 @@ import mongoose, { Schema } from 'mongoose';
 
 export interface User {
     id: string,
+    locale: string
 }
 
 const userSchema = new Schema<User>({
@@ -9,6 +10,11 @@ const userSchema = new Schema<User>({
     type: mongoose.SchemaTypes.String,
     required: true,
     unique: true,
+  },
+  locale: {
+    type: mongoose.SchemaTypes.String,
+    required: true,
+    default: 'pt-BR'
   }
 });
 

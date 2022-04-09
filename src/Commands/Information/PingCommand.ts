@@ -1,4 +1,4 @@
-import { ApplicationCommandType, CommandInteraction } from 'discord.js';
+import { CommandInteraction } from 'discord.js';
 import CommandConstructor from '../../Structures/Command';
 import SukiClient from '../../SukiClient';
 
@@ -9,9 +9,7 @@ export default class PingCommand extends CommandConstructor {
       category: 'Information',
       data: {
         name: 'ping',
-        description: 'Show\'s the bot ping',
-        type: ApplicationCommandType.ChatInput,
-        default_permission: true,
+        description: 'mostra o ping do bot',
         options: []
       }
     }, client);

@@ -1,7 +1,7 @@
 import { connect } from 'mongoose';
 import SukiClient from '../SukiClient';
 
-export default class DatabaseManager {
+class DatabaseManager {
   client: SukiClient;
 
   constructor(client: SukiClient) {
@@ -26,3 +26,5 @@ export default class DatabaseManager {
     });
   }
 }
+
+export { DatabaseManager };

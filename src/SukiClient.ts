@@ -1,6 +1,6 @@
 import { Client, GatewayIntentBits } from 'discord.js';
 
-import { EventManager, CommandManager, RegisterCommands } from './Managers';
+import { EventManager, CommandManager, RegisterCommands, DatabaseManager, LocaleManager } from './Managers';
 
 import CommandConstructor from './Structures/Command';
 
@@ -8,8 +8,6 @@ import PlayerManager from './Music/PlayerManager';
 
 import dbGuild from './Database/guildDB';
 import dbUser from './Database/userDB';
-
-import DatabaseManager from './Managers/DatabaseManager';
 
 export default class SukiClient extends Client {
   commands: Array<CommandConstructor>;
@@ -51,6 +49,7 @@ export default class SukiClient extends Client {
     new EventManager(this).execute();
     new RegisterCommands(this).registerSlashCommands();
     new DatabaseManager(this).execute();
+    new LocaleManager(this).execute();
     super.login(process.env.BOT_TOKEN);
   }
 }
