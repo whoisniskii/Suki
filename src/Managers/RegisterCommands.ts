@@ -17,11 +17,13 @@ class RegisterCommands {
       for (const file of commandFiles) {
         const commandFile = await import(`../Commands/${folder}/${file}`);
         const command = new commandFile.default(this.client);
-        commands.push(command.data.toJSON());
+        console.log(command.data);
+        commands.push(command.data);
       }
     }
 
-    this.client.application?.commands.set(commands);
+    // this.client.application?.commands.set(commands);
+    this.client.guilds.cache.get(process.env.GUILD_ID as string)?.commands.set(commands);
     console.log('\x1b[32m[SLASH]\x1b[0m', 'Updated commands.');
   }
 }

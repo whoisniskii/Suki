@@ -51,7 +51,7 @@
       "no-empty-function": "off",
       "@typescript-eslint/no-empty-function": ["off"],
       "no-floating-decimal": "error",
-      "no-inline-comments": "error",
+      "no-inline-comments": "off",
       "@typescript-eslint/no-non-null-assertion": "off",
       "no-lonely-if": "error",
       "no-multi-spaces": "error",

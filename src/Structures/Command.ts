@@ -1,6 +1,6 @@
+/* eslint-disable @typescript-eslint/ban-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { SlashCommandBuilder } from '@discordjs/builders';
-import { CommandInteraction } from 'discord.js';
+import { ApplicationCommandOptionType, ApplicationCommandType, CommandInteraction, Snowflake } from 'discord.js';
 import SukiClient from '../SukiClient';
 
 export default class CommandConstructor {
@@ -8,7 +8,7 @@ export default class CommandConstructor {
   options: Partial<CommandOptions>;
   name: string;
   category?: string;
-  data: SlashCommandBuilder;
+  data: { };
 
   constructor(options: CommandOptions, client: SukiClient) {
     this.client = client;
@@ -29,5 +29,17 @@ export default class CommandConstructor {
 export interface CommandOptions {
     name: string;
     category?: string;
-    data: SlashCommandBuilder
+    data: {
+      name: string,
+      type?: ApplicationCommandType,
+      description: string;
+      guild_id?: Snowflake
+      description_localizations?: string // https://discord.com/developers/docs/reference#locales
+      options: [
+        name?: string,
+        description?: string,
+        type?: ApplicationCommandOptionType
+      ],
+      default_permission?: boolean
+    }
 }
