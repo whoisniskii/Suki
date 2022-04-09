@@ -36,6 +36,12 @@ export default class PlayerManager extends Vulkava {
         player.connect();
         player.play({ startTime: position });
       }
+
+      setInterval(() => {
+        node.send({
+          op: 'ping',
+        });
+      }, 45000);
     });
 
     this.on('error', (node, error): void => {
