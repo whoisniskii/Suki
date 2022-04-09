@@ -1,12 +1,22 @@
 import { Client, GatewayIntentBits } from 'discord.js';
+
 import { EventManager, CommandManager, RegisterCommands } from './Managers';
+
 import CommandConstructor from './Structures/Command';
+
 import PlayerManager from './Music/PlayerManager';
+
+import dbGuild from './Database/guildDB';
+import dbUser from './Database/userDB';
+
+import DatabaseManager from './Managers/DatabaseManager';
 
 export default class SukiClient extends Client {
   commands: Array<CommandConstructor>;
   developers: string[];
   playerManager: PlayerManager;
+  guildDB: typeof dbGuild;
+  userDB: typeof dbUser;
 
   constructor() {
     super({
@@ -26,6 +36,8 @@ export default class SukiClient extends Client {
 
     this.commands = [];
     this.developers = ['847865068657836033'];
+    this.guildDB = dbGuild;
+    this.userDB = dbUser;
   }
 
   connectLavaLink(): void {
@@ -38,6 +50,7 @@ export default class SukiClient extends Client {
     new CommandManager(this).execute();
     new EventManager(this).execute();
     new RegisterCommands(this).registerSlashCommands();
+    new DatabaseManager(this).execute();
     super.login(process.env.BOT_TOKEN);
   }
 }
