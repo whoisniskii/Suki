@@ -1,0 +1,34 @@
+{
+  "name": "suki-rewrite",
+  "description": "Suki code rewritten in Typescript",
+  "version": "0.1",
+  "private": true,
+  "main": "./build/index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Niskii3/Suki-Rewrite.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Niskii3/Suki-Rewrite/issues"
+  },
+  "license": "Apache-2.0",
+  "scripts": {
+    "dev": "tsnd --expose-gc --transpile-only --ignore-watch node_modules --respawn index.ts",
+    "lint": "eslint src --ext .ts --fix",
+    "build": "yarn tsc",
+    "start": "node --max_old_space_size=512 --optimize_for_size --expose-gc --gc-interval=1 ."
+  },
+  "dependencies": {
+    "discord.js": "^14.0.0-dev.1649160496-402514f",
+    "dotenv": "^16.0.0",
+    "vulkava": "^1.2.1"
+  },
+  "devDependencies": {
+    "@types/node": "^17.0.23",
+    "@typescript-eslint/eslint-plugin": "^5.17.0",
+    "@typescript-eslint/parser": "^5.17.0",
+    "eslint": "^8.12.0",
+    "ts-node-dev": "^1.1.8",
+    "typescript": "^4.6.3"
+  }
+}
