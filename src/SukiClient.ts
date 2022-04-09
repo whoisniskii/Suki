@@ -45,11 +45,11 @@ export default class SukiClient extends Client {
   }
 
   connect() {
+    super.login(process.env.BOT_TOKEN as string);
     new CommandManager(this).execute();
     new EventManager(this).execute();
     new RegisterCommands(this).registerSlashCommands();
     new DatabaseManager(this).execute();
     new LocaleManager(this).execute();
-    super.login(process.env.BOT_TOKEN);
   }
 }

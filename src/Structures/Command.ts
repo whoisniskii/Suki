@@ -17,9 +17,9 @@ export default class CommandConstructor {
     this.data = options.data;
   }
 
-  async execute(interaction: CommandInteraction) {
+  async execute(interaction: CommandInteraction, t: typeof globalThis.t) {
     try {
-      this.execute(interaction);
+      this.execute(interaction, t);
     } catch (error: any) {
       interaction.reply(error.message);
     }

@@ -22,7 +22,8 @@ class LocaleManager {
         defaultNS: 'commands',
         preload: readdirSync('src/Locales'),
         fallbackLng: 'pt-BR',
-        backend: { loadPath: '../Locales/{{lng}}/{{ns}}.json' },
+        backend: { loadPath: 'src/Locales/{{lng}}/{{ns}}.json' },
+        load: 'all',
         interpolation: {
           escapeValue: false,
           useRawValueToEscape: true
