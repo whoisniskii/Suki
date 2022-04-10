@@ -1,0 +1,8 @@
+{
+    "test": {
+        "success": "done"
+    },
+    "ping": {
+        "success": "**API Ping**: {{ping}}ms"
+    }
+}

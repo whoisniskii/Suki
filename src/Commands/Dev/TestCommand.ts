@@ -10,7 +10,6 @@ export default class TestCommand extends CommandConstructor {
       data: {
         name: 'test',
         description: 'test command',
-        options: []
       }
     }, client);
   }

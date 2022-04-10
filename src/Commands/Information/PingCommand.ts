@@ -10,12 +10,11 @@ export default class PingCommand extends CommandConstructor {
       data: {
         name: 'ping',
         description: 'mostra o ping do bot',
-        options: []
       }
     }, client);
   }
 
-  override async execute(interaction: CommandInteraction) {
-    interaction.reply(`API Ping: **${this.client.ws.ping}ms**`);
+  override async execute(interaction: CommandInteraction, t: typeof globalThis.t) {
+    interaction.reply(t('ping.success', { ping: this.client.ws.ping.toString() }));
   }
 }

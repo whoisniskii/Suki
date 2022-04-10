@@ -1,6 +1,6 @@
 import { Client, GatewayIntentBits } from 'discord.js';
 
-import { EventManager, CommandManager, RegisterCommands, DatabaseManager, LocaleManager } from './Managers';
+import { EventManager, CommandManager, DatabaseManager, LocaleManager } from './Managers';
 
 import CommandConstructor from './Structures/Command';
 
@@ -48,7 +48,6 @@ export default class SukiClient extends Client {
     super.login(process.env.BOT_TOKEN as string);
     new CommandManager(this).execute();
     new EventManager(this).execute();
-    new RegisterCommands(this).registerSlashCommands();
     new DatabaseManager(this).execute();
     new LocaleManager(this).execute();
   }

@@ -29,17 +29,29 @@ export default class CommandConstructor {
 export interface CommandOptions {
     name: string;
     category?: string;
-    data: {
+    data: CommandData
+}
+
+export interface CommandData {
+    type?: ApplicationCommandType, // https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-types
+    guild_id?: Snowflake
+    name: string,
+    name_localizations?: string // https://discord.com/developers/docs/reference#locales
+    description: string;
+    description_localizations?: string // https://discord.com/developers/docs/reference#locales
+    options?: [{
+      type: ApplicationCommandOptionType, // https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-option-type
       name: string,
-      type?: ApplicationCommandType,
-      description: string;
-      guild_id?: Snowflake
-      description_localizations?: string // https://discord.com/developers/docs/reference#locales
-      options: [{
-        name?: string,
-        description?: string,
-        type?: ApplicationCommandOptionType
-      }],
-      default_permission?: boolean
-    }
+      name_localizations?: string
+      description: string,
+      description_localizations?: string,
+      required?: boolean,
+      choices?: [],
+      options?: [],
+      channel_types?: [],
+      min_value?: number,
+      max_value?: number,
+      autocomplete?: boolean
+    }],
+    default_permission?: boolean
 }

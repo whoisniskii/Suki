@@ -1,5 +1,8 @@
 {
     "test": {
         "success": "foi"
+    },
+    "ping": {
+        "success": "Ping da API: **{{ping}}ms**"
     }
 }

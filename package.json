@@ -13,6 +13,7 @@
   },
   "license": "Apache-2.0",
   "scripts": {
+    "register": "tsnd --expose-gc --transpile-only --ignore-watch node_modules --respawn slash.ts",
     "dev": "tsnd --expose-gc --transpile-only --ignore-watch node_modules --respawn index.ts",
     "lint": "eslint src --ext .ts --fix",
     "build": "yarn tsc",
