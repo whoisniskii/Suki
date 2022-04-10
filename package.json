@@ -26,7 +26,7 @@
     "i18next-fs-backend": "^1.1.4",
     "js-yaml": "^4.1.0",
     "mongoose": "^6.2.10",
-    "vulkava": "^1.2.2"
+    "vulkava": "^1.2.3"
   },
   "devDependencies": {
     "@types/i18next-fs-backend": "^1.1.2",
