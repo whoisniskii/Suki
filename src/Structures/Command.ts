@@ -35,11 +35,11 @@ export interface CommandOptions {
       description: string;
       guild_id?: Snowflake
       description_localizations?: string // https://discord.com/developers/docs/reference#locales
-      options: [
+      options: [{
         name?: string,
         description?: string,
         type?: ApplicationCommandOptionType
-      ],
+      }],
       default_permission?: boolean
     }
 }
