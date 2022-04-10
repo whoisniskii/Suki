@@ -15,7 +15,8 @@ export default class EvalCommand extends CommandConstructor {
         options: [{
           name: 'code',
           description: 'Code to evaluate',
-          type: ApplicationCommandOptionType.String
+          type: ApplicationCommandOptionType.String,
+          required: true
         }]
       }
     }, client);
@@ -23,7 +24,7 @@ export default class EvalCommand extends CommandConstructor {
 
   override async execute(interaction: CommandInteraction) {
     if(interaction.user.id !== this.client.developers[0]) {
-      interaction.reply('You cannot use this command!');
+      interaction.reply({ content: 'You cannot use this command!', ephemeral: true });
       return;
     }
 
