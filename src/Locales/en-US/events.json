@@ -1,3 +1,6 @@
 {
-    
+    "messageCreate": {
+        "button": "Add",
+        "message": "Hi {{user}}, If you need help, use the command **/help**!"
+    }
 }

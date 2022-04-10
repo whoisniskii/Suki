@@ -1,21 +1,17 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import SukiClient from '../SukiClient';
 import { Vulkava } from 'vulkava';
 import { TextChannel } from 'discord.js';
+import yaml from 'js-yaml';
+import { readFileSync } from 'fs';
+
+const env = yaml.load(readFileSync('./nodes.yml', 'utf8')) as any;
 
 export default class PlayerManager extends Vulkava {
   client: SukiClient;
   constructor(client: SukiClient) {
     super({
-      nodes: [
-        {
-          id: 'Safire',
-          hostname: process.env.LAVALINK_HOSTNAME as string,
-          port: 80,
-          password: process.env.LAVALINK_PASSWORD as string,
-          resumeKey: 'Suki',
-          resumeTimeout: 150000,
-        }
-      ],
+      nodes: env.lavalinkNodes,
       sendWS(guildId, payload) {
         client.guilds.cache.get(guildId)?.shard.send(payload);
       },
