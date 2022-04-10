@@ -1,4 +1,5 @@
 import { CommandInteraction } from 'discord.js';
+import GuildPlayer from '../../Music/Structures/GuildPlayerManager';
 import CommandConstructor from '../../Structures/Command';
 import SukiClient from '../../SukiClient';
 
@@ -14,8 +15,8 @@ export default class TestCommand extends CommandConstructor {
     }, client);
   }
 
-  override async execute(interaction: CommandInteraction, t: typeof globalThis.t): Promise<void> {
-    console.log(t);
-    interaction.reply(t('commands:test.success'));
+  override async execute(interaction: CommandInteraction): Promise<void> {
+    const player = new GuildPlayer(this.client, interaction);
+    console.log(player.player);
   }
 }
