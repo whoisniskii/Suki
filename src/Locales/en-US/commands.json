@@ -4,5 +4,17 @@
     },
     "ping": {
         "success": "**API Ping**: {{ping}}ms"
+    },
+    "play": {
+        "noChannel": ":x: | You're not on a voice channel or you're not on the same channel as me",
+        "noArgs": ":x: | You need to put a song or url for me to play!",
+        "failed": ":x: | Sorry but the link/name you entered is not valid.",
+        "noMatches": ":x: | I didn't find the song you ant.",
+        "embed": {
+            "duration": "Duration",
+            "amountTracks": "Number of songs",
+            "amount": "songs"
+        },
+        "queue": "Song /'{{track}}/' by /'{{author}}/' added to play queue."
     }
 }
