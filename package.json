@@ -20,6 +20,7 @@
     "start": "node --max_old_space_size=512 --optimize_for_size --expose-gc --gc-interval=1 ."
   },
   "dependencies": {
+    "dayjs": "^1.11.0",
     "discord.js": "^14.0.0-dev.1649160496-402514f",
     "dotenv": "^16.0.0",
     "i18next": "^21.6.14",
