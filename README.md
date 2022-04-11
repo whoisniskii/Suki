@@ -1,32 +1,56 @@
 # Suki-Rewrite
 
+## ⚠ Requirements
+- NodeJS 16 or higher
+- yarn
+
 
 ## 💻 Setup
 
-> Install Nodejs 16 or higher
-
 - ⚙️ .env
 ```bash
-BOT_TOKEN=YOUR BOT TOKEN
-MONGODB_URI=MONGODB CONNECTION LINK
-CLIENT_ID=BOT CLIENT ID
-SPOTIFYCLIENTID=SPOTIFY API CLIENTID
-SPOTIFYCLIENTSECRET=SPOTIFY API CLIENT SECRET
+BOT_TOKEN=BOT-TOKEN
+MONGODB_URI=MONGODB-URI
+SPOTIFYCLIENTID=SPOTIFY-API-ID
+SPOTIFYCLIENTSECRET=SPOTIFY-API-SECRET
+CLIENT_ID=BOT-ID
 ```
 
-- Install packages
+- 🎵 nodes.yml
+```yml
+lavalinkNodes:
+- {
+id: 'Suki',
+hostname: 'localhost',
+port: 2333,
+password: 'youshallnotpass',
+}
+```
+
+- Install all dependencies
 ```bash
 yarn
 ```
 
-- Register Application Commands
-```bash
-yarn register
-```
+## ✅ Start the bot
+- You need to register slash commands running: yarn register
 
-- Start the bot
+
+Now run bot using:
 ```bash
 yarn dev
+```
+
+## 💻 | Compiling
+To compile the bot run:
+
+```bash
+yarn build
+```
+
+To run the compiled bot, run:
+```bash
+yarn start
 ```
 
 ## ⛔ Issues:
