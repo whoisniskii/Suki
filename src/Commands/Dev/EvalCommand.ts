@@ -22,16 +22,16 @@ export default class EvalCommand extends CommandConstructor {
     }, client);
   }
 
-  override async execute(interaction: CommandInteraction) {
-    if(interaction.user.id !== this.client.developers[0]) {
-      interaction.reply({ content: 'You cannot use this command!', ephemeral: true });
+  override async execute(interaction: CommandInteraction, t: typeof globalThis.t) {
+    if(!this.client.developers.some(x => x === interaction.user.id)) {
+      interaction.reply({ content: t('commands:shell.noPerm'), ephemeral: true });
       return;
     }
 
     const code = interaction.options.get('code');
 
     if(!code) {
-      interaction.reply({ content: 'Enter the code', ephemeral: true });
+      interaction.reply({ content: t('commands:shell.noCode'), ephemeral: true });
       return;
     }
 
@@ -51,9 +51,9 @@ export default class EvalCommand extends CommandConstructor {
         evaled = await evaled;
       }
 
-      interaction.reply(`**Output**: \`\`\`js\n${clean(inspect(evaled, { depth: 0 }).replace(new RegExp(this.client.token as string, 'gi'), '******************').slice(0, 1970))}\n\`\`\``);
+      interaction.reply(t('commands:shell.Output', { code: `\`\`\`js\n${clean(inspect(evaled, { depth: 0 }).replace(new RegExp(this.client.token as string, 'gi'), '******************').slice(0, 1970))}\n\`\`\`` }));
     } catch (error: any) {
-      interaction.reply(`**Error:** \`\`\`js\n${String(error.stack.slice(0, 1970))}\n\`\`\``);
+      interaction.reply(t('commands:shell.Error', { code: `\`\`\`js\n${String(error.stack.slice(0, 1970))}\n\`\`\`` }));
     }
   }
 }

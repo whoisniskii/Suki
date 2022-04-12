@@ -28,7 +28,7 @@ class RegisterCommands {
     await (async () => {
       try {
         await rest.put(
-          Routes.applicationCommands(process.env.CLIENT_ID as string),
+          Routes.applicationGuildCommands(process.env.CLIENT_ID as string, '958770825522217110'),
           // If you want to register global commands, change the function `applicationGuildCommands(this.clientId, <guild-id>)` to `applicationCommands(this.clientId)`
           { body: commands },
         );

@@ -16,5 +16,12 @@
             "amount": "Músicas"
         },
         "queue": "Música /'{{track}}/' por /'{{author}}/' adicionada a fila de reprodução."
+    },
+    "shell": {
+        "noPerm": "Você não tem permissão para usar este comando!",
+        "noCode": "Insira o código!",
+        "noOutput": "Não há saída para este código!",
+        "Output": "Saída do código: {{code}}",
+        "Error": "Erro: {{code}}"
     }
 }

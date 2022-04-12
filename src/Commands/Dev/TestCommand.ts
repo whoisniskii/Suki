@@ -7,7 +7,7 @@ export default class TestCommand extends CommandConstructor {
   constructor(client: SukiClient) {
     super({
       name: 'test',
-      category: 'Developer',
+      category: 'Dev',
       data: {
         name: 'test',
         description: 'test command',

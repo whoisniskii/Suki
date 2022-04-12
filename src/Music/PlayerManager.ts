@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import SukiClient from '../SukiClient';
-import { Vulkava } from 'vulkava';
+import { Vulkava, Node } from 'vulkava';
 import { TextChannel } from 'discord.js';
 import yaml from 'js-yaml';
 import { readFileSync } from 'fs';
@@ -42,6 +42,7 @@ export default class PlayerManager extends Vulkava {
 
     this.on('error', (node, error): void => {
       console.log('\x1b[31m[NODES]\x1b[0m', `Error on Node ${node.identifier}.\n${error}`);
+      if (error.message.startsWith('Unable to connect after')) this.reconnect(node);
     });
 
     this.on('nodeDisconnect', (node, code, reason): void => {
@@ -88,9 +89,41 @@ export default class PlayerManager extends Vulkava {
 
       await channel.send('A fila de músicas acabou, então eu saí do canal de voz.');
     });
+
+    this.on('trackException', async (player, _track, err): Promise<void> => {
+      if (err && err.message.includes('429')) {
+        const newNode = this.nodes.find(node => node.state === 1 && node !== player.node);
+
+        if (newNode) player.moveNode(newNode);
+      } else {
+        player.destroy();
+      }
+
+      player.skip();
+    });
   }
 
   startManager() {
     return super.start(this.client.user!.id);
+  }
+
+  private reconnect(node: Node) {
+    node.disconnect();
+    this.nodes.splice(this.nodes.indexOf(node), 1);
+
+    const newNode = new Node(this, {
+      id: node.identifier as string,
+      hostname: node.options.hostname,
+      port: node.options.port,
+      password: node.options.password,
+      maxRetryAttempts: 10,
+      retryAttemptsInterval: 3000,
+      secure: false,
+      region: node.options.region
+    });
+
+    this.nodes.push(newNode);
+
+    newNode.connect();
   }
 }

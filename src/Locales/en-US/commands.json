@@ -16,5 +16,12 @@
             "amount": "songs"
         },
         "queue": "Song /'{{track}}/' by /'{{author}}/' added to play queue."
+    },
+    "shell": {
+        "noPerm": "You cannot use this command!",
+        "noCode": "Enter the code!",
+        "noOutput": "No output!",
+        "Output": "Output: {{code}}",
+        "Error": "Error: {{code}}"
     }
 }

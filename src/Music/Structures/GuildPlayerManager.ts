@@ -105,7 +105,7 @@ export default class GuildPlayer {
       }
 
       if(player.playing) {
-        return interaction.reply(t('commands:play.queue', { track: msc.title, author: msc.author }));
+        return interaction.deferReply(t('commands:play.queue', { track: msc.title, author: msc.author }));
       }
     }
   }
