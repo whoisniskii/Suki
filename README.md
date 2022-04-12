@@ -5,7 +5,7 @@
 - yarn
 
 
-## 💻 Setup
+## 💻 Self-Hosting
 
 - ⚙️ .env
 ```bash
