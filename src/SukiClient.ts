@@ -46,8 +46,8 @@ export default class SukiClient extends Client {
 
   connect() {
     super.login(process.env.BOT_TOKEN as string);
-    new CommandManager(this).execute();
-    new EventManager(this).execute();
+    new CommandManager(this).loadCommands(__dirname + '/Commands');
+    new EventManager(this).loadEvents(__dirname + '/Listeners');
     new DatabaseManager(this).execute();
     new LocaleManager(this).execute();
   }

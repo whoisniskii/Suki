@@ -6,4 +6,4 @@ env.config({ path: './.env' });
 
 const client = new SukiClient();
 const commands = new RegisterCommands(client);
-commands.registerSlashCommands();
+commands.registerSlashCommands(__dirname + '/src/Commands');

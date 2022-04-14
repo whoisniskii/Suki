@@ -8,20 +8,16 @@ class EventManager {
     this.client = client;
   }
 
-  async execute() {
-    console.log('\x1b[32m[EVENTS]\x1b[0m', 'Events loaded successfully.');
-
-    this.loadEvents();
-  }
-
-  async loadEvents() {
-    const eventFiles = readdirSync('src/Listeners');
+  async loadEvents(path: string) {
+    const eventFiles = readdirSync(path);
     for (const file of eventFiles) {
-      await import(`../Listeners/${file}`).then((_listener) => {
+      await import(path + `/${file}`).then((_listener) => {
         const event = new _listener.default(this.client);
         this.client.on(event.name, (...args) => event.execute(...args));
       });
     }
+
+    console.log('\x1b[32m[EVENTS]\x1b[0m', 'Events loaded successfully.');
   }
 }
 

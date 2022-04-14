@@ -45,10 +45,10 @@ export default class ShellCommand extends CommandConstructor {
       const res = (stdout || stderr).replace(ANSI_REGEX, '');
 
       if (stderr) {
-        await interaction.reply({ content: `**Stderr**: \`\`\`sh\n${res.slice(0, 2000)}\n\`\`\`` });
+        await interaction.reply({ content: `**Stderr**: \`\`\`sh\n${res.slice(0, 1970)}\n\`\`\`` });
       }
       else {
-        await interaction.reply({ content: `**Stdout:** \`\`\`sh\n${res.slice(0, 2000)}\n\`\`\`` });
+        await interaction.reply({ content: `**Stdout:** \`\`\`sh\n${res.slice(0, 1970)}\n\`\`\`` });
       }
     });
   }

@@ -12,13 +12,6 @@
     "url": "https://github.com/Niskii3/Suki-Rewrite/issues"
   },
   "license": "Apache-2.0",
-  "scripts": {
-    "register": "tsnd --expose-gc --transpile-only --ignore-watch node_modules --respawn slash.ts",
-    "dev": "tsnd --expose-gc --transpile-only --ignore-watch node_modules --respawn index.ts",
-    "lint": "eslint src --ext .ts --fix",
-    "build": "yarn tsc",
-    "start": "node --max_old_space_size=512 --optimize_for_size --expose-gc --gc-interval=1 ."
-  },
   "dependencies": {
     "dayjs": "^1.11.0",
     "discord.js": "^14.0.0-dev.1649808570-01a423d",
@@ -32,11 +25,10 @@
   "devDependencies": {
     "@types/i18next-fs-backend": "^1.1.2",
     "@types/js-yaml": "^4.0.5",
-    "@types/node": "^17.0.23",
-    "@typescript-eslint/eslint-plugin": "^5.17.0",
-    "@typescript-eslint/parser": "^5.17.0",
+    "@types/node": "^17.0.24",
+    "@typescript-eslint/eslint-plugin": "^5.19.0",
+    "@typescript-eslint/parser": "^5.19.0",
     "eslint": "^8.13.0",
-    "ts-node-dev": "^1.1.8",
     "typescript": "^4.6.3"
   }
 }

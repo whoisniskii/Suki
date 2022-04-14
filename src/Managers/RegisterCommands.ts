@@ -10,14 +10,14 @@ class RegisterCommands {
     this.client = client;
   }
 
-  async registerSlashCommands() {
+  async registerSlashCommands(path: string) {
     const commands = [];
-    const commandFolders = readdirSync('src/Commands');
+    const commandFolders = readdirSync(path);
 
     for (const folder of commandFolders) {
-      const commandFiles = readdirSync(`src/Commands/${folder}`);
+      const commandFiles = readdirSync(path + `/${folder}`);
       for (const file of commandFiles) {
-        const commandFile = await import(`../Commands/${folder}/${file}`);
+        const commandFile = await import(path + `/${folder}/${file}`);
         const command = new commandFile.default(this.client);
         commands.push(command.data);
       }
@@ -28,7 +28,7 @@ class RegisterCommands {
     await (async () => {
       try {
         await rest.put(
-          Routes.applicationGuildCommands(process.env.CLIENT_ID as string, '958770825522217110'),
+          Routes.applicationCommands(process.env.CLIENT_ID as string),
           // If you want to register global commands, change the function `applicationGuildCommands(this.clientId, <guild-id>)` to `applicationCommands(this.clientId)`
           { body: commands },
         );

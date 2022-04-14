@@ -32,25 +32,17 @@ password: 'youshallnotpass',
 yarn
 ```
 
-## ✅ Start the bot
-- You need to register slash commands running: yarn register
-
-
-Now run bot using:
-```bash
-yarn dev
-```
-
 ## 💻 | Compiling
 To compile the bot run:
 
 ```bash
-yarn build
+npx tsc
 ```
 
-To run the compiled bot, run:
+Now you can run bot using:
+- You need to register slash commands running: node ./build/slash.js
 ```bash
-yarn start
+node .
 ```
 
 ## ⛔ Issues:
