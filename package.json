@@ -21,7 +21,7 @@
   },
   "dependencies": {
     "dayjs": "^1.11.0",
-    "discord.js": "^14.0.0-dev.1649160496-402514f",
+    "discord.js": "^14.0.0-dev.1649808570-01a423d",
     "dotenv": "^16.0.0",
     "i18next": "^21.6.16",
     "i18next-fs-backend": "^1.1.4",
