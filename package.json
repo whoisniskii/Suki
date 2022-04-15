@@ -11,6 +11,9 @@
   "bugs": {
     "url": "https://github.com/Niskii3/Suki-Rewrite/issues"
   },
+  "scripts": {
+    "lint": "eslint src --ext .ts --fix"
+  },
   "license": "Apache-2.0",
   "dependencies": {
     "dayjs": "^1.11.0",
