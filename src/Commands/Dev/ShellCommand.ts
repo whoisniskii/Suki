@@ -1,11 +1,11 @@
 /* eslint-disable no-control-regex */
 import { ApplicationCommandOptionType, CommandInteraction } from 'discord.js';
-import CommandConstructor from '../../Structures/Command';
 import SukiClient from '../../SukiClient';
 import { exec } from 'child_process';
+import Command from '../../Structures/Command';
 
 const ANSI_REGEX = /[\u001b\u009b][[()#;?]*(?:[0-9]{1,4}(?:;[0-9]{0,4})*)?[0-9A-ORZcf-nqry=><]/g;
-export default class ShellCommand extends CommandConstructor {
+export default class ShellCommand extends Command {
   constructor(client: SukiClient) {
     super({
       name: 'shell',
@@ -23,7 +23,7 @@ export default class ShellCommand extends CommandConstructor {
     }, client);
   }
 
-  override async execute(interaction: CommandInteraction, t: typeof globalThis.t) {
+  async execute(interaction: CommandInteraction, t: typeof globalThis.t): Promise<void> {
     if(!this.client.developers.some(x => x === interaction.user.id)) {
       interaction.reply({ content: t('commands:shell.noPerm'), ephemeral: true });
       return;

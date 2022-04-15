@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { ApplicationCommandOptionType, CommandInteraction } from 'discord.js';
 import { inspect } from 'util';
-import CommandConstructor from '../../Structures/Command';
+import Command from '../../Structures/Command';
 import SukiClient from '../../SukiClient';
 
-export default class EvalCommand extends CommandConstructor {
+export default class EvalCommand extends Command {
   constructor(client: SukiClient) {
     super({
       name: 'eval',
@@ -22,7 +22,7 @@ export default class EvalCommand extends CommandConstructor {
     }, client);
   }
 
-  override async execute(interaction: CommandInteraction, t: typeof globalThis.t) {
+  async execute(interaction: CommandInteraction, t: typeof globalThis.t): Promise<void> {
     if(!this.client.developers.some(x => x === interaction.user.id)) {
       interaction.reply({ content: t('commands:shell.noPerm'), ephemeral: true });
       return;

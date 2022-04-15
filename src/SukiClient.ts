@@ -4,7 +4,7 @@ import { UrlObject } from 'url';
 
 import { EventManager, CommandManager, DatabaseManager, LocaleManager } from './Managers';
 
-import CommandConstructor from './Structures/Command';
+import Command from './Structures/Command';
 
 import PlayerManager from './Music/PlayerManager';
 
@@ -12,7 +12,7 @@ import dbGuild from './Database/guildDB';
 import dbUser from './Database/userDB';
 
 export default class SukiClient extends Client {
-  commands: Array<CommandConstructor>;
+  commands: Array<Command>;
   developers: string[];
   playerManager: PlayerManager;
   guildDB: typeof dbGuild;

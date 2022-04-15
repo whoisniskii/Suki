@@ -1,11 +1,11 @@
 /* eslint-disable no-var */
 import { ApplicationCommandOptionType, AutocompleteInteraction, CommandInteraction, GuildMember } from 'discord.js';
-import CommandConstructor from '../../Structures/Command';
 import SukiClient from '../../SukiClient';
 import GuildPlayer from '../../Music/Structures/GuildPlayerManager';
 import { Choices } from '../../typings/index';
+import Command from '../../Structures/Command';
 
-export default class PlayCommand extends CommandConstructor {
+export default class PlayCommand extends Command {
   constructor(client: SukiClient) {
     super({
       name: 'play',
@@ -24,7 +24,7 @@ export default class PlayCommand extends CommandConstructor {
     }, client);
   }
 
-  override async execute(interaction: CommandInteraction, t: typeof globalThis.t) {
+  async execute(interaction: CommandInteraction, t: typeof globalThis.t): Promise<void> {
 
     const player = new GuildPlayer(this.client, interaction);
     const args = interaction.options.get('track');
@@ -38,7 +38,7 @@ export default class PlayCommand extends CommandConstructor {
       return;
     }
 
-    const res = await this.client.request(`https://suggestqueries-clients6.youtube.com/complete/search?client=youtube&ds=yt&callback=json&q=${encodeURIComponent(value)}`, {
+    const res = await this.client.request(`https://clients1.google.com/complete/search?client=youtube&hl=pt-PT&ds=yt&q=${encodeURIComponent(value)}`, {
       headers: {
         'user-agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.60 Safari/537.36'
       }
