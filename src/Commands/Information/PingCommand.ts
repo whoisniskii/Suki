@@ -1,5 +1,5 @@
-import { CommandInteraction } from 'discord.js';
 import Command from '../../Structures/Command';
+import CommandContext from '../../Structures/CommandContext';
 import SukiClient from '../../SukiClient';
 
 export default class PingCommand extends Command {
@@ -14,7 +14,7 @@ export default class PingCommand extends Command {
     }, client);
   }
 
-  async execute(interaction: CommandInteraction, t: typeof globalThis.t): Promise<void> {
-    interaction.reply(t('ping.success', { ping: this.client.ws.ping.toString() }));
+  async execute(context: CommandContext, t: typeof globalThis.t): Promise<void> {
+    context.send(t('ping.success', { ping: this.client.shards.get(0)?.latency.toString() ?? 0 }));
   }
 }

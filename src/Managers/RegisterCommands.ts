@@ -1,7 +1,7 @@
-import { REST } from '@discordjs/rest';
-import { Routes } from 'discord-api-types/v10';
 import { readdirSync } from 'fs';
 import SukiClient from '../SukiClient';
+import { REST } from '@discordjs/rest';
+import { Routes } from 'discord-api-types/v10';
 
 class RegisterCommands {
   client: SukiClient;
@@ -23,12 +23,12 @@ class RegisterCommands {
       }
     }
 
-    const rest = new REST({ version: '10' }).setToken(process.env.BOT_TOKEN as string);
+    const rest = new REST({ version: '10' }).setToken(process.env.BOT_TOKEN);
 
     await (async () => {
       try {
         await rest.put(
-          Routes.applicationCommands(process.env.CLIENT_ID as string),
+          Routes.applicationCommands(process.env.CLIENT_ID),
           // If you want to register global commands, change the function `applicationGuildCommands(this.clientId, <guild-id>)` to `applicationCommands(this.clientId)`
           { body: commands },
         );

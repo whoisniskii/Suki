@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import SukiClient from '../SukiClient';
 import { Vulkava, Node } from 'vulkava';
-import { TextChannel } from 'discord.js';
 import yaml from 'js-yaml';
 import { readFileSync } from 'fs';
 
@@ -13,11 +12,11 @@ export default class PlayerManager extends Vulkava {
     super({
       nodes: env.lavalinkNodes,
       sendWS(guildId, payload) {
-        client.guilds.cache.get(guildId)?.shard.send(payload);
+        client.guilds.get(guildId)?.shard.sendWS(payload.op, payload.d);
       },
       spotify: {
-        clientId: process.env.SPOTIFYCLIENTID as string,
-        clientSecret: process.env.SPOTIFYCLIENTSECRET as string,
+        clientId: process.env.SPOTIFYCLIENTID,
+        clientSecret: process.env.SPOTIFYCLIENTSECRET,
       },
       unresolvedSearchSource: 'youtube'
     });
@@ -57,37 +56,35 @@ export default class PlayerManager extends Vulkava {
 
       if (!player.textChannelId) return;
 
-      const channel = this.client.channels.cache.get(player.textChannelId) as TextChannel;
+      const channel = this.client.getChannel(player.textChannelId);
+      if (!channel || channel.type !== 0) return;
 
       if (player.lastPlayingMsgID) {
-        const msg = channel.messages.cache.get(player.lastPlayingMsgID);
-
-        if (msg) msg.delete();
+        channel.deleteMessage(player.lastPlayingMsgID).catch(() => { });
       }
 
       if(player.trackRepeat === true) {
         return;
       }
 
-      await channel.send(`Comecei a tocar \`${track.title}\` por \`${track.author}\``);
+      await channel.createMessage(`Comecei a tocar \`${track.title}\` por \`${track.author}\``);
     });
 
     this.on('trackStuck', async (player, track): Promise<void> => {
-      const channel = this.client.channels.cache.get(player.textChannelId as string) as TextChannel;
-      if(!player.textChannelId) {
-        return;
-      }
+      const channel = this.client.getChannel(player.textChannelId as string);
+      if (!channel || channel.type !== 0) return;
 
-      await channel.send(`Ocorreu um erro ao reproduzir a música \`${track.title}\``);
+      await channel.createMessage(`Ocorreu um erro ao reproduzir a música \`${track.title}\``);
       player.skip();
     });
 
     this.on('queueEnd', async (player): Promise<void> => {
-      const channel = this.client.channels.cache.get(player.textChannelId as string) as TextChannel;
+      const channel = this.client.getChannel(player.textChannelId as string);
+      if (!channel || channel.type !== 0) return;
 
       player.destroy();
 
-      await channel.send('A fila de músicas acabou, então eu saí do canal de voz.');
+      await channel.createMessage('A fila de músicas acabou, então eu saí do canal de voz.');
     });
 
     this.on('trackException', async (player, _track, err): Promise<void> => {

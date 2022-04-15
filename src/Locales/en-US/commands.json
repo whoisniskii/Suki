@@ -15,7 +15,7 @@
             "amountTracks": "Number of songs",
             "amount": "songs"
         },
-        "queue": "Song /'{{track}}/' by /'{{author}}/' added to play queue."
+        "queue": "Song \"{{track}}\"' by \"{{author}}\" added to play queue."
     },
     "shell": {
         "noPerm": "You cannot use this command!",

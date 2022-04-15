@@ -1,4 +1,4 @@
-import { Client, GatewayIntentBits } from 'discord.js';
+import { Client } from 'eris';
 import { request, Dispatcher } from 'undici';
 import { UrlObject } from 'url';
 
@@ -23,19 +23,19 @@ export default class SukiClient extends Client {
   ) => Promise<Dispatcher.ResponseData>;
 
   constructor() {
-    super({
+    super(process.env.BOT_TOKEN, {
       intents: [
-        GatewayIntentBits.Guilds,
-        GatewayIntentBits.GuildMembers,
-        GatewayIntentBits.GuildMessages,
-        GatewayIntentBits.MessageContent,
-        GatewayIntentBits.GuildVoiceStates
+        'guilds',
+        'guildMembers',
+        'guildMessages',
+        'guildMessages',
+        'guildVoiceStates',
+        'guildPresences'
       ],
-      failIfNotExists: false,
       allowedMentions: {
         repliedUser: false,
-        parse: ['users'],
       },
+      restMode: true,
     });
 
     this.commands = [];
@@ -48,11 +48,11 @@ export default class SukiClient extends Client {
   connectLavaLink(): void {
     this.playerManager = new PlayerManager(this);
     this.playerManager.startManager();
-    this.on('raw', (packet) => this.playerManager.handleVoiceUpdate(packet));
+    this.on('rawWS', (packet) => this.playerManager.handleVoiceUpdate(packet));
   }
 
-  connect() {
-    super.login(process.env.BOT_TOKEN as string);
+  login() {
+    super.connect();
     new CommandManager(this).loadCommands(__dirname + '/Commands');
     new EventManager(this).loadEvents(__dirname + '/Listeners');
     new DatabaseManager(this).execute();

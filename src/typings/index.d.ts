@@ -1,14 +1,14 @@
-import { ApplicationCommandType, Snowflake, ApplicationCommandOptionType, CommandInteraction, AutocompleteInteraction } from "discord.js";
+import { CommandInteraction, AutocompleteInteraction } from "eris";
+import CommandContext from '../Structures/CommandContext'
 
 interface CommandData {
-  type?: ApplicationCommandType, // https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-types
-  guild_id?: Snowflake
+  type?: number, // https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-types
   name: string,
   name_localizations?: string // https://discord.com/developers/docs/reference#locales
   description: string;
   description_localizations?: string // https://discord.com/developers/docs/reference#locales
   options?: [{
-    type: ApplicationCommandOptionType, // https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-option-type
+    type: number, // https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-option-type
     name: string,
     name_localizations?: string
     description: string,
@@ -23,7 +23,7 @@ interface CommandData {
     channel_types?: [],
     min_value?: number,
     max_value?: number,
-    autocomplete?: boolean
+    autocomplete?: boolean,
   }],
   default_permission?: boolean
 }
@@ -35,7 +35,7 @@ interface CommandOptions {
 }
 
 interface Command extends CommandOptions {
-  execute: (interaction: CommandInteraction, t: typeof globalThis.t) => void;
+  execute: (interaction: CommandContext, t: typeof globalThis.t) => void;
   executeAutoComplete: (interaction: AutocompleteInteraction, value: string, options?: any) => void;
 }
 

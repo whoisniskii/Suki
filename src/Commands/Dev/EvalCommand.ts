@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { ApplicationCommandOptionType, CommandInteraction } from 'discord.js';
 import { inspect } from 'util';
 import Command from '../../Structures/Command';
+import CommandContext from '../../Structures/CommandContext';
 import SukiClient from '../../SukiClient';
 
 export default class EvalCommand extends Command {
@@ -15,23 +15,16 @@ export default class EvalCommand extends Command {
         options: [{
           name: 'code',
           description: 'Code to evaluate',
-          type: ApplicationCommandOptionType.String,
+          type: 3,
           required: true
         }]
       }
     }, client);
   }
 
-  async execute(interaction: CommandInteraction, t: typeof globalThis.t): Promise<void> {
-    if(!this.client.developers.some(x => x === interaction.user.id)) {
-      interaction.reply({ content: t('commands:shell.noPerm'), ephemeral: true });
-      return;
-    }
-
-    const code = interaction.options.get('code');
-
-    if(!code) {
-      interaction.reply({ content: t('commands:shell.noCode'), ephemeral: true });
+  async execute(context: CommandContext, t: typeof globalThis.t): Promise<void> {
+    if(!this.client.developers.some(x => x === context.member?.id)) {
+      context.send({ content: t('commands:shell.noPerm'), flags: 1 << 6 });
       return;
     }
 
@@ -45,15 +38,15 @@ export default class EvalCommand extends Command {
     };
 
     try {
-      let evaled = eval(code.value as string);
+      let evaled = eval(context.options.join(' '));
 
       if (evaled instanceof Promise) {
         evaled = await evaled;
       }
 
-      interaction.reply(t('commands:shell.Output', { code: `\`\`\`js\n${clean(inspect(evaled, { depth: 0 }).replace(new RegExp(this.client.token as string, 'gi'), '******************').slice(0, 1970))}\n\`\`\`` }));
+      context.send(t('commands:shell.Output', { code: `\`\`\`js\n${clean(inspect(evaled, { depth: 0 }).replace(new RegExp(process.env.BOT_TOKEN, 'gi'), '******************').slice(0, 1970))}\n\`\`\`` }));
     } catch (error: any) {
-      interaction.reply(t('commands:shell.Error', { code: `\`\`\`js\n${String(error.stack.slice(0, 1970))}\n\`\`\`` }));
+      context.send(t('commands:shell.Error', { code: `\`\`\`js\n${String(error.stack.slice(0, 1970))}\n\`\`\`` }));
     }
   }
 }

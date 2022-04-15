@@ -1,9 +1,10 @@
 /* eslint-disable no-var */
-import { ApplicationCommandOptionType, AutocompleteInteraction, CommandInteraction, GuildMember } from 'discord.js';
+import { AutocompleteInteraction } from 'eris';
 import SukiClient from '../../SukiClient';
 import GuildPlayer from '../../Music/Structures/GuildPlayerManager';
 import { Choices } from '../../typings/index';
 import Command from '../../Structures/Command';
+import CommandContext from '../../Structures/CommandContext';
 
 export default class PlayCommand extends Command {
   constructor(client: SukiClient) {
@@ -16,7 +17,7 @@ export default class PlayCommand extends Command {
         options: [{
           name: 'track',
           description: 'Music you want to play.',
-          type: ApplicationCommandOptionType.String,
+          type: 3,
           required: true,
           autocomplete: true,
         }]
@@ -24,21 +25,20 @@ export default class PlayCommand extends Command {
     }, client);
   }
 
-  async execute(interaction: CommandInteraction, t: typeof globalThis.t): Promise<void> {
+  async execute(context: CommandContext, t: typeof globalThis.t): Promise<void> {
 
-    const player = new GuildPlayer(this.client, interaction);
-    const args = interaction.options.get('track');
+    const player = new GuildPlayer(this.client, context);
 
-    await player.createPlayer(args?.value as string, interaction.member as GuildMember, interaction, t);
+    await player.createPlayer(context, t);
   }
 
   async executeAutoComplete(interaction: AutocompleteInteraction, value: string) {
     if (!value) {
-      interaction.respond([]);
+      interaction.result([]);
       return;
     }
 
-    const res = await this.client.request(`https://clients1.google.com/complete/search?client=youtube&hl=pt-PT&ds=yt&q=${encodeURIComponent(value)}`, {
+    const res = await this.client.request(`https://clients1.google.com/complete/search?client=youtube&hl=pt-BR&ds=yt&q=${encodeURIComponent(value)}`, {
       headers: {
         'user-agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.60 Safari/537.36'
       }
@@ -57,8 +57,8 @@ export default class PlayCommand extends Command {
           value: choice
         });
       }
-
-      interaction.respond(choices);
     }
+
+    interaction.result(choices);
   }
 }

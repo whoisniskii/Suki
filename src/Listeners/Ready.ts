@@ -10,7 +10,7 @@ export default class Ready {
   }
 
   async execute() {
-    console.log('\x1b[32m[CLIENT]\x1b[0m', `Client successfully logged in ${this.client.user?.tag}.`);
+    console.log('\x1b[32m[CLIENT]\x1b[0m', `Client successfully logged in ${this.client.user?.username}#${this.client.user.discriminator}.`);
 
     this.client.connectLavaLink();
   }

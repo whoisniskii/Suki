@@ -15,7 +15,7 @@
             "amountTracks": "Quantidade de músicas",
             "amount": "Músicas"
         },
-        "queue": "Música /'{{track}}/' por /'{{author}}/' adicionada a fila de reprodução."
+        "queue": "Música \"{{track}}\" por \"{{author}}\" adicionada a fila de reprodução."
     },
     "shell": {
         "noPerm": "Você não tem permissão para usar este comando!",

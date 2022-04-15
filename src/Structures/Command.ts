@@ -1,10 +1,9 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable @typescript-eslint/ban-types */
-/* eslint-disable semi */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { AutocompleteInteraction, CommandInteraction } from 'discord.js';
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { AutocompleteInteraction } from 'eris';
 import SukiClient from '../SukiClient';
 import { CommandData, CommandOptions } from '../typings';
+import CommandContext from './CommandContext';
 
 export default class Command implements CommandOptions {
   client: SukiClient;
@@ -12,7 +11,7 @@ export default class Command implements CommandOptions {
   name: string;
   category?: string;
   data: CommandData;
-  async execute(_interaction: CommandInteraction, _t: typeof globalThis.t) { }
+  async execute(_interaction: CommandContext, _t: typeof globalThis.t) { }
   async executeAutoComplete(_interaction: AutocompleteInteraction, _value: string, _options?: any) { }
 
   constructor(options: CommandOptions, client: SukiClient) {

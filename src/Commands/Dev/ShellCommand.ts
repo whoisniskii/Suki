@@ -1,8 +1,8 @@
 /* eslint-disable no-control-regex */
-import { ApplicationCommandOptionType, CommandInteraction } from 'discord.js';
 import SukiClient from '../../SukiClient';
 import { exec } from 'child_process';
 import Command from '../../Structures/Command';
+import CommandContext from '../../Structures/CommandContext';
 
 const ANSI_REGEX = /[\u001b\u009b][[()#;?]*(?:[0-9]{1,4}(?:;[0-9]{0,4})*)?[0-9A-ORZcf-nqry=><]/g;
 export default class ShellCommand extends Command {
@@ -16,39 +16,32 @@ export default class ShellCommand extends Command {
         options: [{
           name: 'code',
           description: 'Code',
-          type: ApplicationCommandOptionType.String,
+          type: 3,
           required: true
         }]
       }
     }, client);
   }
 
-  async execute(interaction: CommandInteraction, t: typeof globalThis.t): Promise<void> {
-    if(!this.client.developers.some(x => x === interaction.user.id)) {
-      interaction.reply({ content: t('commands:shell.noPerm'), ephemeral: true });
+  async execute(context: CommandContext, t: typeof globalThis.t): Promise<void> {
+    if(!this.client.developers.some(x => x === context.member?.id)) {
+      context.send({ content: t('commands:shell.noPerm'), flags: 1 << 6 });
       return;
     }
 
-    const code = interaction.options.get('code');
-
-    if(!code) {
-      interaction.reply({ content: t('commands:shell.noCode'), ephemeral: true });
-      return;
-    }
-
-    exec(code?.value as string, async (_err, stdout, stderr) => {
+    exec(context.options.join(' '), async (_err, stdout, stderr) => {
       if (!stdout && !stderr) {
-        interaction.reply({ content: t('commands:shell.noOutput'), ephemeral: true });
+        context.send({ content: t('commands:shell.noOutput'), flags: 1 << 6 });
         return;
       }
 
       const res = (stdout || stderr).replace(ANSI_REGEX, '');
 
       if (stderr) {
-        await interaction.reply({ content: `**Stderr**: \`\`\`sh\n${res.slice(0, 1970)}\n\`\`\`` });
+        await context.send({ content: `**Stderr**: \`\`\`sh\n${res.slice(0, 1970)}\n\`\`\`` });
       }
       else {
-        await interaction.reply({ content: `**Stdout:** \`\`\`sh\n${res.slice(0, 1970)}\n\`\`\`` });
+        await context.send({ content: `**Stdout:** \`\`\`sh\n${res.slice(0, 1970)}\n\`\`\`` });
       }
     });
   }

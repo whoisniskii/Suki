@@ -18,7 +18,7 @@ class DatabaseManager {
   }
 
   loaderDatabase() {
-    return connect(process.env.MONGODB_URI as string).catch((err) => {
+    return connect(process.env.MONGODB_URI).catch((err) => {
       console.log(
         '\x1b[31m[DATABASE]\x1b[0m',
         `Error connecting to database.\n${err}`
