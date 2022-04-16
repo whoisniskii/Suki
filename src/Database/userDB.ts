@@ -9,12 +9,11 @@ const userSchema = new Schema<User>({
   id: {
     type: mongoose.SchemaTypes.String,
     required: true,
-    unique: true,
   },
   locale: {
     type: mongoose.SchemaTypes.String,
     required: true,
-    default: 'pt-BR'
+    default: 'en-US'
   }
 });
 

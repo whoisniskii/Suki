@@ -6,7 +6,10 @@ export default class PingCommand extends Command {
   constructor(client: SukiClient) {
     super({
       name: 'ping',
-      description: 'mostra o ping do bot',
+      description: '[ 📚 Information ] Shows the bot latency.',
+      description_localizations: {
+        'pt-BR': '[ 📚 Informação ] Veja a latência do bot.',
+      },
     }, client);
   }
 

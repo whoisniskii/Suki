@@ -60,35 +60,13 @@ class RegisterCommands {
   }
 
   async editGlobalCommand() {
-    const command = {
-      name: 'play',
-      name_localizations: {
-        'pt-BR': 'tocar',
-      },
-      description: '[ 🎵 Music ] Add a song to play.',
-      description_localizations: {
-        'pt-BR': '[ 🎵 Música ] Adiciona uma música para tocar.',
-      },
-      options: [{
-        name: 'song',
-        name_localizations: {
-          'pt-BR': 'música',
-        },
-        description: 'Song/Playlist URL/Name',
-        description_localizations: {
-          'pt-BR': 'Música/Playlist URL/Nome',
-        },
-        type: 3,
-        required: true,
-        autocomplete: true,
-      }]
-    };
+    const command = this.client.commands.find(x => x.name === 'ping');
 
     await (async () => {
       try {
-        await this.client.requestHandler.request('PATCH', `/applications/${this.client.user.id}/commands/964706281464143916`, true, command);
+        await this.client.requestHandler.request('PATCH', `/applications/${this.client.user.id}/commands/964706281464143915`, true, command as any);
 
-        console.log('\x1b[32m[SLASH]\x1b[0m', 'Updated command');
+        console.log('\x1b[32m[SLASH]\x1b[0m', 'Command updated.');
         process.exit(1);
       } catch (error) {
         console.error(error);

@@ -23,5 +23,11 @@
         "noOutput": "No output!",
         "Output": "Output: {{code}}",
         "Error": "Error: {{code}}"
+    },
+    "247": {
+        "noPerm": "You need \"manageGuild\" permission to run this command!",
+        "noPlayer": "I'm not playing music on this server.",
+        "forever": "24/7 successfully activated.",
+        "off": "24/7 successfully disabled."
     }
 }

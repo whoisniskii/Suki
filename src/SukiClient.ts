@@ -44,6 +44,9 @@ export default class SukiClient extends Client {
       allowedMentions: {
         repliedUser: false,
       },
+      rest: {
+        baseURL: '/api/v10'
+      },
       restMode: true,
       messageLimit: 10
     });

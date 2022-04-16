@@ -23,5 +23,11 @@
         "noOutput": "Não há saída para este código!",
         "Output": "Saída do código: {{code}}",
         "Error": "Erro: {{code}}"
+    },
+    "247": {
+        "noPerm": "Você precisa da permissão \"manageGuild\" para executar este comando!",
+        "noPlayer": "Eu não estou tocando música neste servidor.",
+        "forever": "24/7 ativado com sucesso.",
+        "off": "24/7 desativado com sucesso."
     }
 }

@@ -101,11 +101,10 @@ export default class GuildPlayer {
           context.send({ content: t('commands:play.queue', { track: msc.title, author: msc.author }), flags: 64 });
           player.play();
           return;
-        }
-
-        if(player.playing) {
+        } else {
           return context.send(t('commands:play.queue', { track: msc.title, author: msc.author }));
         }
+
       }
     } catch (error) {
       throw new Error('Error while playing music');
