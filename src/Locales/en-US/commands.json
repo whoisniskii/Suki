@@ -29,5 +29,9 @@
         "noPlayer": "I'm not playing music on this server.",
         "forever": "24/7 successfully activated.",
         "off": "24/7 successfully disabled."
+    },
+    "lyrics": {
+        "source": "Lyrics provided by {{source}}",
+        "notFound": "I couldn't find any lyrics for this song."
     }
 }

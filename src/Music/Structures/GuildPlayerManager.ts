@@ -70,7 +70,7 @@ export default class GuildPlayer {
         const embed = [{
           title: `${result.playlistInfo.name}`,
           timestamp: new Date(),
-          color: 993399,
+          color: 10105592,
           fields: [
             {
               name: t('commands:play.embed.duration'),
