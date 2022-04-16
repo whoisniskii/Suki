@@ -1,4 +1,4 @@
-import { Client } from 'eris';
+import { Client, Constants } from 'eris';
 import { request, Dispatcher } from 'undici';
 import { UrlObject } from 'url';
 
@@ -32,10 +32,20 @@ export default class SukiClient extends Client {
         'guildVoiceStates',
         'guildPresences'
       ],
+      disableEvents: {
+        'TYPING_START': true,
+        'GUILD_BAN_ADD': true,
+        'GUILD_BAN_REMOVE': true,
+
+      },
+      defaultImageFormat: 'png',
+      defaultImageSize: Constants.ImageSizeBoundaries.MAXIMUM,
+      getAllUsers: true,
       allowedMentions: {
         repliedUser: false,
       },
       restMode: true,
+      messageLimit: 10
     });
 
     this.commands = [];

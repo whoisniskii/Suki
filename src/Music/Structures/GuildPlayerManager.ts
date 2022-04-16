@@ -1,4 +1,3 @@
-/* eslint-disable no-useless-escape */
 import dayjs from 'dayjs';
 import CommandContext from '../../Structures/CommandContext';
 import SukiClient from '../../SukiClient';
@@ -80,7 +79,7 @@ export default class GuildPlayer {
             },
             {
               name: t('commands:play.embed.amountTracks'),
-              value: `${result.tracks.length} ${t('commands:play.embed.amount')}`
+              value: `${t('commands:play.embed.amount', { tracks: result.tracks.length.toString() })}`,
             }
           ],
           footer: { text: `${context.author.username}#${context.author.discriminator}`, icon_url: context.author.dynamicAvatarURL() }
@@ -109,7 +108,7 @@ export default class GuildPlayer {
         }
       }
     } catch (error) {
-      context.send('Ocorreu um erro');
+      throw new Error('Error while playing music');
     }
   }
 }

@@ -13,7 +13,7 @@
         "embed": {
             "duration": "Duração",
             "amountTracks": "Quantidade de músicas",
-            "amount": "Músicas"
+            "amount": "**{{tracks}}** Músicas"
         },
         "queue": "Música \"{{track}}\" por \"{{author}}\" adicionada a fila de reprodução."
     },

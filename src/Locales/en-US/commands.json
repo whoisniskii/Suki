@@ -13,7 +13,7 @@
         "embed": {
             "duration": "Duration",
             "amountTracks": "Number of songs",
-            "amount": "songs"
+            "amount": "**{{tracks}}** songs"
         },
         "queue": "Song \"{{track}}\"' by \"{{author}}\" added to play queue."
     },

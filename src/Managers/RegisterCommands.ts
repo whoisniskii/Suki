@@ -26,7 +26,7 @@ class RegisterCommands {
       try {
         await this.client.requestHandler.request('PUT', `/applications/${this.client.user.id}/commands`, true, commands as any);
 
-        console.log('\x1b[32m[SLASH]\x1b[0m', 'Updated commands.');
+        console.log('\x1b[32m[SLASH]\x1b[0m', 'Updated global slash commands.');
         process.exit(1);
       } catch (error) {
         console.error(error);
@@ -34,7 +34,7 @@ class RegisterCommands {
     })();
   }
 
-  async registerGuildCommands(path: string) {
+  async registerLocalCommands(path: string) {
     const commands = [];
     const commandFolders = readdirSync(path);
 
@@ -51,7 +51,44 @@ class RegisterCommands {
       try {
         await this.client.requestHandler.request('POST', `/applications/${this.client.user.id}/guilds/${process.env.GUILD_ID}/commands`, true, commands as any);
 
-        console.log('\x1b[32m[SLASH]\x1b[0m', 'Updated commands.');
+        console.log('\x1b[32m[SLASH]\x1b[0m', `Updated slash commands in guild ${process.env.GUILD_ID}.`);
+        process.exit(1);
+      } catch (error) {
+        console.error(error);
+      }
+    })();
+  }
+
+  async editGlobalCommand() {
+    const command = {
+      name: 'play',
+      name_localizations: {
+        'pt-BR': 'tocar',
+      },
+      description: '[ 🎵 Music ] Add a song to play.',
+      description_localizations: {
+        'pt-BR': '[ 🎵 Música ] Adiciona uma música para tocar.',
+      },
+      options: [{
+        name: 'song',
+        name_localizations: {
+          'pt-BR': 'música',
+        },
+        description: 'Song/Playlist URL/Name',
+        description_localizations: {
+          'pt-BR': 'Música/Playlist URL/Nome',
+        },
+        type: 3,
+        required: true,
+        autocomplete: true,
+      }]
+    };
+
+    await (async () => {
+      try {
+        await this.client.requestHandler.request('PATCH', `/applications/${this.client.user.id}/commands/964706281464143916`, true, command);
+
+        console.log('\x1b[32m[SLASH]\x1b[0m', 'Updated command');
         process.exit(1);
       } catch (error) {
         console.error(error);

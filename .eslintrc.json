@@ -50,6 +50,7 @@
       "no-console": "off",
       "no-empty-function": "off",
       "@typescript-eslint/no-empty-function": ["off"],
+      "no-useless-escape": "off",
       "no-floating-decimal": "error",
       "no-inline-comments": "off",
       "@typescript-eslint/no-non-null-assertion": "off",

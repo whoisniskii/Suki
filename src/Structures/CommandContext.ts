@@ -60,7 +60,11 @@ export default class CommandContext {
   }
 
   get player(): Player {
-    return this.client.playerManager.players.get(this.guild.id) as Player;
+    return this.client.playerManager.players.get(this.guild.id) as Player || null;
+  }
+
+  get application(): CommandInteraction {
+    return this.interaction;
   }
 
   async send(content: Content | string): Promise<Message<TextableChannel> | void> {

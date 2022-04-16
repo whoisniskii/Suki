@@ -10,10 +10,22 @@ export default class PlayCommand extends Command {
   constructor(client: SukiClient) {
     super({
       name: 'play',
-      description: 'Play command',
+      name_localizations: {
+        'pt-BR': 'tocar',
+      },
+      description: '[ 🎵 Music ] Add a song to play.',
+      description_localizations: {
+        'pt-BR': '[ 🎵 Música ] Adiciona uma música para tocar.',
+      },
       options: [{
-        name: 'track',
-        description: 'Music you want to play.',
+        name: 'song',
+        name_localizations: {
+          'pt-BR': 'música',
+        },
+        description: 'Song/Playlist URL/Name',
+        description_localizations: {
+          'pt-BR': 'Música/Playlist URL/Nome',
+        },
         type: 3,
         required: true,
         autocomplete: true,
@@ -22,7 +34,6 @@ export default class PlayCommand extends Command {
   }
 
   async execute(context: CommandContext, t: typeof globalThis.t): Promise<void> {
-
     const player = new GuildPlayer(this.client, context);
 
     await player.createPlayer(context, t);

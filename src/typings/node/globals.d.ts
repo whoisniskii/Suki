@@ -1,4 +1,7 @@
+import { TFunction } from "i18next";
+
 declare global {
-    var t: any;
+    var t: TFunction;
 }
+
 export { };

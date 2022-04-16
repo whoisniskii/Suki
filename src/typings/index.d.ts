@@ -4,15 +4,15 @@ import CommandContext from '../Structures/CommandContext'
 interface CommandData {
   type?: number, // https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-types
   name: string,
-  name_localizations?: string // https://discord.com/developers/docs/reference#locales
+  name_localizations?: { } // https://discord.com/developers/docs/reference#locales
   description: string;
-  description_localizations?: string // https://discord.com/developers/docs/reference#locales
+  description_localizations?: { } // https://discord.com/developers/docs/reference#locales
   options?: [{
     type: number, // https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-option-type
     name: string,
-    name_localizations?: string
+    name_localizations?: { }
     description: string,
-    description_localizations?: string,
+    description_localizations?: { },
     required?: boolean,
     choices?: [{
       name: string;
