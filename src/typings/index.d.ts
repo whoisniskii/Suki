@@ -28,13 +28,7 @@ interface CommandData {
   default_permission?: boolean
 }
 
-interface CommandOptions {
-  name: string;
-  category?: string;
-  data: CommandData;
-}
-
-interface Command extends CommandOptions {
+interface Command extends CommandData {
   execute: (interaction: CommandContext, t: typeof globalThis.t) => void;
   executeAutoComplete: (interaction: AutocompleteInteraction, value: string, options?: any) => void;
 }

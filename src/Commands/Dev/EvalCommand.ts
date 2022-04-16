@@ -8,17 +8,13 @@ export default class EvalCommand extends Command {
   constructor(client: SukiClient) {
     super({
       name: 'eval',
-      category: 'Dev',
-      data: {
-        name: 'eval',
-        description: 'Eval command',
-        options: [{
-          name: 'code',
-          description: 'Code to evaluate',
-          type: 3,
-          required: true
-        }]
-      }
+      description: 'Eval command',
+      options: [{
+        name: 'code',
+        description: 'Code to evaluate',
+        type: 3,
+        required: true
+      }]
     }, client);
   }
 

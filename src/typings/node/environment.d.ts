@@ -6,6 +6,7 @@ declare global {
             SPOTIFYCLIENTID: string;
             SPOTIFYCLIENTSECRET: string;
             CLIENT_ID: string;
+            GUILD_ID: string;
         }
     }
 }

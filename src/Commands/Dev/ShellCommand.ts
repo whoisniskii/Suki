@@ -9,17 +9,13 @@ export default class ShellCommand extends Command {
   constructor(client: SukiClient) {
     super({
       name: 'shell',
-      category: 'Dev',
-      data: {
-        name: 'shell',
-        description: 'Shell Command',
-        options: [{
-          name: 'code',
-          description: 'Code',
-          type: 3,
-          required: true
-        }]
-      }
+      description: 'Shell Command',
+      options: [{
+        name: 'code',
+        description: 'Code',
+        type: 3,
+        required: true
+      }]
     }, client);
   }
 

@@ -57,7 +57,5 @@ export default class SukiClient extends Client {
     new EventManager(this).loadEvents(__dirname + '/Listeners');
     new DatabaseManager(this).execute();
     new LocaleManager(this).execute();
-
-    this.on('debug', (d) => console.log(d));
   }
 }

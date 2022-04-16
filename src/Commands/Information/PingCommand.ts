@@ -6,11 +6,7 @@ export default class PingCommand extends Command {
   constructor(client: SukiClient) {
     super({
       name: 'ping',
-      category: 'Information',
-      data: {
-        name: 'ping',
-        description: 'mostra o ping do bot',
-      }
+      description: 'mostra o ping do bot',
     }, client);
   }
 

@@ -10,18 +10,14 @@ export default class PlayCommand extends Command {
   constructor(client: SukiClient) {
     super({
       name: 'play',
-      category: 'Music',
-      data: {
-        name: 'play',
-        description: 'Play command',
-        options: [{
-          name: 'track',
-          description: 'Music you want to play.',
-          type: 3,
-          required: true,
-          autocomplete: true,
-        }]
-      }
+      description: 'Play command',
+      options: [{
+        name: 'track',
+        description: 'Music you want to play.',
+        type: 3,
+        required: true,
+        autocomplete: true,
+      }]
     }, client);
   }
 
