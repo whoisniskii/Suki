@@ -24,16 +24,7 @@ export default class MessageCreate {
       });
     }
 
-    const guildDBData = await this.client.guildDB.findOne({ guildID: message.guildID }).then(x => x);
-    if(!guildDBData) {
-      await this.client.guildDB.create({
-        guildID: message.guildID,
-        lang: 'en-US',
-        forever: false
-      });
-    }
-
-    const t = global.t = i18next.getFixedT(guildDBData?.lang || 'en-US');
+    const t = global.t = i18next.getFixedT('en-US');
 
     if(message.content.match(GetMention(this.client.user?.id as string))) {
       this.client.createMessage(message.channel.id, { content: t('events:messageCreate.message', { user: message.author.mention.toString() }) });

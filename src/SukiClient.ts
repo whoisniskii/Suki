@@ -70,5 +70,9 @@ export default class SukiClient extends Client {
     new EventManager(this).loadEvents(__dirname + '/Listeners');
     new DatabaseManager(this).execute();
     new LocaleManager(this).execute();
+
+    this.on('rawREST', (request) => {
+      console.log('\x1b[32m[REQUEST]\x1b[0m', `${request.method} ${request.url}, ${request.resp.statusCode}: (${this.requestHandler.latencyRef.latency}ms avg)`);
+    });
   }
 }

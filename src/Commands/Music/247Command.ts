@@ -26,6 +26,14 @@ export default class PingCommand extends Command {
     } else {
       const guildDBData = await this.client.guildDB.findOne({ guildID: player.guildId });
 
+      if(!guildDBData) {
+        await this.client.guildDB.create({
+          guildID: context.guild.id,
+          lang: 'en-US',
+          forever: false
+        });
+      }
+
       if(!guildDBData?.forever) {
         await this.client.guildDB.updateOne({ guildID: player.guildId }, { $set: { forever: true } });
         context.send(t('commands:247.forever'));

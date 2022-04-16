@@ -16,7 +16,6 @@ const guildSchema = new Schema<Guild>({
     type: mongoose.SchemaTypes.String,
     default: 'en-US',
     required: true,
-    unique: true
   },
   forever: {
     type: mongoose.SchemaTypes.Boolean,
