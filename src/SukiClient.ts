@@ -67,7 +67,7 @@ export default class SukiClient extends Client {
     this.on('rawWS', (packet) => this.playerManager.handleVoiceUpdate(packet));
   }
 
-  async login() {
+  login() {
     super.connect();
     new CommandManager(this).loadCommands(__dirname + '/Commands');
     new EventManager(this).loadEvents(__dirname + '/Listeners');
