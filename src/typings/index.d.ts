@@ -7,7 +7,7 @@ interface CommandData {
   name_localizations?: { } // https://discord.com/developers/docs/reference#locales
   description: string;
   description_localizations?: { } // https://discord.com/developers/docs/reference#locales
-  options?: [{
+  options?: Array<{
     type: number, // https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-option-type
     name: string,
     name_localizations?: { }
@@ -19,12 +19,11 @@ interface CommandData {
       name_localizations?: string;
       value: string
     }],
-    options?: [],
     channel_types?: [],
     min_value?: number,
     max_value?: number,
     autocomplete?: boolean,
-  }],
+  }>,
   default_permission?: boolean
 }
 
