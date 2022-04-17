@@ -62,7 +62,7 @@ export default class GuildPlayer {
       if (result.loadType === 'PLAYLIST_LOADED') {
         for (const track of result.tracks) {
           player.queue.push(track);
-          track.setRequester(context.author);
+          track.setRequester(context.user);
         }
 
         if (!player.playing) player.play();
@@ -82,7 +82,7 @@ export default class GuildPlayer {
               value: `${t('commands:play.embed.amount', { tracks: result.tracks.length.toString() })}`,
             }
           ],
-          footer: { text: `${context.author.username}#${context.author.discriminator}`, icon_url: context.author.dynamicAvatarURL() }
+          footer: { text: `${context.user.username}#${context.user.discriminator}`, icon_url: context.user.dynamicAvatarURL() }
         }];
 
         const regex = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/;
@@ -94,7 +94,7 @@ export default class GuildPlayer {
       else {
         const tracks = result.tracks;
         const msc = tracks[0];
-        msc.setRequester(context.author);
+        msc.setRequester(context.user);
         player.queue.push(msc);
 
         if (!player.playing) {

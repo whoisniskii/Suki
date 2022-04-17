@@ -18,6 +18,6 @@ export default class PingCommand extends Command {
   }
 
   async execute(context: CommandContext): Promise<void> {
-    context.send('ok');
+    console.log(await context.musixmatch.searchTrack('outerspace', 'don toliver'));
   }
 }

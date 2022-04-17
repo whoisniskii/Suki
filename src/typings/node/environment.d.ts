@@ -7,6 +7,7 @@ declare global {
             SPOTIFYCLIENTSECRET: string;
             CLIENT_ID: string;
             GUILD_ID: string;
+            MUSIXMATCH_API_KEY: string;
         }
     }
 }

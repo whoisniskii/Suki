@@ -1,5 +1,6 @@
 import { AdvancedMessageContent, Attachment, CommandInteraction, FileContent, Guild, InteractionDataOptionWithValue, Member, Message, TextableChannel, User } from 'eris';
 import { Player } from 'vulkava';
+import MusixMatch from '../APIS/Musixmatch';
 import SukiClient from '../SukiClient';
 
 type Content = AdvancedMessageContent & {
@@ -43,7 +44,7 @@ export default class CommandContext {
     }
   }
 
-  get author(): User {
+  get user(): User {
     return this.interaction.member!.user;
   }
 
@@ -65,6 +66,10 @@ export default class CommandContext {
 
   get application(): CommandInteraction {
     return this.interaction;
+  }
+
+  get musixmatch(): MusixMatch {
+    return this.client.musixmatch;
   }
 
   async send(content: Content | string): Promise<Message<TextableChannel> | void> {

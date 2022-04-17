@@ -38,7 +38,7 @@ export default class LyricsCommand extends Command {
           timestamp: new Date(),
           color: 10105592,
           description: song.lyrics.replace(/\n/g, '\n').slice(0, 4000),
-          footer: { text: `${context.author.username}#${context.author.discriminator}`, icon_url: context.author.dynamicAvatarURL() },
+          footer: { text: `${context.user.username}#${context.user.discriminator}`, icon_url: context.user.dynamicAvatarURL() },
         }];
 
         context.send({ embeds: embed });

@@ -10,11 +10,13 @@ import PlayerManager from './Music/PlayerManager';
 
 import dbGuild from './Database/guildDB';
 import dbUser from './Database/userDB';
+import MusixMatch from './APIS/Musixmatch';
 
 export default class SukiClient extends Client {
   commands: Array<Command>;
   developers: string[];
   playerManager: PlayerManager;
+  musixmatch: MusixMatch;
   guildDB: typeof dbGuild;
   userDB: typeof dbUser;
   request: (
@@ -56,6 +58,7 @@ export default class SukiClient extends Client {
     this.guildDB = dbGuild;
     this.userDB = dbUser;
     this.request = request;
+    this.musixmatch = new MusixMatch(process.env.MUSIXMATCH_API_KEY, this);
   }
 
   connectLavaLink(): void {
@@ -64,7 +67,7 @@ export default class SukiClient extends Client {
     this.on('rawWS', (packet) => this.playerManager.handleVoiceUpdate(packet));
   }
 
-  login() {
+  async login() {
     super.connect();
     new CommandManager(this).loadCommands(__dirname + '/Commands');
     new EventManager(this).loadEvents(__dirname + '/Listeners');
