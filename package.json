@@ -23,7 +23,6 @@
     "i18next-fs-backend": "^1.1.4",
     "js-yaml": "^4.1.0",
     "mongoose": "^6.3.0",
-    "songlyrics": "^2.2.4",
     "undici": "^5.0.0",
     "vulkava": "^1.2.4"
   },
