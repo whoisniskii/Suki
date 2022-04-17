@@ -31,7 +31,7 @@
         "off": "24/7 successfully disabled."
     },
     "lyrics": {
-        "source": "Lyrics provided by {{source}}",
-        "notFound": "I couldn't find any lyrics for this song."
+        "not_found": "I couldn't find any lyrics for this song.",
+        "no_player": "I'm not playing music on this server."
     }
 }

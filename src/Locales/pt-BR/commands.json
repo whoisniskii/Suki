@@ -31,7 +31,7 @@
         "off": "24/7 desativado com sucesso."
     },
     "lyrics": {
-        "source": "Letra fornecida por {{source}}",
-        "notFound": "Eu não consegui encontrar a letra dessa música."
+        "not_found": "Eu não consegui encontrar a letra dessa música.",
+        "no_player": "Eu não estou tocando música neste servidor."
     }
 }
