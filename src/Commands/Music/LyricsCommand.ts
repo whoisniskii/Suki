@@ -43,15 +43,21 @@ export default class LyricsCommand extends Command {
     if(!context.options.length) {
       const player = context.player;
 
-      if (!player || !player.current) {
+      if(!player || !player.current) {
         const activity = context.member?.activities?.find(a => a.name === 'Spotify');
 
         if (activity && activity.details) {
           track = await context.musixmatch.searchTrack(activity?.details as string, activity?.state as string);
         }
-      } else {
-        context.send({ content: t('commands:lyrics.no_player'), flags: 64 });
-        return;
+
+        if(!activity) {
+          context.send(t('commands:lyrics.no_player'));
+          return;
+        }
+
+        if(player && player.current) {
+          track = await context.musixmatch.searchTrack(player.current.title as string, player.current.author as string);
+        }
       }
     }
 
