@@ -84,13 +84,13 @@ export default class PlayerManager extends Vulkava {
 
       const guildDBData = await this.client.guildDB.findOne({ guildID: player.guildId });
 
-      if(guildDBData?.forever) {
-        return;
-      } else {
-        player.destroy();
+      if(!guildDBData) return;
 
-        await channel.createMessage('A fila de músicas acabou, então eu saí do canal de voz.');
-      }
+      if(guildDBData?.forever) return;
+
+      player.destroy();
+
+      await channel.createMessage('A fila de músicas acabou, então eu saí do canal de voz.');
     });
 
     this.on('trackException', async (player, _track, err): Promise<void> => {

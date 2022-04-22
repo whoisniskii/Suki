@@ -16,7 +16,8 @@ export default class MessageCreate {
 
     const GetMention = (id: string) => new RegExp(`^<@!?${id}>( |)$`);
 
-    const userDBData = await this.client.userDB.findOne({ id: message.author.id }).then(x => x);
+    const userDBData = await this.client.userDB.findOne({ id: message.author.id });
+
     if(!userDBData) {
       await this.client.userDB.create({
         id: message.author.id,

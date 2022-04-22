@@ -18,9 +18,7 @@ export default class GuildPlayer {
       context.send({ content: t('commands:play.noChannel'), flags: 64 });
     }
 
-    const playerr = context.player;
-
-    if(playerr && voiceChannelID !== playerr.voiceChannelId) {
+    if(context.player && voiceChannelID !== context.player.voiceChannelId) {
       context.send({ content: t('commands:play.noChannel'), flags: 64 });
     }
 
@@ -89,7 +87,7 @@ export default class GuildPlayer {
 
         regex.test(context.options.join(' ')) && Object.assign(embed, { url: context.options.join(' ') });
 
-        context.channel?.createMessage({ embeds: embed });
+        context.send({ embeds: embed });
       }
       else {
         const tracks = result.tracks;
@@ -97,14 +95,9 @@ export default class GuildPlayer {
         msc.setRequester(context.user);
         player.queue.push(msc);
 
-        if (!player.playing) {
-          context.send({ content: t('commands:play.queue', { track: msc.title, author: msc.author }), flags: 64 });
-          player.play();
-          return;
-        } else {
-          return context.send(t('commands:play.queue', { track: msc.title, author: msc.author }));
-        }
+        if (!player.playing) player.play();
 
+        context.send(t('commands:play.queue', { track: msc.title, author: msc.author }));
       }
     } catch (error) {
       throw new Error('Error while playing music');

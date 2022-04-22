@@ -19,29 +19,29 @@ export default class PingCommand extends Command {
       return;
     }
 
-    const player = context.player;
-
-    if(!player) {
+    if(!context.player) {
       context.send(t('commands.247.noPlayer'));
-    } else {
-      const guildDBData = await this.client.guildDB.findOne({ guildID: player.guildId });
-
-      if(!guildDBData) {
-        await this.client.guildDB.create({
-          guildID: context.guild.id,
-          lang: 'en-US',
-          forever: false
-        });
-      }
-
-      if(!guildDBData?.forever) {
-        await this.client.guildDB.updateOne({ guildID: player.guildId }, { $set: { forever: true } });
-        context.send(t('commands:247.forever'));
-      } else {
-        await this.client.guildDB.updateOne({ guildID: player.guildId }, { $set: { forever: false } });
-        context.send(t('commands:247.off'));
-        if(!player.playing) player.disconnect();
-      }
+      return;
     }
+
+    const guildDBData = await this.client.guildDB.findOne({ guildID: context.player.guildId });
+
+    if(!guildDBData) {
+      await this.client.guildDB.create({
+        guildID: context.guild.id,
+        lang: 'en-US',
+        forever: false
+      });
+    }
+
+    if(!guildDBData?.forever) {
+      await this.client.guildDB.updateOne({ guildID: context.player.guildId }, { $set: { forever: true } });
+      context.send(t('commands:247.forever'));
+    }
+
+
+    await this.client.guildDB.updateOne({ guildID: context.player.guildId }, { $set: { forever: false } });
+    context.send(t('commands:247.off'));
+    if(!context.player.playing) context.player.disconnect();
   }
 }

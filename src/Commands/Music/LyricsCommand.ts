@@ -41,9 +41,7 @@ export default class LyricsCommand extends Command {
     let track = await context.musixmatch.searchTrack(context.options[0], context.options[1]);
 
     if(!context.options.length) {
-      const player = context.player;
-
-      if(!player || !player.current) {
+      if(!context.player || !context.player.current) {
         const activity = context.member?.activities?.find(a => a.name === 'Spotify');
 
         if (activity && activity.details) {
@@ -55,8 +53,8 @@ export default class LyricsCommand extends Command {
           return;
         }
 
-        if(player && player.current) {
-          track = await context.musixmatch.searchTrack(player.current.title as string, player.current.author as string);
+        if(context.player && context.player.current) {
+          track = await context.musixmatch.searchTrack(context.player.current.title, context.player.current.author);
         }
       }
     }
