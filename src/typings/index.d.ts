@@ -1,7 +1,7 @@
 import { CommandInteraction, AutocompleteInteraction } from "eris";
 import CommandContext from '../Structures/CommandContext'
 
-interface CommandData {
+interface CommandOptions {
   type?: number, // https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-types
   name: string,
   name_localizations?: { } // https://discord.com/developers/docs/reference#locales
@@ -27,7 +27,7 @@ interface CommandData {
   default_permission?: boolean
 }
 
-interface Command extends CommandData {
+interface Command extends CommandOptions {
   execute: (interaction: CommandContext, t: typeof globalThis.t) => void;
   executeAutoComplete: (interaction: AutocompleteInteraction, value: string, options?: any) => void;
 }

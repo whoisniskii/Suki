@@ -38,7 +38,7 @@ export default class GuildPlayer {
         music = `https://open.spotify.com/track/${activity?.syncId}`;
       }
 
-      const result = await this.client.playerManager.search(music, 'youtube');
+      const result = await this.client.music.search(music, 'youtube');
 
       if (result.loadType === 'LOAD_FAILED') {
         return context.send({ content: t('commands:play.failed'), flags: 64 });
@@ -48,7 +48,7 @@ export default class GuildPlayer {
         return context.send({ content: t('commands:play.noMatches'), flags: 64 });
       }
 
-      const player = this.client.playerManager.createPlayer({
+      const player = this.client.music.createPlayer({
         guildId: context.guild?.id,
         voiceChannelId: voiceChannelID as string,
         textChannelId: context.channel.id,

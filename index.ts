@@ -5,7 +5,7 @@ env.config({ path: './.env' });
 
 const client = new SukiClient();
 
-client.login();
+client.initializate();
 
 process.on('uncaughtException', (err) => console.log(err));
 

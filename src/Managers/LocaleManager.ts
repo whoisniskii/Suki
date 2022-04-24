@@ -1,19 +1,8 @@
-import SukiClient from '../SukiClient';
 import i18next from 'i18next';
 import i18nbackend from 'i18next-fs-backend';
 import { readdirSync } from 'fs';
 
 class LocaleManager {
-  client: SukiClient;
-
-  constructor(client: SukiClient) {
-    this.client = client;
-  }
-
-  async execute() {
-
-    this.loadLocales();
-  }
 
   async loadLocales() {
     try {
@@ -40,6 +29,7 @@ class LocaleManager {
       );
     }
   }
+
 }
 
 export { LocaleManager };

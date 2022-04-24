@@ -5,18 +5,14 @@ import { UrlObject } from 'url';
 import { EventManager, CommandManager, DatabaseManager, LocaleManager } from './Managers';
 
 import Command from './Structures/Command';
-
-import PlayerManager from './Music/PlayerManager';
-
+import PlayerHandler from './Music/PlayerHandler';
 import dbGuild from './Database/guildDB';
 import dbUser from './Database/userDB';
-import MusixMatch from './APIS/Musixmatch';
 
 export default class SukiClient extends Client {
   commands: Array<Command>;
   developers: string[];
-  playerManager: PlayerManager;
-  musixmatch: MusixMatch;
+  music: PlayerHandler;
   guildDB: typeof dbGuild;
   userDB: typeof dbUser;
   request: (
@@ -42,12 +38,19 @@ export default class SukiClient extends Client {
       },
       defaultImageFormat: 'png',
       defaultImageSize: Constants.ImageSizeBoundaries.MAXIMUM,
-      getAllUsers: true,
+      guildCreateTimeout: 5000,
+      largeThreshold: 250,
+      getAllUsers: false,
+      autoreconnect: true,
       allowedMentions: {
         repliedUser: false,
       },
       rest: {
         baseURL: '/api/v10'
+      },
+      ws: {
+        followRedirects: true,
+        skipUTF8Validation: true
       },
       restMode: true,
       messageLimit: 10
@@ -58,21 +61,20 @@ export default class SukiClient extends Client {
     this.guildDB = dbGuild;
     this.userDB = dbUser;
     this.request = request;
-    this.musixmatch = new MusixMatch(process.env.MUSIXMATCH_API_KEY, this);
+    this.music = new PlayerHandler(this);
   }
 
   connectLavaLink(): void {
-    this.playerManager = new PlayerManager(this);
-    this.playerManager.startManager();
-    this.on('rawWS', (packet) => this.playerManager.handleVoiceUpdate(packet));
+    this.on('rawWS', (packet) => this.music.handleVoiceUpdate(packet));
+    this.music.start(this.user.id);
   }
 
-  login() {
+  initializate() {
     super.connect();
     new CommandManager(this).loadCommands(__dirname + '/Commands');
     new EventManager(this).loadEvents(__dirname + '/Listeners');
-    new DatabaseManager(this).execute();
-    new LocaleManager(this).execute();
+    new DatabaseManager().loaderDatabase();
+    new LocaleManager().loadLocales();
 
     this.on('rawREST', (request) => {
       console.log('\x1b[32m[REQUEST]\x1b[0m', `${request.method} ${request.url}, ${request.resp.statusCode}: (${this.requestHandler.latencyRef.latency}ms avg)`);

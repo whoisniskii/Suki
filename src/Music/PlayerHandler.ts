@@ -3,11 +3,14 @@ import SukiClient from '../SukiClient';
 import { Vulkava, Node } from 'vulkava';
 import yaml from 'js-yaml';
 import { readFileSync } from 'fs';
+import MusixMatch from '../APIS/Musixmatch';
 
 const env = yaml.load(readFileSync('./nodes.yml', 'utf8')) as any;
 
-export default class PlayerManager extends Vulkava {
+export default class PlayerHandler extends Vulkava {
   client: SukiClient;
+  musixmatch: MusixMatch;
+
   constructor(client: SukiClient) {
     super({
       nodes: env.lavalinkNodes,
@@ -22,6 +25,7 @@ export default class PlayerManager extends Vulkava {
     });
 
     this.client = client;
+    this.musixmatch = new MusixMatch(process.env.MUSIXMATCH_API_KEY, client);
 
     this.on('nodeConnect', async (node): Promise<void> => {
       console.log('\x1b[32m[NODES]\x1b[0m', `Node ${node.identifier} successfully logged in.`);
@@ -104,10 +108,6 @@ export default class PlayerManager extends Vulkava {
 
       player.skip();
     });
-  }
-
-  startManager() {
-    return super.start(this.client.user!.id);
   }
 
   private reconnect(node: Node) {

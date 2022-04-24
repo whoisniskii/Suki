@@ -39,7 +39,6 @@ export default class PingCommand extends Command {
       context.send(t('commands:247.forever'));
     }
 
-
     await this.client.guildDB.updateOne({ guildID: context.player.guildId }, { $set: { forever: false } });
     context.send(t('commands:247.off'));
     if(!context.player.playing) context.player.disconnect();

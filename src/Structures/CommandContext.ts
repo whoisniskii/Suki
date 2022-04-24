@@ -61,7 +61,7 @@ export default class CommandContext {
   }
 
   get player(): Player {
-    return this.client.playerManager.players.get(this.guild.id) as Player || null;
+    return this.client.music.players.get(this.guild.id) as Player || null;
   }
 
   get application(): CommandInteraction {
@@ -69,7 +69,7 @@ export default class CommandContext {
   }
 
   get musixmatch(): MusixMatch {
-    return this.client.musixmatch;
+    return this.client.music.musixmatch;
   }
 
   async send(content: Content | string): Promise<Message<TextableChannel> | void> {
