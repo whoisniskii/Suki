@@ -86,9 +86,7 @@ export default class PlayerHandler extends Vulkava {
       const channel = this.client.getChannel(player.textChannelId as string);
       if (!channel || channel.type !== 0) return;
 
-      const guildDBData = await this.client.guildDB.findOne({ guildID: player.guildId });
-
-      if(!guildDBData) return;
+      const guildDBData = await this.client.database.getGuild(player.guildId);
 
       if(guildDBData?.forever) return;
 

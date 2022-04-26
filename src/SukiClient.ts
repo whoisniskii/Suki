@@ -6,15 +6,12 @@ import { EventManager, CommandManager, DatabaseManager, LocaleManager } from './
 
 import Command from './Structures/Command';
 import PlayerHandler from './Music/PlayerHandler';
-import dbGuild from './Database/guildDB';
-import dbUser from './Database/userDB';
 
 export default class SukiClient extends Client {
   commands: Array<Command>;
   developers: string[];
   music: PlayerHandler;
-  guildDB: typeof dbGuild;
-  userDB: typeof dbUser;
+  database: DatabaseManager;
   request: (
     url: string | URL | UrlObject,
     options?: { dispatcher?: Dispatcher } & Omit<Dispatcher.RequestOptions, 'origin' | 'path' | 'method'> & Partial<Pick<Dispatcher.RequestOptions, 'method'>>,
@@ -58,8 +55,7 @@ export default class SukiClient extends Client {
 
     this.commands = [];
     this.developers = ['847865068657836033', '600804786492932101', '680943469228982357', '343778106340802580', '431768491759239211', '689265428769669155'];
-    this.guildDB = dbGuild;
-    this.userDB = dbUser;
+    this.database = new DatabaseManager(this);
     this.request = request;
     this.music = new PlayerHandler(this);
   }
@@ -73,7 +69,6 @@ export default class SukiClient extends Client {
     super.connect();
     new CommandManager(this).loadCommands(__dirname + '/Commands');
     new EventManager(this).loadEvents(__dirname + '/Listeners');
-    new DatabaseManager().loaderDatabase();
     new LocaleManager().loadLocales();
 
     this.on('rawREST', (request) => {
