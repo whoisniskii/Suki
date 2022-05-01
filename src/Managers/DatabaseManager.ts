@@ -17,9 +17,9 @@ class DatabaseManager {
   }
 
   async getUser(id: string) {
-    const user = await this.client.users.get(id);
+    const userDBData = await this.client.users.get(id);
 
-    if (!user) return null;
+    if (!userDBData) return null;
 
     let document = await this.user.findOne({ id: id });
 
@@ -35,12 +35,15 @@ class DatabaseManager {
 
   async getAllUsers() {
     const usersDBData = await this.user.find({});
+
     return usersDBData.map(user => user.toJSON());
   }
 
   async deleteUserSchema(id: string) {
     const userDBData = await this.user.findOne({ id: id });
+
     if(!userDBData) return;
+
     return userDBData.remove();
   }
 
@@ -65,14 +68,16 @@ class DatabaseManager {
 
   async deleteGuildSchema(id: string) {
     const guildDBData = await this.guild.findOne({ guildID: id });
+
     if(!guildDBData) return;
+
     return guildDBData.remove();
   }
 
   async getUserLocale(id: string) {
-    const user = await this.client.users.get(id);
+    const userDBData = await this.client.users.get(id);
 
-    if (!user) return null;
+    if (!userDBData) return null;
 
     let document = await this.user.findOne({ id: id });
 
@@ -87,9 +92,9 @@ class DatabaseManager {
   }
 
   async getGuildLocale(id: string) {
-    const guild = await this.client.guilds.get(id);
+    const guildDBData = await this.client.guilds.get(id);
 
-    if (!guild) return null;
+    if (!guildDBData) return null;
 
     let document = await this.guild.findOne({ id: id });
 

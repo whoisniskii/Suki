@@ -49,7 +49,7 @@ class RegisterCommands {
 
     await (async () => {
       try {
-        await this.client.requestHandler.request('POST', `/applications/${this.client.user.id}/guilds/${process.env.GUILD_ID}/commands`, true, commands as any);
+        await this.client.requestHandler.request('PUT', `/applications/${this.client.user.id}/guilds/${process.env.GUILD_ID}/commands`, true, commands as any);
 
         console.log('\x1b[32m[SLASH]\x1b[0m', `Updated slash commands in guild ${process.env.GUILD_ID}.`);
         process.exit(1);
@@ -64,7 +64,7 @@ class RegisterCommands {
 
     await (async () => {
       try {
-        await this.client.requestHandler.request('PATCH', `/applications/${this.client.user.id}/commands/964706281464143915`, true, command as any);
+        await this.client.requestHandler.request('PATCH', `/applications/${this.client.user.id}/commands/964706281464143915`, true, command?.data as any);
 
         console.log('\x1b[32m[SLASH]\x1b[0m', 'Command updated.');
         process.exit(1);
