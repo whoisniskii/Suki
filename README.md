@@ -38,13 +38,13 @@ yarn
 To compile the bot run:
 
 ```bash
-npx tsc
+yarn build
 ```
 
 Now you can run bot using:
-- You need to register slash commands running: node ./build/slash.js
+- You need to register slash commands running: yarn slash
 ```bash
-node .
+yarn start
 ```
 
 ## ⛔ Issues:

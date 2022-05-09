@@ -1,18 +1,18 @@
 import { connect } from 'mongoose';
-import SukiClient from '../SukiClient';
-import guildDB from '../Database/guildDB';
-import userDB from '../Database/userDB';
+import GuildDB from '../Database/guildDB';
+import UserDB from '../Database/userDB';
+import { SukiClient } from '../SukiClient';
 
 class DatabaseManager {
   client: SukiClient;
-  user: typeof userDB;
-  guild: typeof guildDB;
+  userDB: typeof UserDB;
+  guildDB: typeof GuildDB;
 
   constructor(client: SukiClient) {
     this.loaderDatabase();
 
-    this.user = userDB;
-    this.guild = guildDB;
+    this.userDB = UserDB;
+    this.guildDB = GuildDB;
     this.client = client;
   }
 
@@ -21,12 +21,12 @@ class DatabaseManager {
 
     if (!userDBData) return null;
 
-    let document = await this.user.findOne({ id: id });
+    let document = await this.userDB.findOne({ id });
 
-    if(!document) {
-      document = new this.user({
-        id: id,
-        locale: 'en-US'
+    if (!document) {
+      document = new UserDB({
+        id,
+        locale: 'en-US',
       });
     }
 
@@ -34,27 +34,27 @@ class DatabaseManager {
   }
 
   async getAllUsers() {
-    const usersDBData = await this.user.find({});
+    const usersDBData = await this.userDB.find({});
 
     return usersDBData.map(user => user.toJSON());
   }
 
   async deleteUserSchema(id: string) {
-    const userDBData = await this.user.findOne({ id: id });
+    const userDBData = await this.userDB.findOne({ id });
 
-    if(!userDBData) return;
+    if (!userDBData) return;
 
-    return userDBData.remove();
+    userDBData.remove();
   }
 
   async getGuild(id: string) {
-    let document = await this.guild.findOne({ guildID: id });
+    let document = await this.guildDB.findOne({ guildID: id });
 
     if (!document) {
-      document = new this.guild({
+      document = new GuildDB({
         guildID: id,
         lang: 'en-US',
-        forever: false
+        forever: false,
       });
     }
 
@@ -62,16 +62,16 @@ class DatabaseManager {
   }
 
   async getAllGuilds() {
-    const guildsDBData = await this.guild.find({});
+    const guildsDBData = await this.guildDB.find({});
     return guildsDBData.map(guild => guild.toJSON());
   }
 
   async deleteGuildSchema(id: string) {
-    const guildDBData = await this.guild.findOne({ guildID: id });
+    const guildDBData = await this.guildDB.findOne({ guildID: id });
 
-    if(!guildDBData) return;
+    if (!guildDBData) return;
 
-    return guildDBData.remove();
+    guildDBData.remove();
   }
 
   async getUserLocale(id: string) {
@@ -79,12 +79,12 @@ class DatabaseManager {
 
     if (!userDBData) return null;
 
-    let document = await this.user.findOne({ id: id });
+    let document = await this.userDB.findOne({ id });
 
     if (!document) {
-      document = new this.user({
+      document = new UserDB({
         _id: id,
-        locale: 'en-US'
+        locale: 'en-US',
       });
     }
 
@@ -96,13 +96,13 @@ class DatabaseManager {
 
     if (!guildDBData) return null;
 
-    let document = await this.guild.findOne({ id: id });
+    let document = await this.guildDB.findOne({ id });
 
     if (!document) {
-      document = new this.guild({
+      document = new GuildDB({
         guildID: id,
+        forever: false,
         lang: 'en-US',
-        forever: false
       });
     }
 
@@ -110,19 +110,14 @@ class DatabaseManager {
   }
 
   loaderDatabase() {
-    return connect(process.env.MONGODB_URI).then(() => {
-      console.log(
-        '\x1b[32m[DATABASE]\x1b[0m',
-        'Database successfully connected.'
-      );
-    }).catch((err: Error | null) => {
-      console.log(
-        '\x1b[31m[DATABASE]\x1b[0m',
-        `Error connecting to database.\n${err}`
-      );
-    });
+    return connect(process.env.MONGODB_URI)
+      .then(() => {
+        console.log('\x1b[32m[DATABASE]\x1b[0m', 'Database successfully connected.');
+      })
+      .catch((err: Error | null) => {
+        console.log('\x1b[31m[DATABASE]\x1b[0m', `Error connecting to database.\n${err}`);
+      });
   }
-
 }
 
 export { DatabaseManager };

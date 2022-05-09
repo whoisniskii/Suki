@@ -1,12 +1,12 @@
 on: [push, pull_request]
 
 jobs:
-  eslint:
-    name: eslint
+  tsc:
+    name: tsc
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
-
+    
     - name: install node v18
       uses: actions/setup-node@v3
       with:
@@ -14,8 +14,6 @@ jobs:
 
     - name: yarn install
       run: yarn install
-      
-    - name: eslint
-      uses: icrawl/action-eslint@v1
-      with:
-        custom-glob: src
+
+    - name: tsc
+      uses: icrawl/action-tsc@v1

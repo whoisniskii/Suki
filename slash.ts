@@ -1,6 +1,6 @@
-import { RegisterCommands } from './src/Managers';
-import SukiClient from './src/SukiClient';
 import env from 'dotenv';
+import { RegisterCommands } from './src/Managers';
+import { SukiClient } from './src/SukiClient';
 
 env.config({ path: './.env' });
 

@@ -1,13 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import SukiClient from '../SukiClient';
-import { Vulkava, Node } from 'vulkava';
-import yaml from 'js-yaml';
 import { readFileSync } from 'fs';
-import MusixMatch from '../APIS/Musixmatch';
+import yaml from 'js-yaml';
+import { Node, Vulkava } from 'vulkava';
+import { MusixMatch } from '../APIS';
+import { SukiClient } from '../SukiClient';
 
 const env = yaml.load(readFileSync('./nodes.yml', 'utf8')) as any;
 
-export default class PlayerHandler extends Vulkava {
+class PlayerHandler extends Vulkava {
   client: SukiClient;
   musixmatch: MusixMatch;
 
@@ -21,17 +21,17 @@ export default class PlayerHandler extends Vulkava {
         clientId: process.env.SPOTIFYCLIENTID,
         clientSecret: process.env.SPOTIFYCLIENTSECRET,
       },
-      unresolvedSearchSource: 'youtube'
+      unresolvedSearchSource: 'youtube',
     });
 
     this.client = client;
     this.musixmatch = new MusixMatch(process.env.MUSIXMATCH_API_KEY, client);
 
-    this.on('nodeConnect', async (node): Promise<void> => {
+    this.on('nodeConnect', (node): void => {
       console.log('\x1b[32m[NODES]\x1b[0m', `Node ${node.identifier} successfully logged in.`);
 
       for (const player of [...this.players.values()].filter(p => p.node === node).values()) {
-        const position = player.position;
+        const { position } = player;
         player.connect();
         player.play({ startTime: position });
       }
@@ -64,10 +64,10 @@ export default class PlayerHandler extends Vulkava {
       if (!channel || channel.type !== 0) return;
 
       if (player.lastPlayingMsgID) {
-        channel.deleteMessage(player.lastPlayingMsgID).catch(() => { });
+        channel.deleteMessage(player.lastPlayingMsgID).catch(() => {});
       }
 
-      if(player.trackRepeat === true) {
+      if (player.trackRepeat === true) {
         return;
       }
 
@@ -88,14 +88,14 @@ export default class PlayerHandler extends Vulkava {
 
       const guildDBData = await this.client.database.getGuild(player.guildId);
 
-      if(guildDBData?.forever) return;
+      if (guildDBData?.forever) return;
 
       player.destroy();
 
       await channel.createMessage('A fila de músicas acabou, então eu saí do canal de voz.');
     });
 
-    this.on('trackException', async (player, _track, err): Promise<void> => {
+    this.on('trackException', (player, _track, err): void => {
       if (err && err.message.includes('429')) {
         const newNode = this.nodes.find(node => node.state === 1 && node !== player.node);
 
@@ -120,7 +120,7 @@ export default class PlayerHandler extends Vulkava {
       maxRetryAttempts: 10,
       retryAttemptsInterval: 3000,
       secure: false,
-      region: node.options.region
+      region: node.options.region,
     });
 
     this.nodes.push(newNode);
@@ -128,3 +128,5 @@ export default class PlayerHandler extends Vulkava {
     newNode.connect();
   }
 }
+
+export { PlayerHandler };

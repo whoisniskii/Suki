@@ -1,9 +1,8 @@
+import { readdirSync } from 'fs';
 import i18next from 'i18next';
 import i18nbackend from 'i18next-fs-backend';
-import { readdirSync } from 'fs';
 
 class LocaleManager {
-
   async loadLocales() {
     try {
       await i18next.use(i18nbackend).init({
@@ -15,21 +14,17 @@ class LocaleManager {
         load: 'all',
         interpolation: {
           escapeValue: false,
-          useRawValueToEscape: true
+          useRawValueToEscape: true,
         },
         returnEmptyString: false,
-        returnObjects: true
+        returnObjects: true,
       });
 
-      console.log('\x1b[32m[LOCALES]\x1b[0m', `Loaded ${i18next.languages.length} locales`);
+      return console.log('\x1b[32m[LOCALES]\x1b[0m', `Loaded ${i18next.languages.length} locales`);
     } catch (error) {
-      return console.log(
-        '\x1b[31m[LOCALES]\x1b[0m',
-        `Error loading locales.\n${error}`
-      );
+      return console.log('\x1b[31m[LOCALES]\x1b[0m', `Error loading locales.\n${error}`);
     }
   }
-
 }
 
 export { LocaleManager };

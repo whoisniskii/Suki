@@ -1,14 +1,17 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
+/* eslint-disable consistent-return */
+/* eslint-disable no-param-reassign */
 import { AdvancedMessageContent, Attachment, CommandInteraction, FileContent, Guild, InteractionDataOptionWithValue, Member, Message, TextableChannel, User } from 'eris';
 import { Player } from 'vulkava';
-import MusixMatch from '../APIS/Musixmatch';
-import SukiClient from '../SukiClient';
+import { MusixMatch } from '../APIS';
+import { SukiClient } from '../SukiClient';
 
 type Content = AdvancedMessageContent & {
   fetchReply?: boolean;
-  files?: FileContent[]
-}
+  files?: FileContent[];
+};
 
-export default class CommandContext {
+class CommandContext {
   private readonly client: SukiClient;
   private readonly interaction: CommandInteraction;
   private deffered: boolean;
@@ -23,12 +26,12 @@ export default class CommandContext {
 
     this.options = options;
 
-    if(interaction.data.type === 1) {
-      if(interaction.data.options?.[0].type === 1) {
+    if (interaction.data.type === 1) {
+      if (interaction.data.options?.[0].type === 1) {
         this.options.push(interaction.data.options[0].name.toString().trim());
 
-        if(interaction.data.options[0].options) {
-          for (const values of (interaction.data.options[0].options)) {
+        if (interaction.data.options[0].options) {
+          for (const values of interaction.data.options[0].options) {
             this.options.push(values.value.toString().trim());
           }
         }
@@ -61,7 +64,7 @@ export default class CommandContext {
   }
 
   get player(): Player {
-    return this.client.music.players.get(this.guild.id) as Player || null;
+    return (this.client.music.players.get(this.guild.id) as Player) || null;
   }
 
   get application(): CommandInteraction {
@@ -75,35 +78,37 @@ export default class CommandContext {
   async send(content: Content | string): Promise<Message<TextableChannel> | void> {
     content = this.formatContent(content);
 
-
     const fetchReply = !!content.fetchReply;
-    const files = content.files;
+    const { files } = content;
 
     delete content.fetchReply;
     delete content.files;
 
-    if(content.content === undefined) content.content = '';
+    if (content.content === undefined) content.content = '';
 
-    if(this.deffered) {
+    if (this.deffered) {
       await this.interaction.editOriginalMessage(content, files);
     } else {
       await this.interaction.createMessage(content, files);
     }
 
-    if(fetchReply) {
+    if (fetchReply) {
       return this.interaction.getOriginalMessage();
     }
   }
 
   private formatContent(content: Content | string): Content {
-    if(typeof content === 'string') return { content };
+    if (typeof content === 'string') return { content };
     return content;
   }
 
   async defer() {
-    if(this.interaction instanceof CommandInteraction) {
+    if (this.interaction instanceof CommandInteraction) {
       await this.interaction.defer();
       this.deffered = true;
     }
   }
 }
+
+export { CommandContext };
+// By https://github.com/davidffa/D4rkBot, thanks D4rk.

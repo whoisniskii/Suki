@@ -1,8 +1,8 @@
 import mongoose, { Schema } from 'mongoose';
 
 export interface User {
-    id: string,
-    locale: string
+  id: string;
+  locale: string;
 }
 
 const userSchema = new Schema<User>({
@@ -13,8 +13,8 @@ const userSchema = new Schema<User>({
   locale: {
     type: mongoose.SchemaTypes.String,
     required: true,
-    default: 'en-US'
-  }
+    default: 'en-US',
+  },
 });
 
 export default mongoose.model('user', userSchema);

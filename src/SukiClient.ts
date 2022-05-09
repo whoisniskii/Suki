@@ -1,13 +1,11 @@
 import { Client, Constants } from 'eris';
-import { request, Dispatcher } from 'undici';
+import { Dispatcher, request } from 'undici';
 import { UrlObject } from 'url';
+import { PlayerHandler } from '../src/Music';
+import { CommandManager, DatabaseManager, EventManager, LocaleManager } from './Managers';
+import { Command } from './Structures';
 
-import { EventManager, CommandManager, DatabaseManager, LocaleManager } from './Managers';
-
-import Command from './Structures/Command';
-import PlayerHandler from './Music/PlayerHandler';
-
-export default class SukiClient extends Client {
+class SukiClient extends Client {
   commands: Array<Command>;
   developers: string[];
   music: PlayerHandler;
@@ -19,19 +17,11 @@ export default class SukiClient extends Client {
 
   constructor() {
     super(process.env.BOT_TOKEN, {
-      intents: [
-        'guilds',
-        'guildMembers',
-        'guildMessages',
-        'guildMessages',
-        'guildVoiceStates',
-        'guildPresences'
-      ],
+      intents: ['guilds', 'guildMembers', 'guildMessages', 'guildMessages', 'guildVoiceStates', 'guildPresences'],
       disableEvents: {
-        'TYPING_START': true,
-        'GUILD_BAN_ADD': true,
-        'GUILD_BAN_REMOVE': true,
-
+        TYPING_START: true,
+        GUILD_BAN_ADD: true,
+        GUILD_BAN_REMOVE: true,
       },
       defaultImageFormat: 'png',
       defaultImageSize: Constants.ImageSizeBoundaries.MAXIMUM,
@@ -43,14 +33,14 @@ export default class SukiClient extends Client {
         repliedUser: false,
       },
       rest: {
-        baseURL: '/api/v10'
+        baseURL: '/api/v10',
       },
       ws: {
         followRedirects: true,
-        skipUTF8Validation: true
+        skipUTF8Validation: true,
       },
       restMode: true,
-      messageLimit: 10
+      messageLimit: 10,
     });
 
     this.commands = [];
@@ -61,18 +51,20 @@ export default class SukiClient extends Client {
   }
 
   connectLavaLink(): void {
-    this.on('rawWS', (packet) => this.music.handleVoiceUpdate(packet));
+    this.on('rawWS', packet => this.music.handleVoiceUpdate(packet));
     this.music.start(this.user.id);
   }
 
   initializate() {
     super.connect();
-    new CommandManager(this).loadCommands(__dirname + '/Commands');
-    new EventManager(this).loadEvents(__dirname + '/Listeners');
+    new CommandManager(this).loadCommands(`${__dirname}/Commands`);
+    new EventManager(this).loadEvents(`${__dirname}/Listeners`);
     new LocaleManager().loadLocales();
 
-    this.on('rawREST', (request) => {
-      console.log('\x1b[32m[REQUEST]\x1b[0m', `${request.method} ${request.url}, ${request.resp.statusCode}: (${this.requestHandler.latencyRef.latency}ms avg)`);
-    });
+    process.on('uncaughtException', err => console.log(err));
+
+    process.on('unhandledRejection', err => console.log(err));
   }
 }
+
+export { SukiClient };

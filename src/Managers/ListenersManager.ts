@@ -1,5 +1,7 @@
+/* eslint-disable no-await-in-loop */
+/* eslint-disable new-cap */
 import { readdirSync } from 'fs';
-import SukiClient from '../SukiClient';
+import { SukiClient } from '../SukiClient';
 
 class EventManager {
   client: SukiClient;
@@ -11,7 +13,7 @@ class EventManager {
   async loadEvents(path: string) {
     const eventFiles = readdirSync(path);
     for (const file of eventFiles) {
-      await import(path + `/${file}`).then((_listener) => {
+      await import(`${path}/${file}`).then(_listener => {
         const event = new _listener.default(this.client);
         this.client.on(event.name, (...args) => event.execute(...args));
       });

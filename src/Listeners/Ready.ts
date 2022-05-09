@@ -1,4 +1,4 @@
-import SukiClient from '../SukiClient';
+import { SukiClient } from '../SukiClient';
 
 export default class Ready {
   client: SukiClient;
@@ -9,7 +9,7 @@ export default class Ready {
     this.name = 'ready';
   }
 
-  async execute() {
+  execute() {
     console.log('\x1b[32m[CLIENT]\x1b[0m', `Client successfully logged in ${this.client.user?.username}#${this.client.user.discriminator}.`);
 
     this.client.connectLavaLink();

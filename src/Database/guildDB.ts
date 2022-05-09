@@ -1,16 +1,16 @@
 import mongoose, { Schema } from 'mongoose';
 
 export interface Guild {
-    guildID: string,
-    lang: string
-    forever: boolean
+  guildID: string;
+  lang: string;
+  forever: boolean;
 }
 
 const guildSchema = new Schema<Guild>({
   guildID: {
     type: mongoose.SchemaTypes.String,
     required: true,
-    unique: true
+    unique: true,
   },
   lang: {
     type: mongoose.SchemaTypes.String,
@@ -21,7 +21,7 @@ const guildSchema = new Schema<Guild>({
     type: mongoose.SchemaTypes.Boolean,
     default: false,
     required: true,
-  }
+  },
 });
 
 export default mongoose.model('guild', guildSchema);

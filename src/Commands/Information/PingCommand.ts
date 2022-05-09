@@ -1,19 +1,21 @@
-import Command from '../../Structures/Command';
-import CommandContext from '../../Structures/CommandContext';
-import SukiClient from '../../SukiClient';
+import { Command, CommandExecuteOptions } from '../../Structures';
+import { SukiClient } from '../../SukiClient';
 
 export default class PingCommand extends Command {
   constructor(client: SukiClient) {
-    super({
-      name: 'ping',
-      description: '[ 📚 Information ] Shows the bot latency.',
-      description_localizations: {
-        'pt-BR': '[ 📚 Informação ] Veja a latência do bot.',
+    super(
+      {
+        name: 'ping',
+        description: '[ 📚 Information ] Shows the bot latency.',
+        description_localizations: {
+          'pt-BR': '[ 📚 Informação ] Veja a latência do bot.',
+        },
       },
-    }, client);
+      client,
+    );
   }
 
-  async execute(context: CommandContext, t: typeof globalThis.t): Promise<void> {
+  execute({ context, t }: CommandExecuteOptions) {
     context.send(t('ping.success', { ping: this.client.shards.get(0)?.latency.toString() ?? 0 }));
   }
 }

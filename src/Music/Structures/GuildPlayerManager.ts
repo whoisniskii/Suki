@@ -1,8 +1,12 @@
+/* eslint-disable no-useless-escape */
+/* eslint-disable no-unused-expressions */
+/* eslint-disable consistent-return */
 import dayjs from 'dayjs';
-import CommandContext from '../../Structures/CommandContext';
-import SukiClient from '../../SukiClient';
+import { TFunction } from 'i18next';
+import { CommandContext } from '../../Structures';
+import { SukiClient } from '../../SukiClient';
 
-export default class GuildPlayer {
+class GuildPlayer {
   client: SukiClient;
   interaction: CommandContext;
 
@@ -11,25 +15,24 @@ export default class GuildPlayer {
     this.interaction = interaction;
   }
 
-  async createPlayer(context: CommandContext, t: typeof globalThis.t) {
+  async createPlayer(context: CommandContext, t: TFunction) {
     const voiceChannelID = context.member?.voiceState.channelID;
 
-    if(!voiceChannelID) {
+    if (!voiceChannelID) {
       context.send({ content: t('commands:play.noChannel'), flags: 64 });
     }
 
-    if(context.player && voiceChannelID !== context.player.voiceChannelId) {
+    if (context.player && voiceChannelID !== context.player.voiceChannelId) {
       context.send({ content: t('commands:play.noChannel'), flags: 64 });
     }
 
     try {
-
       let music = context.options.join(' ');
 
-      if(!music) {
+      if (!music) {
         const activity = context.member?.activities?.find(x => x.name === 'Spotify');
 
-        if(!activity) {
+        if (!activity) {
           context.send({ content: t('commands:play.noArgs'), flags: 64 });
         }
 
@@ -65,32 +68,33 @@ export default class GuildPlayer {
 
         if (!player.playing) player.play();
 
-        const embed = [{
-          title: `${result.playlistInfo.name}`,
-          timestamp: new Date(),
-          color: 10105592,
-          fields: [
-            {
-              name: t('commands:play.embed.duration'),
-              value: dayjs(result.playlistInfo?.duration).format('DD:HH:mm'),
-              inline: true,
-            },
-            {
-              name: t('commands:play.embed.amountTracks'),
-              value: `${t('commands:play.embed.amount', { tracks: result.tracks.length.toString() })}`,
-            }
-          ],
-          footer: { text: `${context.user.username}#${context.user.discriminator}`, icon_url: context.user.dynamicAvatarURL() }
-        }];
+        const embed = [
+          {
+            title: `${result.playlistInfo.name}`,
+            timestamp: new Date(),
+            color: 10105592,
+            fields: [
+              {
+                name: t('commands:play.embed.duration'),
+                value: dayjs(result.playlistInfo?.duration).format('DD:HH:mm'),
+                inline: true,
+              },
+              {
+                name: t('commands:play.embed.amountTracks'),
+                value: `${t('commands:play.embed.amount', { tracks: result.tracks.length.toString() })}`,
+              },
+            ],
+            footer: { text: `${context.user.username}#${context.user.discriminator}`, icon_url: context.user.dynamicAvatarURL() },
+          },
+        ];
 
         const regex = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/;
 
         regex.test(context.options.join(' ')) && Object.assign(embed, { url: context.options.join(' ') });
 
         context.send({ embeds: embed });
-      }
-      else {
-        const tracks = result.tracks;
+      } else {
+        const { tracks } = result;
         const msc = tracks[0];
         msc.setRequester(context.user);
         player.queue.push(msc);
@@ -104,3 +108,5 @@ export default class GuildPlayer {
     }
   }
 }
+
+export { GuildPlayer };

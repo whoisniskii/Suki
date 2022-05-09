@@ -1,5 +1,5 @@
 import { Guild } from 'eris';
-import SukiClient from '../SukiClient';
+import { SukiClient } from '../SukiClient';
 
 export default class GuildCreate {
   client: SukiClient;
