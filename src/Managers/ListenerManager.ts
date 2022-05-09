@@ -13,8 +13,8 @@ class EventManager {
   async loadEvents(path: string) {
     const eventFiles = readdirSync(path);
     for (const file of eventFiles) {
-      await import(`${path}/${file}`).then(_listener => {
-        const event = new _listener.default(this.client);
+      await import(`${path}/${file}`).then(listener => {
+        const event = new listener.default(this.client);
         this.client.on(event.name, (...args) => event.execute(...args));
       });
     }

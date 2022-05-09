@@ -8,6 +8,7 @@ declare global {
             CLIENT_ID: string;
             GUILD_ID: string;
             MUSIXMATCH_API_KEY: string;
+            CLIENT_TEST_ID: string;
         }
     }
 }

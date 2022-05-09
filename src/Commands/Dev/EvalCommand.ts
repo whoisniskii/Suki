@@ -25,7 +25,7 @@ export default class EvalCommand extends Command {
 
   async execute({ context, t }: CommandExecuteOptions) {
     if (!this.client.developers.some(x => x === context.member?.id)) {
-      context.send({ content: t('commands:shell.noPerm'), flags: 1 << 6 });
+      context.editReply({ content: t('commands:shell.noPerm'), flags: 1 << 6 });
       return;
     }
 
@@ -46,11 +46,11 @@ export default class EvalCommand extends Command {
         evaled = await evaled;
       }
 
-      context.send(
+      context.editReply(
         t('commands:shell.Output', { code: `\`\`\`js\n${clean(inspect(evaled, { depth: 0 }).replace(new RegExp(process.env.BOT_TOKEN, 'gi'), '******************').slice(0, 1970))}\n\`\`\`` }),
       );
     } catch (error: any) {
-      context.send(t('commands:shell.Error', { code: `\`\`\`js\n${String(error.stack.slice(0, 1970))}\n\`\`\`` }));
+      context.editReply(t('commands:shell.Error', { code: `\`\`\`js\n${String(error.stack.slice(0, 1970))}\n\`\`\`` }));
     }
   }
 }

@@ -1,5 +1,5 @@
 import env from 'dotenv';
-import { RegisterCommands } from './src/Managers';
+import { RegisterCommands } from './src/Structures';
 import { SukiClient } from './src/SukiClient';
 
 env.config({ path: './.env' });
@@ -9,5 +9,5 @@ client.connect();
 
 client.once('ready', () => {
   const commands = new RegisterCommands(client);
-  commands.registerGlobalCommands(__dirname + '/src/Commands');
+  commands.registerSlashCommands(`${__dirname}/src/Commands`);
 });

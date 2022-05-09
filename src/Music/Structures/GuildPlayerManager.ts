@@ -19,11 +19,11 @@ class GuildPlayer {
     const voiceChannelID = context.member?.voiceState.channelID;
 
     if (!voiceChannelID) {
-      context.send({ content: t('commands:play.noChannel'), flags: 64 });
+      context.editReply({ content: t('commands:play.noChannel'), flags: 64 });
     }
 
     if (context.player && voiceChannelID !== context.player.voiceChannelId) {
-      context.send({ content: t('commands:play.noChannel'), flags: 64 });
+      context.editReply({ content: t('commands:play.noChannel'), flags: 64 });
     }
 
     try {
@@ -33,7 +33,7 @@ class GuildPlayer {
         const activity = context.member?.activities?.find(x => x.name === 'Spotify');
 
         if (!activity) {
-          context.send({ content: t('commands:play.noArgs'), flags: 64 });
+          context.editReply({ content: t('commands:play.noArgs'), flags: 64 });
         }
 
         console.log(activity);
@@ -44,11 +44,11 @@ class GuildPlayer {
       const result = await this.client.music.search(music, 'youtube');
 
       if (result.loadType === 'LOAD_FAILED') {
-        return context.send({ content: t('commands:play.failed'), flags: 64 });
+        return context.editReply({ content: t('commands:play.failed'), flags: 64 });
       }
 
       if (result.loadType === 'NO_MATCHES') {
-        return context.send({ content: t('commands:play.noMatches'), flags: 64 });
+        return context.editReply({ content: t('commands:play.noMatches'), flags: 64 });
       }
 
       const player = this.client.music.createPlayer({
@@ -92,7 +92,7 @@ class GuildPlayer {
 
         regex.test(context.options.join(' ')) && Object.assign(embed, { url: context.options.join(' ') });
 
-        context.send({ embeds: embed });
+        context.editReply({ embeds: embed });
       } else {
         const { tracks } = result;
         const msc = tracks[0];
@@ -101,7 +101,7 @@ class GuildPlayer {
 
         if (!player.playing) player.play();
 
-        context.send(t('commands:play.queue', { track: msc.title, author: msc.author }));
+        context.editReply(t('commands:play.queue', { track: msc.title, author: msc.author }));
       }
     } catch (error) {
       throw new Error('Error while playing music');

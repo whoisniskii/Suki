@@ -53,7 +53,7 @@ export default class LyricsCommand extends Command {
         }
 
         if (!activity) {
-          context.send(t('commands:lyrics.no_player'));
+          context.editReply(t('commands:lyrics.no_player'));
           return;
         }
 
@@ -64,14 +64,14 @@ export default class LyricsCommand extends Command {
     }
 
     if (!track) {
-      context.send(t('commands:lyrics.not_found'));
+      context.editReply(t('commands:lyrics.not_found'));
       return;
     }
 
     const lyrics = await context.musixmatch.getLyrics(track.track_id);
 
     if (!lyrics) {
-      context.send(t('commands:lyrics.not_found'));
+      context.editReply(t('commands:lyrics.not_found'));
       return;
     }
 
@@ -88,6 +88,6 @@ export default class LyricsCommand extends Command {
       },
     ];
 
-    context.send({ embeds: embed });
+    context.editReply({ embeds: embed });
   }
 }

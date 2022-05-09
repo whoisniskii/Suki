@@ -45,8 +45,8 @@ class SukiClient extends Client {
 
     this.commands = [];
     this.developers = ['847865068657836033', '600804786492932101', '680943469228982357', '343778106340802580', '431768491759239211', '689265428769669155'];
-    this.database = new DatabaseManager(this);
     this.request = request;
+    this.database = new DatabaseManager(this);
     this.music = new PlayerHandler(this);
   }
 

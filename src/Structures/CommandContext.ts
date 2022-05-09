@@ -75,7 +75,7 @@ class CommandContext {
     return this.client.music.musixmatch;
   }
 
-  async send(content: Content | string): Promise<Message<TextableChannel> | void> {
+  async editReply(content: Content | string): Promise<Message<TextableChannel> | void> {
     content = this.formatContent(content);
 
     const fetchReply = !!content.fetchReply;

@@ -16,6 +16,6 @@ export default class PingCommand extends Command {
   }
 
   execute({ context, t }: CommandExecuteOptions) {
-    context.send(t('ping.success', { ping: this.client.shards.get(0)?.latency.toString() ?? 0 }));
+    context.editReply(t('ping.success', { ping: this.client.shards.get(0)?.latency.toString() ?? 0 }));
   }
 }
