@@ -16,7 +16,7 @@
   },
   "license": "Apache-2.0",
   "dependencies": {
-    "dayjs": "^1.11.1",
+    "dayjs": "^1.11.2",
     "dotenv": "^16.0.0",
     "eris": "DonovanDMC/eris#everything",
     "i18next": "^21.8.0",
