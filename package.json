@@ -19,7 +19,7 @@
     "dayjs": "^1.11.1",
     "dotenv": "^16.0.0",
     "eris": "DonovanDMC/eris#everything",
-    "i18next": "^21.6.16",
+    "i18next": "^21.8.0",
     "i18next-fs-backend": "^1.1.4",
     "js-yaml": "^4.1.0",
     "mongoose": "^6.3.2",
