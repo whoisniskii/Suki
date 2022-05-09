@@ -372,8 +372,8 @@ dotenv@^16.0.0:
 
 eris@DonovanDMC/eris#everything:
   version "0.16.2-dev"
-  uid d44bbfbcbc5e321eedc5459033e4d4cb9f98903e
-  resolved "https://codeload.github.com/DonovanDMC/eris/tar.gz/d44bbfbcbc5e321eedc5459033e4d4cb9f98903e"
+  uid cb6a8e36bb5b05fdb7936d512494dc56a102a172
+  resolved "https://codeload.github.com/DonovanDMC/eris/tar.gz/cb6a8e36bb5b05fdb7936d512494dc56a102a172"
   dependencies:
     ws "^8.2.3"
   optionalDependencies:
