@@ -43,7 +43,7 @@ export default class PlayCommand extends Command {
 
   async executeAutoComplete({ interaction, value }: AutoCompleteExecuteOptions) {
     if (!value) {
-      interaction.result([]);
+      interaction.respond([]);
       return;
     }
 
@@ -70,6 +70,6 @@ export default class PlayCommand extends Command {
       }
     }
 
-    interaction.result(choices);
+    interaction.respond(choices);
   }
 }

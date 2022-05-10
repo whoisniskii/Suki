@@ -1,11 +1,8 @@
-/* eslint-disable @typescript-eslint/require-await */
-/* eslint-disable require-await */
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { AutocompleteInteraction, InteractionDataOptionWithValue } from 'eris';
+import { AutocompleteInteraction } from 'discord.js';
 import { TFunction } from 'i18next';
-import { CommandContext } from '.';
 import { SukiClient } from '../SukiClient';
 import { CommandOptions } from '../typings';
+import { CommandContext } from '.';
 
 class Command implements CommandOptions {
   client: SukiClient;
@@ -20,16 +17,16 @@ class Command implements CommandOptions {
     this.description = options.description;
   }
 
-  execute({ context, t }: CommandExecuteOptions): any {
+  execute({ context, t }: CommandExecuteOptions): unknown {
     return { context, t };
   }
 
-  executeAutoComplete({ interaction, value, options }: AutoCompleteExecuteOptions): any {
+  executeAutoComplete({ interaction, value, options }: AutoCompleteExecuteOptions): unknown {
     return { interaction, value, options };
   }
 }
 
 export type CommandExecuteOptions = { context: CommandContext; t: TFunction };
-export type AutoCompleteExecuteOptions = { interaction: AutocompleteInteraction; value: string; options?: InteractionDataOptionWithValue[] };
+export type AutoCompleteExecuteOptions = { interaction: AutocompleteInteraction; value: string; options?: any };
 
 export { Command };

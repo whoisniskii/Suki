@@ -42,7 +42,6 @@ yarn build
 ```
 
 Now you can run bot using:
-- You need to register slash commands running: yarn slash
 ```bash
 yarn start
 ```

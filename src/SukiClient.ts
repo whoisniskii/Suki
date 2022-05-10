@@ -1,7 +1,7 @@
-import { Client, Constants } from 'eris';
+import { Client, GatewayIntentBits } from 'discord.js';
 import { Dispatcher, request } from 'undici';
 import { UrlObject } from 'url';
-import { PlayerHandler } from '../src/Music';
+import { PlayerHandler } from './Music';
 import { CommandManager, DatabaseManager, EventManager, LocaleManager } from './Managers';
 import { Command } from './Structures';
 
@@ -16,31 +16,21 @@ class SukiClient extends Client {
   ) => Promise<Dispatcher.ResponseData>;
 
   constructor() {
-    super(process.env.BOT_TOKEN, {
-      intents: ['guilds', 'guildMembers', 'guildMessages', 'guildMessages', 'guildVoiceStates', 'guildPresences'],
-      disableEvents: {
-        TYPING_START: true,
-        GUILD_BAN_ADD: true,
-        GUILD_BAN_REMOVE: true,
-      },
-      defaultImageFormat: 'png',
-      defaultImageSize: Constants.ImageSizeBoundaries.MAXIMUM,
-      guildCreateTimeout: 5000,
-      largeThreshold: 250,
-      getAllUsers: false,
-      autoreconnect: true,
+    super({
+      intents: [
+        GatewayIntentBits.Guilds,
+        GatewayIntentBits.GuildMembers,
+        GatewayIntentBits.GuildMessages,
+        GatewayIntentBits.GuildPresences,
+        GatewayIntentBits.GuildVoiceStates,
+        GatewayIntentBits.MessageContent,
+      ],
+      failIfNotExists: false,
       allowedMentions: {
+        parse: ['users'],
         repliedUser: false,
       },
-      rest: {
-        baseURL: '/api/v10',
-      },
-      ws: {
-        followRedirects: true,
-        skipUTF8Validation: true,
-      },
-      restMode: true,
-      messageLimit: 10,
+      shards: 'auto',
     });
 
     this.commands = [];
@@ -52,11 +42,11 @@ class SukiClient extends Client {
 
   connectLavaLink(): void {
     this.on('rawWS', packet => this.music.handleVoiceUpdate(packet));
-    this.music.start(this.user.id);
+    this.music.start(this.user?.id as string);
   }
 
   initializate() {
-    super.connect();
+    super.login(process.env.BOT_TOKEN);
     new CommandManager(this).loadCommands(`${__dirname}/Commands`);
     new EventManager(this).loadEvents(`${__dirname}/Listeners`);
     new LocaleManager().loadLocales();

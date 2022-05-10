@@ -1,4 +1,4 @@
-import { Guild } from 'eris';
+import { Guild } from 'discord.js';
 import { SukiClient } from '../SukiClient';
 
 export default class GuildCreate {

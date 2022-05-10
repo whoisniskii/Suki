@@ -1,3 +1,4 @@
+import { EmbedBuilder } from 'discord.js';
 import { Command, CommandExecuteOptions } from '../../Structures';
 import { SukiClient } from '../../SukiClient';
 
@@ -42,18 +43,18 @@ export default class LyricsCommand extends Command {
   }
 
   async execute({ context, t }: CommandExecuteOptions) {
-    let track = await context.musixmatch.searchTrack(context.options[0], context.options[1]);
+    let track = await context.musixmatch.searchTrack(context.options.get('song', true).value as string, context.options.get('artist', true).value as string);
 
-    if (!context.options.length) {
+    if (!context.options) {
       if (!context.player || !context.player.current) {
-        const activity = context.member?.activities?.find(a => a.name === 'Spotify');
+        const activity = context.member?.presence?.activities?.find(a => a.name === 'Spotify');
 
         if (activity && activity.details) {
           track = await context.musixmatch.searchTrack(activity?.details as string, activity?.state as string);
         }
 
         if (!activity) {
-          context.editReply(t('commands:lyrics.no_player'));
+          context.send(t('commands:lyrics.no_player'));
           return;
         }
 
@@ -64,30 +65,27 @@ export default class LyricsCommand extends Command {
     }
 
     if (!track) {
-      context.editReply(t('commands:lyrics.not_found'));
+      context.send(t('commands:lyrics.not_found'));
       return;
     }
 
     const lyrics = await context.musixmatch.getLyrics(track.track_id);
 
     if (!lyrics) {
-      context.editReply(t('commands:lyrics.not_found'));
+      context.send(t('commands:lyrics.not_found'));
       return;
     }
 
-    const embed = [
-      {
-        author: {
-          name: `${track.track_name} - ${track.artist_name}`,
-          url: track.track_share_url,
-        },
-        timestamp: new Date(),
-        color: 10105592,
-        description: lyrics.lyrics_body.replace(/\n/g, '\n').slice(0, 4000),
-        footer: { text: `${lyrics.lyrics_copyright.slice(0, 37)}`, icon_url: 'https://imgur.com/aLTdLUT.png' },
-      },
-    ];
+    const embed = new EmbedBuilder()
+      .setAuthor({
+        name: `${track.track_name} - ${track.artist_name}`,
+        url: track.track_share_url,
+      })
+      .setTimestamp()
+      .setColor(10105592)
+      .setDescription(lyrics.lyrics_body.replace(/\n/g, '\n').slice(0, 4000))
+      .setFooter({ text: `${lyrics.lyrics_copyright.slice(0, 37)}`, iconURL: 'https://imgur.com/aLTdLUT.png' });
 
-    context.editReply({ embeds: embed });
+    context.send({ embeds: [embed] });
   }
 }

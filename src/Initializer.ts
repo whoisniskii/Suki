@@ -1,5 +1,5 @@
 import env from 'dotenv';
-import { SukiClient } from './src/SukiClient';
+import { SukiClient } from './SukiClient';
 
 env.config({ path: './.env' });
 

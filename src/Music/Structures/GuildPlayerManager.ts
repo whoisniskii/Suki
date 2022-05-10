@@ -1,7 +1,6 @@
-/* eslint-disable no-useless-escape */
 /* eslint-disable no-unused-expressions */
-/* eslint-disable consistent-return */
 import dayjs from 'dayjs';
+import { EmbedBuilder } from 'discord.js';
 import { TFunction } from 'i18next';
 import { CommandContext } from '../../Structures';
 import { SukiClient } from '../../SukiClient';
@@ -16,43 +15,46 @@ class GuildPlayer {
   }
 
   async createPlayer(context: CommandContext, t: TFunction) {
-    const voiceChannelID = context.member?.voiceState.channelID;
+    const voiceChannelID = context.voice?.channelId;
 
     if (!voiceChannelID) {
-      context.editReply({ content: t('commands:play.noChannel'), flags: 64 });
+      context.interaction.followUp({ content: t('commands:play.noChannel'), flags: 64 });
+      return;
     }
 
     if (context.player && voiceChannelID !== context.player.voiceChannelId) {
-      context.editReply({ content: t('commands:play.noChannel'), flags: 64 });
+      context.send({ content: t('commands:play.noChannel'), flags: 64 });
+      return;
     }
 
     try {
-      let music = context.options.join(' ');
+      let music = context.options.get('song', true).value as string;
 
       if (!music) {
-        const activity = context.member?.activities?.find(x => x.name === 'Spotify');
+        const activity = context.member?.presence?.activities.find(x => x.name === 'Spotify');
 
         if (!activity) {
-          context.editReply({ content: t('commands:play.noArgs'), flags: 64 });
+          context.send({ content: t('commands:play.noArgs'), flags: 64 });
+          return;
         }
 
-        console.log(activity);
-
-        music = `https://open.spotify.com/track/${activity?.syncId}`;
+        music = `https://open.spotify.com/track/${activity.party?.id}`;
       }
 
       const result = await this.client.music.search(music, 'youtube');
 
       if (result.loadType === 'LOAD_FAILED') {
-        return context.editReply({ content: t('commands:play.failed'), flags: 64 });
+        context.send({ content: t('commands:play.failed'), flags: 64 });
+        return;
       }
 
       if (result.loadType === 'NO_MATCHES') {
-        return context.editReply({ content: t('commands:play.noMatches'), flags: 64 });
+        context.send({ content: t('commands:play.noMatches'), flags: 64 });
+        return;
       }
 
       const player = this.client.music.createPlayer({
-        guildId: context.guild?.id,
+        guildId: context.guild?.id as string,
         voiceChannelId: voiceChannelID as string,
         textChannelId: context.channel.id,
         selfDeaf: true,
@@ -68,31 +70,28 @@ class GuildPlayer {
 
         if (!player.playing) player.play();
 
-        const embed = [
-          {
-            title: `${result.playlistInfo.name}`,
-            timestamp: new Date(),
-            color: 10105592,
-            fields: [
-              {
-                name: t('commands:play.embed.duration'),
-                value: dayjs(result.playlistInfo?.duration).format('DD:HH:mm'),
-                inline: true,
-              },
-              {
-                name: t('commands:play.embed.amountTracks'),
-                value: `${t('commands:play.embed.amount', { tracks: result.tracks.length.toString() })}`,
-              },
-            ],
-            footer: { text: `${context.user.username}#${context.user.discriminator}`, icon_url: context.user.dynamicAvatarURL() },
-          },
-        ];
+        const embed = new EmbedBuilder()
+          .setTitle(`${result.playlistInfo.name}`)
+          .setTimestamp()
+          .setColor(10105592)
+          .addFields([
+            {
+              name: t('commands:play.embed.duration'),
+              value: dayjs(result.playlistInfo?.duration).format('DD:HH:mm'),
+              inline: true,
+            },
+            {
+              name: t('commands:play.embed.amountTracks'),
+              value: `${t('commands:play.embed.amount', { tracks: result.tracks.length.toString() })}`,
+            },
+          ])
+          .setFooter({ text: `${context.user.username}#${context.user.discriminator}`, iconURL: context.user.displayAvatarURL() });
 
-        const regex = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/;
+        const regex = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\\+.~#?&//=]*)/;
 
-        regex.test(context.options.join(' ')) && Object.assign(embed, { url: context.options.join(' ') });
+        regex.test(context.options.get('song', true).value as string) && embed.setURL(context.options.get('song', true).value as string);
 
-        context.editReply({ embeds: embed });
+        context.send({ embeds: [embed] });
       } else {
         const { tracks } = result;
         const msc = tracks[0];
@@ -101,7 +100,7 @@ class GuildPlayer {
 
         if (!player.playing) player.play();
 
-        context.editReply(t('commands:play.queue', { track: msc.title, author: msc.author }));
+        context.send(t('commands:play.queue', { track: msc.title, author: msc.author }));
       }
     } catch (error) {
       throw new Error('Error while playing music');

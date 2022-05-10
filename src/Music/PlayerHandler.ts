@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { readFileSync } from 'fs';
 import yaml from 'js-yaml';
 import { Node, Vulkava } from 'vulkava';
@@ -15,7 +14,7 @@ class PlayerHandler extends Vulkava {
     super({
       nodes: env.lavalinkNodes,
       sendWS(guildId, payload) {
-        client.guilds.get(guildId)?.shard.sendWS(payload.op, payload.d);
+        client.guilds.cache.get(guildId)?.shard.send(payload);
       },
       spotify: {
         clientId: process.env.SPOTIFYCLIENTID,
@@ -60,30 +59,30 @@ class PlayerHandler extends Vulkava {
 
       if (!player.textChannelId) return;
 
-      const channel = this.client.getChannel(player.textChannelId);
+      const channel = this.client.channels.cache.get(player.textChannelId);
       if (!channel || channel.type !== 0) return;
 
       if (player.lastPlayingMsgID) {
-        channel.deleteMessage(player.lastPlayingMsgID).catch(() => {});
+        channel.send(player.lastPlayingMsgID).catch(() => {});
       }
 
       if (player.trackRepeat === true) {
         return;
       }
 
-      await channel.createMessage(`Comecei a tocar \`${track.title}\` por \`${track.author}\``);
+      await channel.send(`Comecei a tocar \`${track.title}\` por \`${track.author}\``);
     });
 
     this.on('trackStuck', async (player, track): Promise<void> => {
-      const channel = this.client.getChannel(player.textChannelId as string);
+      const channel = this.client.channels.cache.get(player.textChannelId as string);
       if (!channel || channel.type !== 0) return;
 
-      await channel.createMessage(`Ocorreu um erro ao reproduzir a música \`${track.title}\``);
+      await channel.send(`Ocorreu um erro ao reproduzir a música \`${track.title}\``);
       player.skip();
     });
 
     this.on('queueEnd', async (player): Promise<void> => {
-      const channel = this.client.getChannel(player.textChannelId as string);
+      const channel = this.client.channels.cache.get(player.textChannelId as string);
       if (!channel || channel.type !== 0) return;
 
       const guildDBData = await this.client.database.getGuild(player.guildId);
@@ -92,7 +91,7 @@ class PlayerHandler extends Vulkava {
 
       player.destroy();
 
-      await channel.createMessage('A fila de músicas acabou, então eu saí do canal de voz.');
+      await channel.send('A fila de músicas acabou, então eu saí do canal de voz.');
     });
 
     this.on('trackException', (player, _track, err): void => {

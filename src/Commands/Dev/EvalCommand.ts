@@ -1,5 +1,3 @@
-/* eslint-disable no-eval */
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { inspect } from 'util';
 import { Command, CommandExecuteOptions } from '../../Structures';
 import { SukiClient } from '../../SukiClient';
@@ -25,7 +23,7 @@ export default class EvalCommand extends Command {
 
   async execute({ context, t }: CommandExecuteOptions) {
     if (!this.client.developers.some(x => x === context.member?.id)) {
-      context.editReply({ content: t('commands:shell.noPerm'), flags: 1 << 6 });
+      context.send({ content: t('commands:shell.noPerm'), flags: 1 << 6 });
       return;
     }
 
@@ -40,17 +38,17 @@ export default class EvalCommand extends Command {
     };
 
     try {
-      let evaled = eval(context.options.join(' '));
+      let evaled = eval(context.options.get('code', true).value as string);
 
       if (evaled instanceof Promise) {
         evaled = await evaled;
       }
 
-      context.editReply(
+      context.send(
         t('commands:shell.Output', { code: `\`\`\`js\n${clean(inspect(evaled, { depth: 0 }).replace(new RegExp(process.env.BOT_TOKEN, 'gi'), '******************').slice(0, 1970))}\n\`\`\`` }),
       );
     } catch (error: any) {
-      context.editReply(t('commands:shell.Error', { code: `\`\`\`js\n${String(error.stack.slice(0, 1970))}\n\`\`\`` }));
+      context.send(t('commands:shell.Error', { code: `\`\`\`js\n${String(error.stack.slice(0, 1970))}\n\`\`\`` }));
     }
   }
 }

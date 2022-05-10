@@ -17,7 +17,7 @@ class DatabaseManager {
   }
 
   async getUser(id: string) {
-    const userDBData = await this.client.users.get(id);
+    const userDBData = await this.client.users.fetch(id);
 
     if (!userDBData) return null;
 
@@ -75,7 +75,7 @@ class DatabaseManager {
   }
 
   async getUserLocale(id: string) {
-    const userDBData = await this.client.users.get(id);
+    const userDBData = await this.client.users.fetch(id);
 
     if (!userDBData) return null;
 
@@ -92,7 +92,7 @@ class DatabaseManager {
   }
 
   async getGuildLocale(id: string) {
-    const guildDBData = await this.client.guilds.get(id);
+    const guildDBData = await this.client.guilds.fetch(id);
 
     if (!guildDBData) return null;
 

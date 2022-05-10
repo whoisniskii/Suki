@@ -1,4 +1,4 @@
-import { Message } from 'eris';
+import { Message } from 'discord.js';
 import { getFixedT } from 'i18next';
 import { SukiClient } from '../SukiClient';
 
@@ -21,7 +21,7 @@ export default class MessageCreate {
     const t = getFixedT(userDBData?.locale || 'en-US');
 
     if (message.content.match(GetMention(this.client.user?.id as string))) {
-      this.client.createMessage(message.channel.id, { content: t('events:messageCreate.message', { user: message.author.mention.toString() }) });
+      message.reply({ content: t('events:messageCreate.message', { user: message.author.toString() }) });
     }
   }
 }

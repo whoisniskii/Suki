@@ -52,6 +52,7 @@
           }
       ],
       "no-bitwise": "off",
+      "no-eval": "off",
       "no-restricted-syntax": "off",
       "no-restricted-globals": "off",
       "no-continue": "off",

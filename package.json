@@ -3,7 +3,7 @@
   "description": "Suki code rewritten in Typescript",
   "version": "0.1",
   "private": true,
-  "main": "./build/index.js",
+  "main": "./build/Initializer.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/Niskii3/Suki-Rewrite.git"
@@ -13,16 +13,16 @@
   },
   "scripts": {
     "build": "npx sucrase ./src -d ./build --esModuleInterop --transforms typescript,imports",
-    "start": "node .",
-    "slash": "node ./build/slash.js",
-    "lint": "npx eslint src --ext .ts --fix",
+    "start": "node ./build/Initializer.js",
+    "lint": "npx eslint src --ext .ts",
+    "lint:fix": "npx eslint src --ext .ts --fix",
     "types": "npx tsc --noEmit --incremental false"
   },
   "license": "Apache-2.0",
   "dependencies": {
     "dayjs": "^1.11.2",
+    "discord.js": "^14.0.0-dev.1651493371-4ba0f56",
     "dotenv": "^16.0.0",
-    "eris": "DonovanDMC/eris#everything",
     "i18next": "^21.8.0",
     "i18next-fs-backend": "^1.1.4",
     "js-yaml": "^4.1.0",
