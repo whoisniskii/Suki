@@ -17,6 +17,12 @@ export default class PingCommand extends Command {
       },
       client,
     );
+
+    this.config = {
+      autoDefer: true,
+      ephemeral: false,
+      guildOnly: true,
+    };
   }
 
   execute({ context }: CommandExecuteOptions) {

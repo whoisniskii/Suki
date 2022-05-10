@@ -13,9 +13,15 @@ export default class PingCommand extends Command {
       },
       client,
     );
+
+    this.config = {
+      autoDefer: true,
+      ephemeral: false,
+      guildOnly: false,
+    };
   }
 
   execute({ context, t }: CommandExecuteOptions) {
-    context.send(t('ping.success', { ping: this.client.ws.ping ?? 0 }));
+    context.reply(t('ping.success', { ping: this.client.ws.ping ?? 0 }));
   }
 }

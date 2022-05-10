@@ -2,5 +2,8 @@
     "messageCreate": {
         "button": "Add",
         "message": "Hi {{user}}, If you need help, use the command **/help**!"
+    },
+    "interactionCreate": {
+        "errors/guildOnly": "This command can only be used in servers."
     }
 }

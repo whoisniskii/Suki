@@ -33,6 +33,12 @@ export default class PlayCommand extends Command {
       },
       client,
     );
+
+    this.config = {
+      autoDefer: true,
+      ephemeral: false,
+      guildOnly: true,
+    };
   }
 
   async execute({ context, t }: CommandExecuteOptions) {

@@ -1,5 +1,16 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import { CommandInteraction, CommandInteractionOptionResolver, Guild, GuildMember, GuildTextBasedChannel, InteractionReplyOptions, TextChannel, User, VoiceState } from 'discord.js';
+import {
+  CommandInteraction,
+  CommandInteractionOptionResolver,
+  Guild,
+  GuildMember,
+  GuildTextBasedChannel,
+  InteractionDeferReplyOptions,
+  InteractionReplyOptions,
+  TextChannel,
+  User,
+  VoiceState,
+} from 'discord.js';
 import { Player } from 'vulkava';
 import { SukiClient } from '../SukiClient';
 import { MusixMatch } from '../APIS';
@@ -49,8 +60,12 @@ class CommandContext {
     return this.member?.voice as VoiceState;
   }
 
-  async send(options: InteractionReplyOptions) {
+  async reply(options: InteractionReplyOptions) {
     await this.interaction.reply(options);
+  }
+
+  async deferReply(options: InteractionDeferReplyOptions) {
+    await this.interaction.deferReply(options);
   }
 }
 

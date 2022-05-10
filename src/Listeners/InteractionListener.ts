@@ -12,7 +12,7 @@ export default class InteractionCreate {
     this.name = 'interactionCreate';
   }
 
-  execute(interaction: Interaction) {
+  async execute(interaction: Interaction) {
     if (interaction instanceof AutocompleteInteraction) {
       if (!interaction.member) return;
       const cmd = this.client.commands.find(c => c.rawName === interaction.commandName);
@@ -28,14 +28,19 @@ export default class InteractionCreate {
     }
 
     if (interaction instanceof CommandInteraction) {
-      if (!interaction.member) {
-        return;
-      }
+      if (!interaction.isChatInputCommand()) return;
 
       const t = getFixedT(interaction.locale);
 
       const cmd = this.client.commands.find(x => x.rawName === interaction.commandName);
       if (!cmd) throw new Error(`Command ${interaction.commandName} does not exist!`);
+
+      if (!interaction.inGuild() && cmd.config.guildOnly) {
+        interaction.reply({ content: `❌ ${interaction.user} **|** ${t('events:interactionCreate.errors/guildOnly')}`, ephemeral: true });
+        return;
+      }
+
+      if (cmd.config.autoDefer) await interaction.deferReply({ ephemeral: cmd.config.ephemeral });
 
       const context = new CommandContext(this.client, {
         client: this.client,

@@ -13,16 +13,17 @@ export default class PingCommand extends Command {
       },
       client,
     );
+
+    this.config = {
+      autoDefer: true,
+      ephemeral: false,
+      guildOnly: true,
+    };
   }
 
   async execute({ context, t }: CommandExecuteOptions) {
-    if (!context.member?.permissions.has('ManageGuild')) {
-      context.send({ content: t('commands.247.noPerm'), flags: 1 << 6 });
-      return;
-    }
-
     if (!context.player) {
-      context.send(t('commands.247.noPlayer'));
+      context.reply(t('commands.247.noPlayer'));
       return;
     }
 
@@ -30,11 +31,11 @@ export default class PingCommand extends Command {
 
     if (!guildDBData?.forever) {
       await this.client.database.guildDB.updateOne({ guildID: context.player.guildId }, { $set: { forever: true } });
-      context.send(t('commands:247.forever'));
+      context.reply(t('commands:247.forever'));
     }
 
     await this.client.database.guildDB.updateOne({ guildID: context.player.guildId }, { $set: { forever: false } });
-    context.send(t('commands:247.off'));
+    context.reply(t('commands:247.off'));
     if (!context.player.playing) context.player.disconnect();
   }
 }

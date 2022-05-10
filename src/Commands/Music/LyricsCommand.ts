@@ -43,6 +43,12 @@ export default class LyricsCommand extends Command {
       },
       client,
     );
+
+    this.config = {
+      autoDefer: true,
+      ephemeral: false,
+      guildOnly: true,
+    };
   }
 
   async execute({ context, t }: CommandExecuteOptions) {
@@ -57,7 +63,7 @@ export default class LyricsCommand extends Command {
         }
 
         if (!activity) {
-          context.send(t('commands:lyrics.no_player'));
+          context.reply(t('commands:lyrics.no_player'));
           return;
         }
 
@@ -68,14 +74,14 @@ export default class LyricsCommand extends Command {
     }
 
     if (!track) {
-      context.send(t('commands:lyrics.not_found'));
+      context.reply(t('commands:lyrics.not_found'));
       return;
     }
 
     const lyrics = await context.musixmatch.getLyrics(track.track_id);
 
     if (!lyrics) {
-      context.send(t('commands:lyrics.not_found'));
+      context.reply(t('commands:lyrics.not_found'));
       return;
     }
 
@@ -89,6 +95,6 @@ export default class LyricsCommand extends Command {
       .setDescription(lyrics.lyrics_body.replace(/\n/g, '\n').slice(0, 4000))
       .setFooter({ text: `${lyrics.lyrics_copyright.slice(0, 37)}`, iconURL: 'https://imgur.com/aLTdLUT.png' });
 
-    context.send({ embeds: [embed] });
+    context.reply({ embeds: [embed] });
   }
 }

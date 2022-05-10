@@ -15,12 +15,12 @@ class GuildPlayer {
     const voiceChannelID = context.voice?.channelId;
 
     if (!voiceChannelID) {
-      context.send({ content: t('commands:play.noChannel'), flags: 64 });
+      context.reply({ content: t('commands:play.noChannel'), flags: 64 });
       return;
     }
 
     if (context.player && voiceChannelID !== context.player.voiceChannelId) {
-      context.send({ content: t('commands:play.noChannel'), flags: 64 });
+      context.reply({ content: t('commands:play.noChannel'), flags: 64 });
       return;
     }
 
@@ -31,7 +31,7 @@ class GuildPlayer {
         const activity = context.member?.presence?.activities.find(x => x.name === 'Spotify');
 
         if (!activity) {
-          context.send({ content: t('commands:play.noArgs'), flags: 64 });
+          context.reply({ content: t('commands:play.noArgs'), flags: 64 });
           return;
         }
 
@@ -41,12 +41,12 @@ class GuildPlayer {
       const result = await this.client.music.search(music, 'youtube');
 
       if (result.loadType === 'LOAD_FAILED') {
-        context.send({ content: t('commands:play.failed'), flags: 64 });
+        context.reply({ content: t('commands:play.failed'), flags: 64 });
         return;
       }
 
       if (result.loadType === 'NO_MATCHES') {
-        context.send({ content: t('commands:play.noMatches'), flags: 64 });
+        context.reply({ content: t('commands:play.noMatches'), flags: 64 });
         return;
       }
 
@@ -88,7 +88,7 @@ class GuildPlayer {
 
         regex.test(context.options.get('song', true).value as string) && embed.setURL(context.options.get('song', true).value as string);
 
-        context.send({ embeds: [embed] });
+        context.reply({ embeds: [embed] });
       } else {
         const { tracks } = result;
         const msc = tracks[0];
@@ -97,7 +97,7 @@ class GuildPlayer {
 
         if (!player.playing) player.play();
 
-        context.send(t('commands:play.queue', { track: msc.title, author: msc.author }));
+        context.reply(t('commands:play.queue', { track: msc.title, author: msc.author }));
       }
     } catch (error) {
       throw new Error('Error while playing music');

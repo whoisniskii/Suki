@@ -21,26 +21,32 @@ export default class ShellCommand extends Command {
       },
       client,
     );
+
+    this.config = {
+      autoDefer: true,
+      ephemeral: false,
+      guildOnly: false,
+    };
   }
 
   execute({ context, t }: CommandExecuteOptions) {
     if (!this.client.developers.some(x => x === context.member?.id)) {
-      context.send({ content: t('commands:shell.noPerm'), flags: 1 << 6 });
+      context.reply({ content: t('commands:shell.noPerm'), flags: 1 << 6 });
       return;
     }
 
     exec(context.options.get('code', true).value as string, async (_err, stdout, stderr) => {
       if (!stdout && !stderr) {
-        context.send({ content: t('commands:shell.noOutput'), flags: 1 << 6 });
+        context.reply({ content: t('commands:shell.noOutput'), flags: 1 << 6 });
         return;
       }
 
       const res = (stdout || stderr).replace(ANSI_REGEX, '');
 
       if (stderr) {
-        await context.send({ content: `**Stderr**: \`\`\`sh\n${res.slice(0, 1970)}\n\`\`\`` });
+        await context.reply({ content: `**Stderr**: \`\`\`sh\n${res.slice(0, 1970)}\n\`\`\`` });
       } else {
-        await context.send({ content: `**Stdout:** \`\`\`sh\n${res.slice(0, 1970)}\n\`\`\`` });
+        await context.reply({ content: `**Stdout:** \`\`\`sh\n${res.slice(0, 1970)}\n\`\`\`` });
       }
     });
   }

@@ -6,7 +6,7 @@ class LocaleManager {
   async loadLocales() {
     try {
       await i18next.use(i18nbackend).init({
-        ns: ['commands', 'events'],
+        ns: ['commands', 'events', 'permissions'],
         defaultNS: 'commands',
         preload: readdirSync('src/Locales'),
         fallbackLng: 'pt-BR',
