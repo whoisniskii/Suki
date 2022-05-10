@@ -15,7 +15,7 @@ export default class InteractionCreate {
   execute(interaction: Interaction) {
     if (interaction instanceof AutocompleteInteraction) {
       if (!interaction.member) return;
-      const cmd = this.client.commands.find(c => c.name === interaction.commandName);
+      const cmd = this.client.commands.find(c => c.rawName === interaction.commandName);
 
       if (!cmd) throw new Error(`Command ${interaction.commandName} does not exist!`);
 
@@ -32,9 +32,9 @@ export default class InteractionCreate {
         return;
       }
 
-      const t = getFixedT('pt-BR');
+      const t = getFixedT(interaction.locale);
 
-      const cmd = this.client.commands.find(x => x.name === interaction.commandName);
+      const cmd = this.client.commands.find(x => x.rawName === interaction.commandName);
       if (!cmd) throw new Error(`Command ${interaction.commandName} does not exist!`);
 
       const context = new CommandContext(this.client, {

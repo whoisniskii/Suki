@@ -74,23 +74,6 @@ class DatabaseManager {
     guildDBData.remove();
   }
 
-  async getUserLocale(id: string) {
-    const userDBData = await this.client.users.fetch(id);
-
-    if (!userDBData) return null;
-
-    let document = await this.userDB.findOne({ id });
-
-    if (!document) {
-      document = new UserDB({
-        _id: id,
-        locale: 'en-US',
-      });
-    }
-
-    return document;
-  }
-
   async getGuildLocale(id: string) {
     const guildDBData = await this.client.guilds.fetch(id);
 

@@ -1,24 +1,21 @@
 /* eslint-disable no-unused-expressions */
 import dayjs from 'dayjs';
 import { EmbedBuilder } from 'discord.js';
-import { TFunction } from 'i18next';
-import { CommandContext } from '../../Structures';
+import { CommandExecuteOptions } from '../../Structures';
 import { SukiClient } from '../../SukiClient';
 
 class GuildPlayer {
   client: SukiClient;
-  interaction: CommandContext;
 
-  constructor(client: SukiClient, interaction: CommandContext) {
+  constructor(client: SukiClient) {
     this.client = client;
-    this.interaction = interaction;
   }
 
-  async createPlayer(context: CommandContext, t: TFunction) {
+  async createPlayer({ context, t }: CommandExecuteOptions) {
     const voiceChannelID = context.voice?.channelId;
 
     if (!voiceChannelID) {
-      context.interaction.followUp({ content: t('commands:play.noChannel'), flags: 64 });
+      context.send({ content: t('commands:play.noChannel'), flags: 64 });
       return;
     }
 

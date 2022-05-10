@@ -7,18 +7,21 @@ export default class LyricsCommand extends Command {
     super(
       {
         name: 'lyrics',
+        nameLocalizations: {
+          'pt-BR': 'letra',
+        },
         description: '[ 🎵 Music ] Shows the lyrics of a song.',
-        description_localizations: {
+        descriptionLocalizations: {
           'pt-BR': '[ 🎵 Música ] Mostra a letra de uma música.',
         },
         options: [
           {
             name: 'song',
-            name_localizations: {
+            nameLocalizations: {
               'pt-BR': 'música',
             },
             description: 'Song Name',
-            description_localizations: {
+            descriptionLocalizations: {
               'pt-BR': 'Nome da música',
             },
             type: 3,
@@ -26,11 +29,11 @@ export default class LyricsCommand extends Command {
           },
           {
             name: 'artist',
-            name_localizations: {
+            nameLocalizations: {
               'pt-BR': 'artista',
             },
             description: 'Artist Name',
-            description_localizations: {
+            descriptionLocalizations: {
               'pt-BR': 'Nome do artista',
             },
             type: 3,

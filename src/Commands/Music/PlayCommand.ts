@@ -8,21 +8,21 @@ export default class PlayCommand extends Command {
     super(
       {
         name: 'play',
-        name_localizations: {
+        nameLocalizations: {
           'pt-BR': 'tocar',
         },
         description: '[ 🎵 Music ] Add a song to play.',
-        description_localizations: {
+        descriptionLocalizations: {
           'pt-BR': '[ 🎵 Música ] Adiciona uma música para tocar.',
         },
         options: [
           {
             name: 'song',
-            name_localizations: {
+            nameLocalizations: {
               'pt-BR': 'música',
             },
             description: 'Song/Playlist URL/Name',
-            description_localizations: {
+            descriptionLocalizations: {
               'pt-BR': 'Música/Playlist URL/Nome',
             },
             type: 3,
@@ -36,9 +36,9 @@ export default class PlayCommand extends Command {
   }
 
   async execute({ context, t }: CommandExecuteOptions) {
-    const player = new GuildPlayer(this.client, context);
+    const player = new GuildPlayer(this.client);
 
-    await player.createPlayer(context, t);
+    await player.createPlayer({ context, t });
   }
 
   async executeAutoComplete({ interaction, value }: AutoCompleteExecuteOptions) {

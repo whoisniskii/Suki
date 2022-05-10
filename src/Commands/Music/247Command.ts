@@ -7,7 +7,7 @@ export default class PingCommand extends Command {
       {
         name: '247',
         description: '[ 🎵 Music ] Make the current music player never been destroyed.',
-        description_localizations: {
+        descriptionLocalizations: {
           'pt-BR': '[ 🎵 Música ] Faça o player atual nunca se desconectar.',
         },
       },

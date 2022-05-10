@@ -7,7 +7,7 @@ export default class PingCommand extends Command {
       {
         name: 'ping',
         description: '[ 📚 Information ] Shows the bot latency.',
-        description_localizations: {
+        descriptionLocalizations: {
           'pt-BR': '[ 📚 Informação ] Veja a latência do bot.',
         },
       },

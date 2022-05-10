@@ -17,7 +17,7 @@ class CommandManager {
       for (const file of commandFiles) {
         const commandFile = await import(`${path}/../Commands/${folder}/${file}`);
         const command = new commandFile.default(this.client);
-        this.client.commands.push(command.name, command);
+        this.client.commands.push(command.rawName, command);
       }
     }
 

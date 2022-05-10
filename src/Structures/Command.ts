@@ -1,20 +1,18 @@
-import { AutocompleteInteraction } from 'discord.js';
+import { AutocompleteInteraction, ChatInputApplicationCommandData } from 'discord.js';
 import { TFunction } from 'i18next';
 import { SukiClient } from '../SukiClient';
-import { CommandOptions } from '../typings';
 import { CommandContext } from '.';
 
-class Command implements CommandOptions {
+class Command {
   client: SukiClient;
-  data: CommandOptions;
-  name: string;
-  description: string;
+  options: ChatInputApplicationCommandData;
+  rawName: string;
 
-  constructor(options: CommandOptions, client: SukiClient) {
+  constructor(data: ChatInputApplicationCommandData, client: SukiClient) {
     this.client = client;
-    this.data = options;
-    this.name = options.name;
-    this.description = options.description;
+
+    this.options = data;
+    this.rawName = data.name;
   }
 
   execute({ context, t }: CommandExecuteOptions): unknown {

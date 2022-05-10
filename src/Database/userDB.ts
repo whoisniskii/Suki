@@ -10,11 +10,6 @@ const userSchema = new Schema<User>({
     type: mongoose.SchemaTypes.String,
     required: true,
   },
-  locale: {
-    type: mongoose.SchemaTypes.String,
-    required: true,
-    default: 'en-US',
-  },
 });
 
 export default mongoose.model('user', userSchema);

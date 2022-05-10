@@ -28,7 +28,7 @@ export default class Ready {
       for (const file of commandFiles) {
         const commandFile = await import(`${path}/${folder}/${file}`);
         const command = new commandFile.default(this.client);
-        commands.push(command.data);
+        commands.push(command.options);
       }
     }
 
