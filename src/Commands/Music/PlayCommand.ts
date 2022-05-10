@@ -35,8 +35,6 @@ export default class PlayCommand extends Command {
     );
 
     this.config = {
-      autoDefer: true,
-      ephemeral: false,
       guildOnly: true,
     };
   }

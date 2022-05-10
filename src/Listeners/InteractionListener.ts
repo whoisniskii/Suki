@@ -1,21 +1,20 @@
 import { AutocompleteInteraction, CommandInteraction, Interaction } from 'discord.js';
 import { getFixedT } from 'i18next';
-import { CommandContext } from '../Structures';
+import { CommandContext, Event } from '../Structures';
 import { SukiClient } from '../SukiClient';
 
-export default class InteractionCreate {
-  client: SukiClient;
-  name: string;
+export default class InteractionCreateEvent extends Event {
+  eventName: string;
 
-  constructor(client: SukiClient) {
-    this.client = client;
-    this.name = 'interactionCreate';
+  constructor() {
+    super();
+    this.eventName = 'interactionCreate';
   }
 
-  async execute(interaction: Interaction) {
+  execute(client: SukiClient, interaction: Interaction) {
     if (interaction instanceof AutocompleteInteraction) {
       if (!interaction.member) return;
-      const cmd = this.client.commands.find(c => c.rawName === interaction.commandName);
+      const cmd = client.commands.find(c => c.rawName === interaction.commandName);
 
       if (!cmd) throw new Error(`Command ${interaction.commandName} does not exist!`);
 
@@ -30,9 +29,9 @@ export default class InteractionCreate {
     if (interaction instanceof CommandInteraction) {
       if (!interaction.isChatInputCommand()) return;
 
-      const t = getFixedT(interaction.locale);
+      const t = getFixedT(interaction.locale || 'en-US');
 
-      const cmd = this.client.commands.find(x => x.rawName === interaction.commandName);
+      const cmd = client.commands.find(x => x.rawName === interaction.commandName);
       if (!cmd) throw new Error(`Command ${interaction.commandName} does not exist!`);
 
       if (!interaction.inGuild() && cmd.config.guildOnly) {
@@ -40,10 +39,7 @@ export default class InteractionCreate {
         return;
       }
 
-      if (cmd.config.autoDefer) await interaction.deferReply({ ephemeral: cmd.config.ephemeral });
-
-      const context = new CommandContext(this.client, {
-        client: this.client,
+      const context = new CommandContext(client, {
         interaction,
       });
 

@@ -7,6 +7,7 @@ import {
   GuildTextBasedChannel,
   InteractionDeferReplyOptions,
   InteractionReplyOptions,
+  LocalizationMap,
   TextChannel,
   User,
   VoiceState,
@@ -26,6 +27,14 @@ class CommandContext {
 
   get user(): User {
     return this.interaction.user;
+  }
+
+  get userLocale(): LocalizationMap {
+    return this.interaction.locale as LocalizationMap;
+  }
+
+  get guildLocale(): LocalizationMap {
+    return this.interaction.guildLocale as LocalizationMap;
   }
 
   get member(): GuildMember | null | undefined {
@@ -70,7 +79,6 @@ class CommandContext {
 }
 
 interface CommandContextOptions {
-  client: SukiClient;
   interaction: CommandInteraction;
 }
 

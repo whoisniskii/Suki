@@ -9,11 +9,20 @@ export default class ShellCommand extends Command {
     super(
       {
         name: 'shell',
-        description: 'Shell Command',
+        description: '[ 🚀 Developers ] Run a code',
+        descriptionLocalizations: {
+          'pt-BR': '[ 🚀 Desenvolvedores ] Execute um código.',
+        },
         options: [
           {
             name: 'code',
-            description: 'Code',
+            nameLocalizations: {
+              'pt-BR': 'código',
+            },
+            description: 'Code to run',
+            descriptionLocalizations: {
+              'pt-BR': 'Código para executar',
+            },
             type: 3,
             required: true,
           },
@@ -23,8 +32,6 @@ export default class ShellCommand extends Command {
     );
 
     this.config = {
-      autoDefer: true,
-      ephemeral: false,
       guildOnly: false,
     };
   }

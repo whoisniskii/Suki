@@ -1,16 +1,16 @@
 import { Guild } from 'discord.js';
 import { SukiClient } from '../SukiClient';
+import { Event } from '../Structures';
 
-export default class GuildCreate {
-  client: SukiClient;
-  name: string;
+export default class GuildCreateEvent extends Event {
+  eventName: string;
 
-  constructor(client: SukiClient) {
-    this.client = client;
-    this.name = 'guildCreate';
+  constructor() {
+    super();
+    this.eventName = 'guildCreate';
   }
 
-  async execute(guild: Guild) {
-    await this.client.database.getGuild(guild.id);
+  async execute(client: SukiClient, guild: Guild) {
+    await client.database.getGuild(guild.id);
   }
 }

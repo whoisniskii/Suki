@@ -1,37 +1,22 @@
-/* eslint-disable new-cap */
-/* eslint-disable no-await-in-loop */
-import { readdirSync } from 'fs';
+import { ChatInputApplicationCommandData } from 'discord.js';
 import { SukiClient } from '../SukiClient';
+import { Event } from '../Structures';
 
-export default class Ready {
-  client: SukiClient;
-  name: string;
+export default class ReadyEvent extends Event {
+  eventName: string;
 
-  constructor(client: SukiClient) {
-    this.client = client;
-    this.name = 'ready';
+  constructor() {
+    super();
+    this.eventName = 'ready';
   }
 
-  async execute() {
-    console.log('\x1b[32m[CLIENT]\x1b[0m', `Client successfully logged in ${this.client.user?.username}#${this.client.user?.discriminator}.`);
+  async execute(client: SukiClient) {
+    console.log('\x1b[32m[CLIENT]\x1b[0m', `Client successfully logged in ${client.user?.username}#${client.user?.discriminator}.`);
 
-    this.client.connectLavaLink();
-    await this.registerSlashCommands(`${__dirname}/../Commands`);
-  }
+    client.connectLavaLink();
+    const commands = client.commands.filter(x => x.options).map(x => x.options) as ChatInputApplicationCommandData[];
 
-  async registerSlashCommands(path: string) {
-    const commands = [];
-    const commandFolders = readdirSync(path);
-
-    for (const folder of commandFolders) {
-      const commandFiles = readdirSync(`${path}/${folder}`);
-      for (const file of commandFiles) {
-        const commandFile = await import(`${path}/${folder}/${file}`);
-        const command = new commandFile.default(this.client);
-        commands.push(command.options);
-      }
-    }
-
-    await this.client.application?.commands.set(commands);
+    await client.application?.commands.set(commands);
+    console.log('\x1b[32m[COMMANDS]\x1b[0m', `Posted ${commands.length} commands to Discord!`);
   }
 }

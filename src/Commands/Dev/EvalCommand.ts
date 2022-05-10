@@ -7,11 +7,20 @@ export default class EvalCommand extends Command {
     super(
       {
         name: 'eval',
-        description: 'Eval command',
+        description: '[ 🚀 Developers ] Evaluates a code.',
+        descriptionLocalizations: {
+          'pt-BR': '[ 🚀 Desenvolvedores ] Execute um código.',
+        },
         options: [
           {
             name: 'code',
+            nameLocalizations: {
+              'pt-BR': 'código',
+            },
             description: 'Code to evaluate',
+            descriptionLocalizations: {
+              'pt-BR': 'Código para executar',
+            },
             type: 3,
             required: true,
           },
@@ -21,8 +30,6 @@ export default class EvalCommand extends Command {
     );
 
     this.config = {
-      autoDefer: true,
-      ephemeral: false,
       guildOnly: false,
     };
   }
