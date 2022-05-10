@@ -34,6 +34,10 @@ export default class ShellCommand extends Command {
     this.config = {
       guildOnly: false,
     };
+    this.permissions = {
+      bot: [],
+      user: [],
+    };
   }
 
   execute({ context, t }: CommandExecuteOptions) {

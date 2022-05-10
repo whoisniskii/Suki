@@ -1,6 +1,6 @@
-import { AutocompleteInteraction, CommandInteraction, Interaction } from 'discord.js';
-import { getFixedT } from 'i18next';
-import { CommandContext, Event } from '../Structures';
+import { AutocompleteInteraction, ChatInputCommandInteraction, CommandInteraction, GuildMember, Interaction, PermissionsBitField } from 'discord.js';
+import { getFixedT, TFunction } from 'i18next';
+import { Command, CommandContext, Event } from '../Structures';
 import { SukiClient } from '../SukiClient';
 
 export default class InteractionCreateEvent extends Event {
@@ -39,6 +39,11 @@ export default class InteractionCreateEvent extends Event {
         return;
       }
 
+      if (interaction.inGuild()) {
+        if (!InteractionCreateEvent.checkBotPermissions(interaction, cmd, t)) return;
+        if (!InteractionCreateEvent.checkMemberPermissions(interaction, cmd, t)) return;
+      }
+
       const context = new CommandContext(client, {
         interaction,
       });
@@ -49,5 +54,31 @@ export default class InteractionCreateEvent extends Event {
         interaction.editReply(`\`\`\`${error.message}\`\`\``);
       }
     }
+  }
+
+  static checkBotPermissions(interaction: ChatInputCommandInteraction, command: Command, t: TFunction): boolean {
+    if (command.permissions.bot.length === 0) return true;
+    if (!interaction.guild?.me?.permissions.has(command.permissions.bot)) {
+      const permissions = new PermissionsBitField(command.permissions.bot)
+        .toArray()
+        .map(p => t(`permissions:${p}`))
+        .join(', ');
+      interaction.reply({ content: `❌ ${interaction.user} **|** ${t('events:interactionCreate.permissions/bot/missing', { perms: `\`${permissions.toString()}\`` })}`, ephemeral: true });
+      return false;
+    }
+    return true;
+  }
+
+  static checkMemberPermissions(interaction: ChatInputCommandInteraction, command: Command, t: TFunction): boolean {
+    if (command.permissions.user.length === 0) return true;
+    if (!(interaction.member as GuildMember).permissions.has(command.permissions.user)) {
+      const permissions = new PermissionsBitField(command.permissions.user)
+        .toArray()
+        .map(p => t(`permissions:${p}`))
+        .join(', ');
+      interaction.reply({ content: `❌ ${interaction.user} **|** ${t('events:interactionCreate.permissions/user/missing', { perms: `\`${permissions.toString()}\`` })}`, ephemeral: true });
+      return false;
+    }
+    return true;
   }
 }

@@ -12,11 +12,6 @@ const guildSchema = new Schema<Guild>({
     required: true,
     unique: true,
   },
-  lang: {
-    type: mongoose.SchemaTypes.String,
-    default: 'en-US',
-    required: true,
-  },
   forever: {
     type: mongoose.SchemaTypes.Boolean,
     default: false,

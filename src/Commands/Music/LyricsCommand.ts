@@ -1,4 +1,4 @@
-import { EmbedBuilder } from 'discord.js';
+import { EmbedBuilder, PermissionFlagsBits } from 'discord.js';
 import { Command, CommandExecuteOptions } from '../../Structures';
 import { SukiClient } from '../../SukiClient';
 
@@ -46,6 +46,10 @@ export default class LyricsCommand extends Command {
 
     this.config = {
       guildOnly: true,
+    };
+    this.permissions = {
+      bot: [PermissionFlagsBits.EmbedLinks],
+      user: [],
     };
   }
 

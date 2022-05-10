@@ -1,3 +1,4 @@
+import { PermissionFlagsBits } from 'discord.js';
 import { Command, CommandExecuteOptions } from '../../Structures';
 import { SukiClient } from '../../SukiClient';
 
@@ -16,6 +17,10 @@ export default class PingCommand extends Command {
 
     this.config = {
       guildOnly: true,
+    };
+    this.permissions = {
+      bot: [],
+      user: [PermissionFlagsBits.ManageGuild],
     };
   }
 

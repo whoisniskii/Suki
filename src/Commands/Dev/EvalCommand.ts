@@ -32,6 +32,10 @@ export default class EvalCommand extends Command {
     this.config = {
       guildOnly: false,
     };
+    this.permissions = {
+      bot: [],
+      user: [],
+    };
   }
 
   async execute({ context, t }: CommandExecuteOptions) {

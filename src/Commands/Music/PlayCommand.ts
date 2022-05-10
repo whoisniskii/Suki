@@ -1,3 +1,4 @@
+import { PermissionFlagsBits } from 'discord.js';
 import { GuildPlayer } from '../../Music';
 import { AutoCompleteExecuteOptions, Command, CommandExecuteOptions } from '../../Structures';
 import { SukiClient } from '../../SukiClient';
@@ -36,6 +37,10 @@ export default class PlayCommand extends Command {
 
     this.config = {
       guildOnly: true,
+    };
+    this.permissions = {
+      bot: [PermissionFlagsBits.EmbedLinks],
+      user: [],
     };
   }
 

@@ -74,24 +74,6 @@ class DatabaseManager {
     guildDBData.remove();
   }
 
-  async getGuildLocale(id: string) {
-    const guildDBData = await this.client.guilds.fetch(id);
-
-    if (!guildDBData) return null;
-
-    let document = await this.guildDB.findOne({ id });
-
-    if (!document) {
-      document = new GuildDB({
-        guildID: id,
-        forever: false,
-        lang: 'en-US',
-      });
-    }
-
-    return document;
-  }
-
   loaderDatabase() {
     return connect(process.env.MONGODB_URI)
       .then(() => {

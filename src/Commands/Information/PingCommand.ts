@@ -17,6 +17,10 @@ export default class PingCommand extends Command {
     this.config = {
       guildOnly: false,
     };
+    this.permissions = {
+      bot: [],
+      user: [],
+    };
   }
 
   execute({ context, t }: CommandExecuteOptions) {

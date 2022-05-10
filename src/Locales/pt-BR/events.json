@@ -4,6 +4,8 @@
         "message": "Olá {{user}}, se você precisar de ajuda, utilize o comando **/ajuda**!"
     },
     "interactionCreate": {
+        "permissions/bot/missing": "Eu não tenho as permissões {{perms}} para executar este comando.",
+        "permissions/user/missing": "Você não tem as permissões {{perms}} para executar este comando.",
         "errors/guildOnly": "Este comando só pode ser executado em servidores."
     }
 }

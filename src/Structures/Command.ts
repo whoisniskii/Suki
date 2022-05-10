@@ -1,4 +1,4 @@
-import { AutocompleteInteraction, ChatInputApplicationCommandData } from 'discord.js';
+import { AutocompleteInteraction, ChatInputApplicationCommandData, PermissionResolvable } from 'discord.js';
 import { TFunction } from 'i18next';
 import { SukiClient } from '../SukiClient';
 import { CommandContext } from '.';
@@ -7,6 +7,11 @@ class Command {
   client: SukiClient;
   options: ChatInputApplicationCommandData;
   rawName: string;
+  permissions: {
+    bot: PermissionResolvable[];
+    user: PermissionResolvable[];
+  };
+
   config: {
     guildOnly: boolean;
   };
@@ -18,6 +23,10 @@ class Command {
     this.rawName = data.name;
     this.config = {
       guildOnly: true,
+    };
+    this.permissions = {
+      bot: [],
+      user: [],
     };
   }
 
