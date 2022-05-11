@@ -17,8 +17,8 @@ class EventManager {
       if (!file.endsWith('.js')) continue;
 
       const { default: EventClass }: { default: new () => Event } = await import(`${path}/${file}`);
-      const evt = new EventClass();
-      this.client.on(evt.eventName, (...rest: any[]) => evt.execute(this.client, ...rest));
+      const event = new EventClass();
+      this.client.on(event.eventName, (...args: any[]) => event.execute(this.client, ...args));
     }
 
     console.log('\x1b[32m[EVENTS]\x1b[0m', 'Events loaded successfully.');

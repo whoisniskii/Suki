@@ -8,8 +8,8 @@ class Event {
     this.eventName = '';
   }
 
-  execute(client: SukiClient, ...rest: any[]): Awaitable<any> {
-    return { client, rest };
+  execute(client: SukiClient, ...args: any[]): Awaitable<any> {
+    return { client, args };
   }
 }
 

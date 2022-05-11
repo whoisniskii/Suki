@@ -54,7 +54,7 @@ export default class LyricsCommand extends Command {
   }
 
   async execute({ context, t }: CommandExecuteOptions) {
-    let track = await context.musixmatch.searchTrack(context.options.get('song', true).value as string, context.options.get('artist', true).value as string);
+    let track = await context.musixmatch.searchTrack(context.options.getString('song', true), context.options.getString('artist', true));
 
     if (!context.options) {
       if (!context.player || !context.player.current) {

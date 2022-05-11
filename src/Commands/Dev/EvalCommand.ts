@@ -39,7 +39,7 @@ export default class EvalCommand extends Command {
   }
 
   async execute({ context, t }: CommandExecuteOptions) {
-    if (!this.client.developers.some(x => x === context.member?.id)) {
+    if (!this.client.developers.some(x => x === context.user.id)) {
       context.reply({ content: t('commands:shell.noPerm'), flags: 1 << 6 });
       return;
     }
@@ -55,7 +55,7 @@ export default class EvalCommand extends Command {
     };
 
     try {
-      let evaled = eval(context.options.get('code', true).value as string);
+      let evaled = eval(context.options.getString('code', true) as string);
 
       if (evaled instanceof Promise) {
         evaled = await evaled;

@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import {
+  ChatInputCommandInteraction,
   CommandInteraction,
   CommandInteractionOptionResolver,
   Guild,
@@ -18,7 +19,7 @@ import { MusixMatch } from '../APIS';
 
 class CommandContext {
   client: SukiClient;
-  interaction: CommandInteraction;
+  interaction: ChatInputCommandInteraction;
 
   constructor(client: SukiClient, options: CommandContextOptions) {
     this.client = client;
@@ -69,6 +70,10 @@ class CommandContext {
     return this.member?.voice as VoiceState;
   }
 
+  get database(): SukiClient['database'] {
+    return this.client.database;
+  }
+
   async reply(options: InteractionReplyOptions) {
     await this.interaction.reply(options);
   }
@@ -79,7 +84,7 @@ class CommandContext {
 }
 
 interface CommandContextOptions {
-  interaction: CommandInteraction;
+  interaction: ChatInputCommandInteraction;
 }
 
 export { CommandContext };

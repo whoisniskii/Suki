@@ -66,7 +66,7 @@ class PlayerHandler extends Vulkava {
         channel.send(player.lastPlayingMsgID).catch(() => {});
       }
 
-      if (player.trackRepeat === true) {
+      if (player.trackRepeat) {
         return;
       }
 

@@ -1,4 +1,4 @@
-import { AutocompleteInteraction, ChatInputApplicationCommandData, PermissionResolvable } from 'discord.js';
+import { AutocompleteInteraction, Awaitable, ChatInputApplicationCommandData, PermissionResolvable } from 'discord.js';
 import { TFunction } from 'i18next';
 import { SukiClient } from '../SukiClient';
 import { CommandContext } from '.';
@@ -30,11 +30,11 @@ class Command {
     };
   }
 
-  execute({ context, t }: CommandExecuteOptions): unknown {
+  execute({ context, t }: CommandExecuteOptions): Awaitable<any> {
     return { context, t };
   }
 
-  executeAutoComplete({ interaction, value, options }: AutoCompleteExecuteOptions): unknown {
+  executeAutoComplete({ interaction, value, options }: AutoCompleteExecuteOptions): Awaitable<any> {
     return { interaction, value, options };
   }
 }

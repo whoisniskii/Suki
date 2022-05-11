@@ -46,7 +46,7 @@ export default class ShellCommand extends Command {
       return;
     }
 
-    exec(context.options.get('code', true).value as string, async (_err, stdout, stderr) => {
+    exec(context.options.getString('code', true), async (_err, stdout, stderr) => {
       if (!stdout && !stderr) {
         context.reply({ content: t('commands:shell.noOutput'), flags: 1 << 6 });
         return;

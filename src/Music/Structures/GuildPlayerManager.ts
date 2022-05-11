@@ -25,7 +25,7 @@ class GuildPlayer {
     }
 
     try {
-      let music = context.options.get('song', true).value as string;
+      let music = context.options.getString('songs', true);
 
       if (!music) {
         const activity = context.member?.presence?.activities.find(x => x.name === 'Spotify');
@@ -86,7 +86,7 @@ class GuildPlayer {
 
         const regex = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\\+.~#?&//=]*)/;
 
-        regex.test(context.options.get('song', true).value as string) && embed.setURL(context.options.get('song', true).value as string);
+        regex.test(context.options.getString('song', true)) && embed.setURL(context.options.getString('song', true));
 
         context.reply({ embeds: [embed] });
       } else {

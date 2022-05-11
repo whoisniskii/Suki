@@ -30,14 +30,15 @@ export default class PingCommand extends Command {
       return;
     }
 
-    const guildDBData = await this.client.database.getGuild(context.player.guildId);
+    const guildDBData = await context.database.getGuild(context.player.guildId);
 
     if (!guildDBData?.forever) {
-      await this.client.database.guildDB.updateOne({ guildID: context.player.guildId }, { $set: { forever: true } });
+      await context.database.guildDB.updateOne({ guildID: context.player.guildId }, { $set: { forever: true } });
       context.reply(t('commands:247.forever'));
+      return;
     }
 
-    await this.client.database.guildDB.updateOne({ guildID: context.player.guildId }, { $set: { forever: false } });
+    await context.database.guildDB.updateOne({ guildID: context.player.guildId }, { $set: { forever: false } });
     context.reply(t('commands:247.off'));
     if (!context.player.playing) context.player.disconnect();
   }
