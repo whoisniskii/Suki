@@ -31,6 +31,11 @@ class SukiClient extends Client {
         repliedUser: false,
       },
       shards: 'auto',
+      presence: {
+        status: 'idle',
+        afk: false,
+      },
+      shardCount: 1,
     });
 
     this.commands = [];

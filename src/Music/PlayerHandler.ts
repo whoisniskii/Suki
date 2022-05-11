@@ -112,7 +112,7 @@ class PlayerHandler extends Vulkava {
     this.nodes.splice(this.nodes.indexOf(node), 1);
 
     const newNode = new Node(this, {
-      id: node.identifier as string,
+      id: node.identifier,
       hostname: node.options.hostname,
       port: node.options.port,
       password: node.options.password,

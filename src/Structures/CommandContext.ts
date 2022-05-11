@@ -1,7 +1,5 @@
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import {
   ChatInputCommandInteraction,
-  CommandInteraction,
   CommandInteractionOptionResolver,
   Guild,
   GuildMember,
@@ -43,7 +41,7 @@ class CommandContext {
   }
 
   get guild(): Guild {
-    return this.interaction.guild as Guild;
+    return this.interaction.guild ?? (this.client.guilds.cache.get(this.interaction.guildId as string) as Guild);
   }
 
   get channel(): TextChannel | GuildTextBasedChannel {
@@ -52,10 +50,6 @@ class CommandContext {
 
   get player(): Player {
     return (this.client.music.players.get(this.guild.id) as Player) || null;
-  }
-
-  get application(): CommandInteraction {
-    return this.interaction;
   }
 
   get options(): CommandInteractionOptionResolver {
