@@ -35,7 +35,7 @@ export default class InteractionCreateEvent extends Event {
       if (!cmd) throw new Error(`Command ${interaction.commandName} does not exist!`);
 
       if (!interaction.inGuild() && cmd.config.guildOnly) {
-        interaction.reply({ content: `❌ ${interaction.user} **|** ${t('events:interactionCreate.errors/guildOnly')}`, ephemeral: true });
+        interaction.reply({ content: `❌ ${interaction.user} **|** ${t('events:interactionCreate/permissions/guildOnly')}`, ephemeral: true });
         return;
       }
 
@@ -63,7 +63,7 @@ export default class InteractionCreateEvent extends Event {
         .toArray()
         .map(p => t(`permissions:${p}`))
         .join(', ');
-      interaction.reply({ content: `❌ ${interaction.user} **|** ${t('events:interactionCreate.permissions/bot/missing', { perms: `\`${permissions.toString()}\`` })}`, ephemeral: true });
+      interaction.reply({ content: `❌ ${interaction.user} **|** ${t('events:interactionCreate/permissions/bot/missing', { perms: `\`${permissions.toString()}\`` })}`, ephemeral: true });
       return false;
     }
     return true;
@@ -76,7 +76,7 @@ export default class InteractionCreateEvent extends Event {
         .toArray()
         .map(p => t(`permissions:${p}`))
         .join(', ');
-      interaction.reply({ content: `❌ ${interaction.user} **|** ${t('events:interactionCreate.permissions/user/missing', { perms: `\`${permissions.toString()}\`` })}`, ephemeral: true });
+      interaction.reply({ content: `❌ ${interaction.user} **|** ${t('events:interactionCreate/permissions/user/missing', { perms: `\`${permissions.toString()}\`` })}`, ephemeral: true });
       return false;
     }
     return true;

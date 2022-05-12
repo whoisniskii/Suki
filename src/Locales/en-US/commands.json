@@ -1,36 +1,26 @@
 {
-    "test": {
-        "success": "done"
-    },
-    "ping": {
-        "success": "**API Ping**: {{ping}}ms"
-    },
-    "play": {
-        "noChannel": ":x: | You're not on a voice channel or you're not on the same channel as me",
-        "noArgs": ":x: | You need to put a song or url for me to play!",
-        "failed": ":x: | Sorry but the link/name you entered is not valid.",
-        "noMatches": ":x: | I didn't find the song you ant.",
-        "embed": {
-            "duration": "Duration",
-            "amountTracks": "Number of songs",
-            "amount": "**{{tracks}}** songs"
-        },
-        "queue": "Song \"{{track}}\"' by \"{{author}}\" added to play queue."
-    },
-    "shell": {
-        "noPerm": "You cannot use this command!",
-        "noCode": "Enter the code!",
-        "noOutput": "No output!",
-        "Output": "Output: {{code}}",
-        "Error": "Error: {{code}}"
-    },
-    "247": {
-        "noPlayer": "I'm not playing music on this server.",
-        "forever": "24/7 successfully activated.",
-        "off": "24/7 successfully disabled."
-    },
-    "lyrics": {
-        "not_found": "I couldn't find any lyrics for this song.",
-        "no_player": "I'm not playing music on this server."
-    }
+    "ping/success": ":ping_pong: **|** API Ping: {{ping}}ms",
+
+    "play/error/noChannel": ":x: **|** You're not on a voice channel or you're not on the same channel as me",
+    "play/error/noArgs": ":x: **|** You need to put a song or url for me to play!",
+    "play/error/invalidLink": ":x: **|** Sorry but the link/name you entered is not valid.",
+    "play/error/noMatches": ":x: **|** I didn't find the song you ant.",
+    "play/embed/field/duration": "Duration",
+    "play/embed/field/amountTracks": "Number of songs",
+    "play/embed/value/amount": "**{{tracks}}** songs",
+    "play/queue": "Song \"{{track}}\" by \"{{author}}\" added to play queue.",
+
+    "eval/error/noPerm": ":x: **|** You cannot use this command!",
+    "eval/output": ":white_check_mark: **|** Output: {{code}}",
+    "eval/error": ":x: **|** Error: {{code}}",
+
+    "shell/error/noPerm": ":x: **|** You cannot use this command!",
+    "shell/error/noOutput": ":x: **|** No output!",
+
+    "247/error/noPlayer": ":x: **|** I'm not playing music on this server.",
+    "247/on": ":white_check_mark: **|** 24/7 successfully activated.",
+    "247/off": ":white_check_mark: **|** 24/7 successfully disabled.",
+
+    "lyrics/error/noPlayer": ":x: **|** I'm not playing music on this server.",
+    "lyrics/error/notFound": ":x: **|** I couldn't find any lyrics for this song."
 }

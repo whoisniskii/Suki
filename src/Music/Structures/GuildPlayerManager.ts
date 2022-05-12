@@ -15,23 +15,23 @@ class GuildPlayer {
     const voiceChannelID = context.voice?.channelId;
 
     if (!voiceChannelID) {
-      context.reply({ content: t('commands:play.noChannel'), flags: 64 });
+      context.reply({ content: t('commands:play/error/noChannel'), flags: 64 });
       return;
     }
 
     if (context.player && voiceChannelID !== context.player.voiceChannelId) {
-      context.reply({ content: t('commands:play.noChannel'), flags: 64 });
+      context.reply({ content: t('commands:play/error/noChannel'), flags: 64 });
       return;
     }
 
     try {
-      let music = context.options.getString('songs', true);
+      let music = context.options.getString('song', true);
 
       if (!music) {
         const activity = context.member?.presence?.activities.find(x => x.name === 'Spotify');
 
         if (!activity) {
-          context.reply({ content: t('commands:play.noArgs'), flags: 64 });
+          context.reply({ content: t('commands:play/error/noArgs'), flags: 64 });
           return;
         }
 
@@ -41,12 +41,12 @@ class GuildPlayer {
       const result = await this.client.music.search(music, 'youtube');
 
       if (result.loadType === 'LOAD_FAILED') {
-        context.reply({ content: t('commands:play.failed'), flags: 64 });
+        context.reply({ content: t('commands:play/error/invalidLink'), flags: 64 });
         return;
       }
 
       if (result.loadType === 'NO_MATCHES') {
-        context.reply({ content: t('commands:play.noMatches'), flags: 64 });
+        context.reply({ content: t('commands:play/error/noMatches'), flags: 64 });
         return;
       }
 
@@ -73,13 +73,13 @@ class GuildPlayer {
           .setColor(10105592)
           .addFields([
             {
-              name: t('commands:play.embed.duration'),
+              name: t('commands:play/embed/field/duration'),
               value: dayjs(result.playlistInfo?.duration).format('DD:HH:mm'),
               inline: true,
             },
             {
-              name: t('commands:play.embed.amountTracks'),
-              value: `${t('commands:play.embed.amount', { tracks: result.tracks.length.toString() })}`,
+              name: t('commands:play/embed/field/amountTracks'),
+              value: `${t('commands:play/embed/value/amount', { tracks: result.tracks.length.toString() })}`,
             },
           ])
           .setFooter({ text: `${context.user.username}#${context.user.discriminator}`, iconURL: context.user.displayAvatarURL() });
@@ -97,7 +97,7 @@ class GuildPlayer {
 
         if (!player.playing) player.play();
 
-        context.reply(t('commands:play.queue', { track: msc.title, author: msc.author }));
+        context.reply(t('commands:play/queue', { track: msc.title, author: msc.author }));
       }
     } catch (error) {
       throw new Error('Error while playing music');

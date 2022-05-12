@@ -65,7 +65,7 @@ export default class LyricsCommand extends Command {
         }
 
         if (!activity) {
-          context.reply(t('commands:lyrics.no_player'));
+          context.reply(t('commands:lyrics/error/noPlayer'));
           return;
         }
 
@@ -76,14 +76,14 @@ export default class LyricsCommand extends Command {
     }
 
     if (!track) {
-      context.reply(t('commands:lyrics.not_found'));
+      context.reply(t('commands:lyrics/error/notFound'));
       return;
     }
 
     const lyrics = await context.musixmatch.getLyrics(track.track_id);
 
     if (!lyrics) {
-      context.reply(t('commands:lyrics.not_found'));
+      context.reply(t('commands:lyrics/error/notFound'));
       return;
     }
 

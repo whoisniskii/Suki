@@ -7,9 +7,9 @@ export default class EvalCommand extends Command {
     super(
       {
         name: 'eval',
-        description: '[ 🚀 Developers ] Evaluates a code.',
+        description: '[ 🚀 Developers ] Evaluates JavaScript code and executes it.',
         descriptionLocalizations: {
-          'pt-BR': '[ 🚀 Desenvolvedores ] Execute um código.',
+          'pt-BR': '[ 🚀 Desenvolvedores ] Executa um código JavaScript e retorna o seu resultado.',
         },
         options: [
           {
@@ -40,7 +40,7 @@ export default class EvalCommand extends Command {
 
   async execute({ context, t }: CommandExecuteOptions) {
     if (!this.client.developers.some(x => x === context.user.id)) {
-      context.reply({ content: t('commands:shell.noPerm'), flags: 1 << 6 });
+      context.reply({ content: t('commands:eval/error/noPerm'), flags: 1 << 6 });
       return;
     }
 
@@ -62,7 +62,7 @@ export default class EvalCommand extends Command {
       }
 
       context.reply(
-        t('commands:shell.Output', {
+        t('commands:eval/output', {
           code: `\`\`\`js\n${clean(
             inspect(evaled, { depth: 0 })
               .replace(new RegExp(this.client.token as string, 'gi'), '******************')
@@ -71,7 +71,7 @@ export default class EvalCommand extends Command {
         }),
       );
     } catch (error: any) {
-      context.reply(t('commands:shell.Error', { code: `\`\`\`js\n${String(error.stack.slice(0, 1970))}\n\`\`\`` }));
+      context.reply(t('commands:eval/error', { code: `\`\`\`js\n${String(error.stack.slice(0, 1970))}\n\`\`\`` }));
     }
   }
 }

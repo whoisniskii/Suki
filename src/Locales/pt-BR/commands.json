@@ -1,36 +1,26 @@
 {
-    "test": {
-        "success": "foi"
-    },
-    "ping": {
-        "success": "Ping da API: **{{ping}}ms**"
-    },
-    "play": {
-        "noChannel": ":x: | Você não está em um canal de voz ou não está no mesmo canal que eu",
-        "noArgs": ":x: | Você precisa inserir o nome/url da música para eu começar a tocar",
-        "failed": ":x: | Desculpe mas o link/nome que você inseriu não é válido.",
-        "noMatches": ":x: | Eu não achei a música que você quer.",
-        "embed": {
-            "duration": "Duração",
-            "amountTracks": "Quantidade de músicas",
-            "amount": "**{{tracks}}** Músicas"
-        },
-        "queue": "Música \"{{track}}\" por \"{{author}}\" adicionada a fila de reprodução."
-    },
-    "shell": {
-        "noPerm": "Você não tem permissão para usar este comando!",
-        "noCode": "Insira o código!",
-        "noOutput": "Não há saída para este código!",
-        "Output": "Saída do código: {{code}}",
-        "Error": "Erro: {{code}}"
-    },
-    "247": {
-        "noPlayer": "Eu não estou tocando música neste servidor.",
-        "forever": "24/7 ativado com sucesso.",
-        "off": "24/7 desativado com sucesso."
-    },
-    "lyrics": {
-        "not_found": "Eu não consegui encontrar a letra dessa música.",
-        "no_player": "Eu não estou tocando música neste servidor."
-    }
+    "ping/success": ":ping_pong: **|** Ping da API: **{{ping}}ms**",
+
+    "play/error/noChannel": ":x: **|** Você não está em um canal de voz ou não está no mesmo canal que eu.",
+    "play/error/noArgs": ":x: **|** Você precisa inserir o nome/url da música para eu começar a tocar.",
+    "play/error/invalidLink": ":x: **|** Desculpe mas o link/nome que você inseriu não é válido.",
+    "play/error/noMatches": ":x: **|** Eu não achei a música que você quer.",
+    "play/embed/field/duration": "Duração",
+    "play/embed/field/amountTracks": "Quantidade de músicas",
+    "play/embed/value/amount": "**{{tracks}}** Músicas",
+    "play/queue": "Música \"{{track}}\" por \"{{author}}\" adicionada a fila de reprodução.",
+
+    "eval/error/noPerm": ":x: **|** Você não tem permissão para usar este comando!",
+    "eval/output": ":white_check_mark: **|** Saída do código: {{code}}",
+    "eval/error": ":x: **|** Erro: {{code}}",
+
+    "shell/error/noPerm": ":x: **|** Você não tem permissão para usar este comando!",
+    "shell/error/noOutput": ":x: **|** Não há saída para este código!",
+
+    "247/error/noPlayer": ":x: **|** Eu não estou tocando música neste servidor..",
+    "247/on": ":white_check_mark: **|** 24/7 ativado com sucesso.",
+    "247/off": ":white_check_mark: **|** 24/7 desativado com sucesso.",
+
+    "lyrics/error/noPlayer": ":x: **|** Eu não estou tocando música neste servidor.",
+    "lyrics/error/notFound": ":x: **|** Eu não consegui encontrar a letra dessa música."
 }

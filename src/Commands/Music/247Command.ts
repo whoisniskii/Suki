@@ -26,7 +26,7 @@ export default class PingCommand extends Command {
 
   async execute({ context, t }: CommandExecuteOptions) {
     if (!context.player) {
-      context.reply(t('commands.247.noPlayer'));
+      context.reply(t('commands:247/error/noPlayer'));
       return;
     }
 
@@ -34,12 +34,12 @@ export default class PingCommand extends Command {
 
     if (!guildDBData?.forever) {
       await context.database.guildDB.updateOne({ guildID: context.player.guildId }, { $set: { forever: true } });
-      context.reply(t('commands:247.forever'));
+      context.reply(t('commands:247/on'));
       return;
     }
 
     await context.database.guildDB.updateOne({ guildID: context.player.guildId }, { $set: { forever: false } });
-    context.reply(t('commands:247.off'));
+    context.reply(t('commands:247/off'));
     if (!context.player.playing) context.player.disconnect();
   }
 }

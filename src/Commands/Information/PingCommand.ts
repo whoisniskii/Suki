@@ -24,6 +24,6 @@ export default class PingCommand extends Command {
   }
 
   execute({ context, t }: CommandExecuteOptions) {
-    context.reply(t('ping.success', { ping: this.client.ws.ping.toString() ?? '0' }));
+    context.reply(t('commands:ping/success', { ping: this.client.ws.ping.toString() ?? '0' }));
   }
 }
