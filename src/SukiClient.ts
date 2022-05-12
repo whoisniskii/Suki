@@ -46,7 +46,7 @@ class SukiClient extends Client {
   }
 
   connectLavaLink(): void {
-    this.on('rawWS', packet => this.music.handleVoiceUpdate(packet));
+    this.on('raw', packet => this.music.handleVoiceUpdate(packet));
     this.music.start(this.user?.id as string);
   }
 
