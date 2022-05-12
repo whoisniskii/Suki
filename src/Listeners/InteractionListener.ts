@@ -34,11 +34,6 @@ export default class InteractionCreateEvent extends Event {
       const cmd = client.commands.find(x => x.rawName === interaction.commandName);
       if (!cmd) throw new Error(`Command ${interaction.commandName} does not exist!`);
 
-      if (!interaction.inGuild() && cmd.config.guildOnly) {
-        interaction.reply({ content: `❌ ${interaction.user} **|** ${t('events:interactionCreate/permissions/guildOnly')}`, ephemeral: true });
-        return;
-      }
-
       if (interaction.inGuild()) {
         if (!InteractionCreateEvent.checkBotPermissions(interaction, cmd, t)) return;
         if (!InteractionCreateEvent.checkMemberPermissions(interaction, cmd, t)) return;

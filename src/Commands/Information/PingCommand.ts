@@ -10,13 +10,11 @@ export default class PingCommand extends Command {
         descriptionLocalizations: {
           'pt-BR': '[ 📚 Informação ] Veja a latência do bot.',
         },
+        dmPermission: true,
       },
       client,
     );
 
-    this.config = {
-      guildOnly: false,
-    };
     this.permissions = {
       bot: [],
       user: [],

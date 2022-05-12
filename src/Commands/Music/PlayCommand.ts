@@ -1,4 +1,4 @@
-import { PermissionFlagsBits } from 'discord.js';
+import { ApplicationCommandOptionType, PermissionFlagsBits } from 'discord.js';
 import { GuildPlayer } from '../../Music';
 import { AutoCompleteExecuteOptions, Command, CommandExecuteOptions } from '../../Structures';
 import { SukiClient } from '../../SukiClient';
@@ -26,18 +26,16 @@ export default class PlayCommand extends Command {
             descriptionLocalizations: {
               'pt-BR': 'Música/Playlist URL/Nome',
             },
-            type: 3,
+            type: ApplicationCommandOptionType.String,
             required: true,
             autocomplete: true,
           },
         ],
+        dmPermission: false,
       },
       client,
     );
 
-    this.config = {
-      guildOnly: true,
-    };
     this.permissions = {
       bot: [PermissionFlagsBits.EmbedLinks],
       user: [],

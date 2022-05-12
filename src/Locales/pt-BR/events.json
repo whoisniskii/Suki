@@ -1,5 +1,4 @@
 {
-    "interactionCreate/permissions/guildOnly": "Este comando só pode ser executado em servidores.",
     "interactionCreate/permissions/bot/missing": "Eu não tenho as permissões {{perms}} para executar este comando.",
     "interactionCreate/permissions/user/missing": "Você não tem as permissões {{perms}} para executar este comando."
 }

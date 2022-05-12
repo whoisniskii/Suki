@@ -1,3 +1,4 @@
+import { ApplicationCommandOptionType } from 'discord.js';
 import { inspect } from 'util';
 import { Command, CommandExecuteOptions } from '../../Structures';
 import { SukiClient } from '../../SukiClient';
@@ -21,17 +22,15 @@ export default class EvalCommand extends Command {
             descriptionLocalizations: {
               'pt-BR': 'Código para executar',
             },
-            type: 3,
+            type: ApplicationCommandOptionType.String,
             required: true,
           },
         ],
+        dmPermission: true,
       },
       client,
     );
 
-    this.config = {
-      guildOnly: false,
-    };
     this.permissions = {
       bot: [],
       user: [],

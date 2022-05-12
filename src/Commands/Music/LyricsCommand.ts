@@ -1,4 +1,4 @@
-import { EmbedBuilder, PermissionFlagsBits } from 'discord.js';
+import { ApplicationCommandOptionType, EmbedBuilder, PermissionFlagsBits } from 'discord.js';
 import { Command, CommandExecuteOptions } from '../../Structures';
 import { SukiClient } from '../../SukiClient';
 
@@ -24,7 +24,7 @@ export default class LyricsCommand extends Command {
             descriptionLocalizations: {
               'pt-BR': 'Nome da música',
             },
-            type: 3,
+            type: ApplicationCommandOptionType.String,
             required: false,
           },
           {
@@ -36,17 +36,15 @@ export default class LyricsCommand extends Command {
             descriptionLocalizations: {
               'pt-BR': 'Nome do artista',
             },
-            type: 3,
+            type: ApplicationCommandOptionType.String,
             required: false,
           },
         ],
+        dmPermission: false,
       },
       client,
     );
 
-    this.config = {
-      guildOnly: true,
-    };
     this.permissions = {
       bot: [PermissionFlagsBits.EmbedLinks],
       user: [],

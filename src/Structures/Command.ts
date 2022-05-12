@@ -12,18 +12,11 @@ class Command {
     user: PermissionResolvable[];
   };
 
-  config: {
-    guildOnly: boolean;
-  };
-
   constructor(data: ChatInputApplicationCommandData, client: SukiClient) {
     this.client = client;
 
     this.options = data;
     this.rawName = data.name;
-    this.config = {
-      guildOnly: true,
-    };
     this.permissions = {
       bot: [],
       user: [],

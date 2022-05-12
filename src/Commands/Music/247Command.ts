@@ -11,13 +11,11 @@ export default class PingCommand extends Command {
         descriptionLocalizations: {
           'pt-BR': '[ 🎵 Música ] Faça o player atual nunca se desconectar.',
         },
+        dmPermission: false,
       },
       client,
     );
 
-    this.config = {
-      guildOnly: true,
-    };
     this.permissions = {
       bot: [],
       user: [PermissionFlagsBits.ManageGuild],

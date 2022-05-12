@@ -1,5 +1,6 @@
 /* eslint-disable no-control-regex */
 import { exec } from 'child_process';
+import { ApplicationCommandOptionType } from 'discord.js';
 import { Command, CommandExecuteOptions } from '../../Structures';
 import { SukiClient } from '../../SukiClient';
 
@@ -23,17 +24,15 @@ export default class ShellCommand extends Command {
             descriptionLocalizations: {
               'pt-BR': 'Código para executar',
             },
-            type: 3,
+            type: ApplicationCommandOptionType.String,
             required: true,
           },
         ],
+        dmPermission: true,
       },
       client,
     );
 
-    this.config = {
-      guildOnly: false,
-    };
     this.permissions = {
       bot: [],
       user: [],
