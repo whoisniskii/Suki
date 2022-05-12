@@ -97,7 +97,7 @@ class GuildPlayer {
 
         if (!player.playing) player.play();
 
-        context.reply(t('commands:play/queue', { track: msc.title, author: msc.author }));
+        context.reply(t('commands:play/queue', { track: `\`${msc.title}\``, author: `\`${msc.author}\`` }));
       }
     } catch (error) {
       throw new Error('Error while playing music');
