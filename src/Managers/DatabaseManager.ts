@@ -26,7 +26,6 @@ class DatabaseManager {
     if (!document) {
       document = new UserDB({
         id,
-        locale: 'en-US',
       });
     }
 
@@ -53,7 +52,6 @@ class DatabaseManager {
     if (!document) {
       document = new GuildDB({
         guildID: id,
-        lang: 'en-US',
         forever: false,
       });
     }

@@ -39,9 +39,7 @@ export default class InteractionCreateEvent extends Event {
         if (!InteractionCreateEvent.checkMemberPermissions(interaction, cmd, t)) return;
       }
 
-      const context = new CommandContext(client, {
-        interaction,
-      });
+      const context = new CommandContext(client, interaction);
 
       try {
         cmd.execute({ context, t });

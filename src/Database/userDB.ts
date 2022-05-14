@@ -2,7 +2,6 @@ import mongoose, { Schema } from 'mongoose';
 
 export interface User {
   id: string;
-  locale: string;
 }
 
 const userSchema = new Schema<User>({

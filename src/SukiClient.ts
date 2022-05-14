@@ -59,11 +59,6 @@ class SukiClient extends Client {
     process.on('uncaughtException', err => console.log(err));
 
     process.on('unhandledRejection', err => console.log(err));
-
-    if (this.user?.id === process.env.CLIENT_TEST_ID) {
-      this.rest.on('request', _request => console.log('\x1b[32m[REQUEST]\x1b[0m', `${_request.method} ${_request.path}`));
-      this.rest.on('response', (_req, response) => console.log('\x1b[32m[RESPONSE]\x1b[0m', `${_req.method} ${_req.path}, ${response.status}: (${this.ws.ping}ms avg)`));
-    }
   }
 }
 

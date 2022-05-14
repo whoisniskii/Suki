@@ -2,7 +2,6 @@ import mongoose, { Schema } from 'mongoose';
 
 export interface Guild {
   guildID: string;
-  lang: string;
   forever: boolean;
 }
 

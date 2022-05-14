@@ -70,7 +70,7 @@ class GuildPlayer {
         const embed = new EmbedBuilder()
           .setTitle(`${result.playlistInfo.name}`)
           .setTimestamp()
-          .setColor(10105592)
+          .setColor('Purple')
           .addFields([
             {
               name: t('commands:play/embed/field/duration'),

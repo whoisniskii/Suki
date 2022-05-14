@@ -1,5 +1,6 @@
 import {
   ChatInputCommandInteraction,
+  CommandInteraction,
   CommandInteractionOptionResolver,
   Guild,
   GuildMember,
@@ -18,10 +19,11 @@ import { MusixMatch } from '../APIS';
 class CommandContext {
   client: SukiClient;
   interaction: ChatInputCommandInteraction;
+  deferred: boolean;
 
-  constructor(client: SukiClient, options: CommandContextOptions) {
+  constructor(client: SukiClient, interaction: ChatInputCommandInteraction) {
     this.client = client;
-    this.interaction = options.interaction;
+    this.interaction = interaction;
   }
 
   get user(): User {
@@ -69,16 +71,23 @@ class CommandContext {
   }
 
   async reply(options: InteractionReplyOptions) {
-    await this.interaction.reply(options);
+    if (this.deferred) {
+      await this.interaction.editReply(options);
+    } else {
+      await this.interaction.reply(options);
+    }
   }
 
   async deferReply(options: InteractionDeferReplyOptions) {
     await this.interaction.deferReply(options);
   }
-}
 
-interface CommandContextOptions {
-  interaction: ChatInputCommandInteraction;
+  async defer() {
+    if (this.interaction instanceof CommandInteraction) {
+      await this.interaction.deferReply({ fetchReply: true });
+      this.deferred = true;
+    }
+  }
 }
 
 export { CommandContext };

@@ -2,7 +2,6 @@ import { ApplicationCommandOptionType, PermissionFlagsBits } from 'discord.js';
 import { GuildPlayer } from '../../Music';
 import { AutoCompleteExecuteOptions, Command, CommandExecuteOptions } from '../../Structures';
 import { SukiClient } from '../../SukiClient';
-import { Choices } from '../../typings/index';
 
 export default class PlayCommand extends Command {
   constructor(client: SukiClient) {
@@ -79,4 +78,9 @@ export default class PlayCommand extends Command {
 
     interaction.respond(choices);
   }
+}
+
+interface Choices {
+  name: string;
+  value: string;
 }

@@ -8,7 +8,7 @@ export default class LyricsCommand extends Command {
       {
         name: 'lyrics',
         nameLocalizations: {
-          'pt-BR': 'letra',
+          'pt-BR': 'letras',
         },
         description: '[ 🎵 Music ] Shows the lyrics of a song.',
         descriptionLocalizations: {
@@ -52,14 +52,16 @@ export default class LyricsCommand extends Command {
   }
 
   async execute({ context, t }: CommandExecuteOptions) {
-    let track = await context.musixmatch.searchTrack(context.options.getString('song', true), context.options.getString('artist', true));
+    await context.defer();
+    let result;
 
-    if (!context.options) {
+    if (!context.options.getString('song', false) && !context.options.getString('artist', false)) {
       if (!context.player || !context.player.current) {
         const activity = context.member?.presence?.activities?.find(a => a.name === 'Spotify');
 
         if (activity && activity.details) {
-          track = await context.musixmatch.searchTrack(activity?.details as string, activity?.state as string);
+          const artist = activity.state?.replace(';', ',');
+          result = await this.lyrics(activity.details, artist as string);
         }
 
         if (!activity) {
@@ -68,33 +70,42 @@ export default class LyricsCommand extends Command {
         }
 
         if (context.player && context.player.current) {
-          track = await context.musixmatch.searchTrack(context.player.current.title, context.player.current.author);
+          result = await this.lyrics(context.player.current.title, context.player.current.author);
         }
       }
     }
 
-    if (!track) {
-      context.reply(t('commands:lyrics/error/notFound'));
-      return;
+    if (context.options.getString('song', false) && context.options.getString('artist', false)) {
+      result = await this.lyrics(context.options.getString('song', false) as string, context.options.getString('artist', false) as string);
     }
 
-    const lyrics = await context.musixmatch.getLyrics(track.track_id);
-
-    if (!lyrics) {
+    if (!result?.song) {
       context.reply(t('commands:lyrics/error/notFound'));
       return;
     }
 
     const embed = new EmbedBuilder()
       .setAuthor({
-        name: `${track.track_name} - ${track.artist_name}`,
-        url: track.track_share_url,
+        name: `${result.name}`,
       })
       .setTimestamp()
-      .setColor(10105592)
-      .setDescription(lyrics.lyrics_body.replace(/\n/g, '\n').slice(0, 4000))
-      .setFooter({ text: `${lyrics.lyrics_copyright.slice(0, 37)}`, iconURL: 'https://imgur.com/aLTdLUT.png' });
+      .setColor('Purple')
+      .setDescription(result.song.lyrics_body.replace(/\n/g, '\n').slice(0, 4000))
+      .setFooter({ text: `${result.song.lyrics_copyright.slice(0, 37)}`, iconURL: 'https://imgur.com/aLTdLUT.png' });
 
     context.reply({ embeds: [embed] });
+  }
+
+  async lyrics(track: string, artist: string) {
+    const song = await this.client.music.musixmatch.matchLyrics({ track, artist });
+
+    const name = `${track} - ${artist}`.replace(/feat.|ft./g, '').trim();
+
+    const data = {
+      song,
+      name,
+    };
+
+    return data;
   }
 }

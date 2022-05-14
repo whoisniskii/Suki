@@ -1,8 +1,3 @@
-interface Choices {
-  name: string;
-  value: string;
-}
-
 import 'vulkava';
 
 declare module 'vulkava' {
