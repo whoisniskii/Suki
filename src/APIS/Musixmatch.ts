@@ -10,18 +10,18 @@ class MusixMatch {
     this.client = client;
   }
 
-  async getTrack(params: string) {
-    const result = await this.client.request(`${BASE_URL}/track.get?track_isrc=${params}&apikey=${this.apiKey}`).then(res => res.body.json());
+  async matchTrack(options: MatchTrackOptions) {
+    const req = await this.client
+      .request(`${BASE_URL}/matcher.track.get?q_track=${encodeURIComponent(options.track)}&q_artist=${encodeURIComponent(options.artist)}&apikey=${this.apiKey}`)
+      .then(res => res.body.json());
 
-    if (!result.message.body.track) return null;
+    if (!req.message.body) return null;
 
-    return result.message.body.track;
+    return req.message.body.track;
   }
 
-  async matchLyrics(options: GetLyricsOptions) {
-    const req = await this.client
-      .request(`${BASE_URL}/matcher.lyrics.get?q_track=${encodeURIComponent(options.track)}&q_artist=${encodeURIComponent(options.artist)}&apikey=${this.apiKey}`)
-      .then(res => res.body.json());
+  async getLyrics(id: string) {
+    const req = await this.client.request(`${BASE_URL}/track.lyrics.get?commontrack_id=${id}&apikey=${this.apiKey}`).then(res => res.body.json());
 
     if (!req.message.body) return null;
 
@@ -29,10 +29,10 @@ class MusixMatch {
   }
 }
 
-export interface GetLyricsOptions {
+interface MatchTrackOptions {
   track: string;
   artist: string;
-  isrc?: string;
+  album?: string;
 }
 
 export { MusixMatch };

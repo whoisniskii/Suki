@@ -1,4 +1,4 @@
-import { ApplicationCommandOptionType, EmbedBuilder, PermissionFlagsBits } from 'discord.js';
+import { ApplicationCommandOptionType, EmbedBuilder, GuildMember, PermissionFlagsBits } from 'discord.js';
 import { Command, CommandExecuteOptions } from '../../Structures';
 import { SukiClient } from '../../SukiClient';
 
@@ -39,6 +39,18 @@ export default class LyricsCommand extends Command {
             type: ApplicationCommandOptionType.String,
             required: false,
           },
+          {
+            name: 'member',
+            nameLocalizations: {
+              'pt-BR': 'membro',
+            },
+            description: 'Member',
+            descriptionLocalizations: {
+              'pt-BR': 'Membro',
+            },
+            type: ApplicationCommandOptionType.User,
+            required: false,
+          },
         ],
         dmPermission: false,
       },
@@ -57,11 +69,11 @@ export default class LyricsCommand extends Command {
 
     if (!context.options.getString('song', false) && !context.options.getString('artist', false)) {
       if (!context.player || !context.player.current) {
-        const activity = context.member?.presence?.activities?.find(a => a.name === 'Spotify');
+        const member = (context.options.getMember('member') as GuildMember) ?? context.member;
+        const activity = member.presence?.activities?.find(a => a.name === 'Spotify');
 
         if (activity && activity.details) {
-          const artist = activity.state?.replace(';', ',');
-          result = await this.lyrics(activity.details, artist as string);
+          result = await this.getLyrics(activity.details, activity.state as string);
         }
 
         if (!activity) {
@@ -70,42 +82,47 @@ export default class LyricsCommand extends Command {
         }
 
         if (context.player && context.player.current) {
-          result = await this.lyrics(context.player.current.title, context.player.current.author);
+          result = await this.getLyrics(context.player.current.title, context.player.current.author);
         }
       }
     }
 
     if (context.options.getString('song', false) && context.options.getString('artist', false)) {
-      result = await this.lyrics(context.options.getString('song', false) as string, context.options.getString('artist', false) as string);
+      result = await this.getLyrics(context.options.getString('song', false) as string, context.options.getString('artist', false) as string);
     }
 
-    if (!result?.song) {
+    if (!result?.lyrics) {
       context.reply(t('commands:lyrics/error/notFound'));
       return;
     }
 
     const embed = new EmbedBuilder()
       .setAuthor({
-        name: `${result.name}`,
+        name: `${result.trackName} - ${result.artistName}`,
+        url: result.trackURL,
       })
       .setTimestamp()
       .setColor('Purple')
-      .setDescription(result.song.lyrics_body.replace(/\n/g, '\n').slice(0, 4000))
-      .setFooter({ text: `${result.song.lyrics_copyright.slice(0, 37)}`, iconURL: 'https://imgur.com/aLTdLUT.png' });
+      .setDescription(result.lyrics)
+      .setFooter({ text: `${result.copyright}`, iconURL: 'https://imgur.com/aLTdLUT.png' });
 
     context.reply({ embeds: [embed] });
   }
 
-  async lyrics(track: string, artist: string) {
-    const song = await this.client.music.musixmatch.matchLyrics({ track, artist });
+  async getLyrics(track: string, artist: string) {
+    const song = await this.client.music.musixmatch.matchTrack({ track, artist });
 
-    const name = `${track} - ${artist}`.replace(/feat.|ft./g, '').trim();
+    const lyrics = await this.client.music.musixmatch.getLyrics(song.commontrack_id);
 
-    const data = {
-      song,
-      name,
+    return {
+      lyrics: lyrics.lyrics_body.replace(/\n/g, '\n').slice(0, 4000) as string,
+      copyright: lyrics.lyrics_copyright.slice(0, 37) as string,
+      trackName: song.track_name as string,
+      artistName: song.artist_name as string,
+      trackURL: song.track_share_url as string,
+      trackId: song.track_id as string,
+      albumName: song.album_name as string,
+      commonTrackId: song.commontrack_id as string,
     };
-
-    return data;
   }
 }
