@@ -1,11 +1,13 @@
 import { Client, GatewayIntentBits } from 'discord.js';
 import { Dispatcher, request } from 'undici';
 import { UrlObject } from 'url';
-import { PlayerHandler } from './Music';
+import config from './Config/config';
 import { CommandManager, DatabaseManager, EventManager, LocaleManager } from './Managers';
+import { PlayerHandler } from './Music';
 import { Command } from './Structures';
 
 class SukiClient extends Client {
+  config: typeof config;
   commands: Array<Command>;
   developers: string[];
   music: PlayerHandler;
@@ -30,17 +32,15 @@ class SukiClient extends Client {
         parse: ['users'],
         repliedUser: false,
       },
-      shards: 'auto',
       presence: {
         status: 'idle',
-        afk: false,
       },
-      shardCount: 1,
     });
 
     this.commands = [];
-    this.developers = ['847865068657836033', '600804786492932101', '680943469228982357', '343778106340802580', '431768491759239211', '689265428769669155'];
+    this.developers = ['847865068657836033'];
     this.request = request;
+    this.config = config;
     this.database = new DatabaseManager(this);
     this.music = new PlayerHandler(this);
   }
@@ -51,7 +51,7 @@ class SukiClient extends Client {
   }
 
   initializate() {
-    super.login(process.env.BOT_TOKEN);
+    super.login(this.config.client.token);
     new CommandManager(this).loadCommands(`${__dirname}/Commands`);
     new EventManager(this).loadEvents(`${__dirname}/Listeners`);
     new LocaleManager().loadLocales();

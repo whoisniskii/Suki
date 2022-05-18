@@ -1,5 +1,4 @@
-.env
 node_modules
 build
-nodes.yml
 src/Commands/Dev/TestCommand.ts
+src/Config/config.ts

@@ -9,11 +9,11 @@ class DatabaseManager {
   guildDB: typeof GuildDB;
 
   constructor(client: SukiClient) {
-    this.loaderDatabase();
-
     this.userDB = UserDB;
     this.guildDB = GuildDB;
     this.client = client;
+
+    this.loaderDatabase();
   }
 
   async getUser(id: string) {
@@ -73,7 +73,7 @@ class DatabaseManager {
   }
 
   loaderDatabase() {
-    return connect(process.env.MONGODB_URI)
+    return connect(this.client.config.database)
       .then(() => {
         console.log('\x1b[32m[DATABASE]\x1b[0m', 'Database successfully connected.');
       })

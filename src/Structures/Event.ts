@@ -1,14 +1,14 @@
-import type { Awaitable } from 'discord.js';
+import { Awaitable } from 'discord.js';
 import { SukiClient } from '../SukiClient';
 
-class Event {
+abstract class Event<Client = SukiClient> {
   eventName: string;
 
   constructor() {
     this.eventName = '';
   }
 
-  execute(client: SukiClient, ...args: any[]): Awaitable<any> {
+  execute(client: Client, ...args: any[]): Awaitable<any> {
     return { client, args };
   }
 }

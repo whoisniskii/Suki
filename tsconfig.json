@@ -11,7 +11,7 @@
     "noFallthroughCasesInSwitch": true,
     "moduleResolution": "node",
     "typeRoots": [
-      "src/typings",
+      "src/@types",
       "node_modules/@types"
     ],
     "esModuleInterop": true,

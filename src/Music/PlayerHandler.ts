@@ -1,10 +1,6 @@
-import { readFileSync } from 'fs';
-import yaml from 'js-yaml';
 import { Node, Vulkava } from 'vulkava';
-import { MusixMatch } from '../APIS';
+import { MusixMatch } from '../Apis';
 import { SukiClient } from '../SukiClient';
-
-const env = yaml.load(readFileSync('./nodes.yml', 'utf8')) as any;
 
 class PlayerHandler extends Vulkava {
   client: SukiClient;
@@ -12,19 +8,19 @@ class PlayerHandler extends Vulkava {
 
   constructor(client: SukiClient) {
     super({
-      nodes: env.lavalinkNodes,
+      nodes: client.config.lavalink,
       sendWS(guildId, payload) {
         client.guilds.cache.get(guildId)?.shard.send(payload);
       },
       spotify: {
-        clientId: process.env.SPOTIFYCLIENTID,
-        clientSecret: process.env.SPOTIFYCLIENTSECRET,
+        clientId: client.config.vulkava.spotifyClientId,
+        clientSecret: client.config.vulkava.spotifyClientSecret,
       },
       unresolvedSearchSource: 'youtube',
     });
 
     this.client = client;
-    this.musixmatch = new MusixMatch(process.env.MUSIXMATCH_API_KEY, client);
+    this.musixmatch = new MusixMatch(this.client.config.apis.musixmatch, client);
 
     this.on('nodeConnect', (node): void => {
       console.log('\x1b[32m[NODES]\x1b[0m', `Node ${node.identifier} successfully logged in.`);

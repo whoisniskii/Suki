@@ -7,27 +7,7 @@
 
 ## 💻 Self-Hosting
 
-- ⚙️ .env
-```bash
-BOT_TOKEN=BOT-TOKEN
-MONGODB_URI=MONGODB-URI
-SPOTIFYCLIENTID=SPOTIFY-API-ID
-SPOTIFYCLIENTSECRET=SPOTIFY-API-SECRET
-GUILD_ID=GUILD-TEST-ID
-CLIENT_TEST_ID=CLIENT-TEST-ID
-MUSIXMATCH_API_KEY=MUSIXMATCH-APIKEY
-```
-
-- 🎵 nodes.yml
-```yml
-lavalinkNodes:
-- {
-id: 'Suki',
-hostname: 'localhost',
-port: 2333,
-password: 'youshallnotpass',
-}
-```
+- ⚙️ Rename `src/Config/config.example.ts` to `config.ts` and fill out the values.
 
 - Install all dependencies
 ```bash

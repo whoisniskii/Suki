@@ -3,8 +3,8 @@ import { TFunction } from 'i18next';
 import { SukiClient } from '../SukiClient';
 import { CommandContext } from '.';
 
-class Command {
-  client: SukiClient;
+abstract class Command<Client = SukiClient> {
+  client: Client;
   options: ChatInputApplicationCommandData;
   rawName: string;
   permissions: {
@@ -12,7 +12,7 @@ class Command {
     user: PermissionResolvable[];
   };
 
-  constructor(data: ChatInputApplicationCommandData, client: SukiClient) {
+  constructor(data: ChatInputApplicationCommandData, client: Client) {
     this.client = client;
 
     this.options = data;
