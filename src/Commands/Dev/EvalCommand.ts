@@ -54,7 +54,7 @@ export default class EvalCommand extends Command {
     };
 
     try {
-      let evaled = eval(context.options.getString('code', true) as string);
+      let evaled = eval(context.options.getString('code', true));
 
       if (evaled instanceof Promise) {
         evaled = await evaled;

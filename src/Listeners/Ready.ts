@@ -11,7 +11,7 @@ export default class ReadyEvent extends Event {
   }
 
   async execute(client: SukiClient) {
-    console.log('\x1b[32m[CLIENT]\x1b[0m', `Client successfully logged in ${client.user?.username}#${client.user?.discriminator}.`);
+    console.log('\x1b[32m[CLIENT]\x1b[0m', `Client successfully logged in ${client.user?.tag}.`);
 
     client.connectLavaLink();
     const commands = client.commands.filter(x => x.options).map(x => x.options) as ChatInputApplicationCommandData[];
@@ -20,7 +20,7 @@ export default class ReadyEvent extends Event {
     console.log('\x1b[32m[COMMANDS]\x1b[0m', `Posted ${commands.length} commands to Discord!`);
 
     if (client.user?.id === process.env.CLIENT_TEST_ID) {
-      client.rest.on('response', (req, response) => console.log('\x1b[32m[REQUEST]\x1b[0m', `${req.method} ${req.path}, ${response.status}: (${client.ws.ping}ms avg)`));
+      client.rest.on('response', (req, response) => console.log('\x1b[32m[REQUEST]\x1b[0m', `${req.method} ${req.path}, ${response.statusCode}: (${client.ws.ping}ms avg)`));
     }
   }
 }

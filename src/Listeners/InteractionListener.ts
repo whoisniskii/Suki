@@ -51,7 +51,7 @@ export default class InteractionCreateEvent extends Event {
 
   static checkBotPermissions(interaction: ChatInputCommandInteraction, command: Command, t: TFunction): boolean {
     if (command.permissions.bot.length === 0) return true;
-    if (!interaction.guild?.me?.permissions.has(command.permissions.bot)) {
+    if (!interaction.guild?.members.me?.permissions.has(command.permissions.bot)) {
       const permissions = new PermissionsBitField(command.permissions.bot)
         .toArray()
         .map(p => t(`permissions:${p}`))

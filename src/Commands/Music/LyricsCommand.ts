@@ -64,7 +64,7 @@ export default class LyricsCommand extends Command {
   }
 
   async execute({ context, t }: CommandExecuteOptions) {
-    await context.defer();
+    await context.defer({ fetchReply: true });
     let result;
 
     if (!context.options.getString('song', false) && !context.options.getString('artist', false)) {
@@ -115,14 +115,14 @@ export default class LyricsCommand extends Command {
     const lyrics = await this.client.music.musixmatch.getLyrics(song.commontrack_id);
 
     return {
-      lyrics: lyrics.lyrics_body.replace(/\n/g, '\n').slice(0, 4000) as string,
-      copyright: lyrics.lyrics_copyright.slice(0, 37) as string,
-      trackName: song.track_name as string,
-      artistName: song.artist_name as string,
-      trackURL: song.track_share_url as string,
-      trackId: song.track_id as string,
-      albumName: song.album_name as string,
-      commonTrackId: song.commontrack_id as string,
+      lyrics: lyrics.lyrics_body.replace(/\n/g, '\n').slice(0, 4000),
+      copyright: lyrics.lyrics_copyright.slice(0, 37),
+      trackName: song.track_name,
+      artistName: song.artist_name,
+      trackURL: song.track_share_url,
+      trackId: song.track_id,
+      albumName: song.album_name,
+      commonTrackId: song.commontrack_id,
     };
   }
 }

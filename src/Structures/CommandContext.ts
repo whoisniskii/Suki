@@ -1,6 +1,5 @@
 import {
   ChatInputCommandInteraction,
-  CommandInteraction,
   CommandInteractionOptionResolver,
   Guild,
   GuildMember,
@@ -50,8 +49,8 @@ class CommandContext {
     return this.interaction.channel as TextChannel;
   }
 
-  get player(): Player {
-    return (this.client.music.players.get(this.guild.id) as Player) || null;
+  get player(): Player | null | undefined {
+    return this.client.music.players.get(this.guild.id) as Player;
   }
 
   get options(): CommandInteractionOptionResolver {
@@ -78,13 +77,9 @@ class CommandContext {
     }
   }
 
-  async deferReply(options: InteractionDeferReplyOptions) {
-    await this.interaction.deferReply(options);
-  }
-
-  async defer() {
-    if (this.interaction instanceof CommandInteraction) {
-      await this.interaction.deferReply({ fetchReply: true });
+  async defer(options?: InteractionDeferReplyOptions) {
+    if (this.interaction instanceof ChatInputCommandInteraction) {
+      await this.interaction.deferReply(options);
       this.deferred = true;
     }
   }

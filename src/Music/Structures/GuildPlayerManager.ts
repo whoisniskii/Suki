@@ -51,8 +51,8 @@ class GuildPlayer {
       }
 
       const player = this.client.music.createPlayer({
-        guildId: context.guild?.id as string,
-        voiceChannelId: voiceChannelID as string,
+        guildId: context.guild?.id,
+        voiceChannelId: voiceChannelID,
         textChannelId: context.channel.id,
         selfDeaf: true,
       });
