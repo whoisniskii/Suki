@@ -15,12 +15,12 @@ class GuildPlayer {
     const voiceChannelID = context.voice?.channelId;
 
     if (!voiceChannelID) {
-      context.reply({ content: t('command:play/error/noChannel'), flags: 64 });
+      context.reply({ content: t('command:play/error/noChannel'), ephemeral: true });
       return;
     }
 
     if (context.player && voiceChannelID !== context.player.voiceChannelId) {
-      context.reply({ content: t('command:play/error/noChannel'), flags: 64 });
+      context.reply({ content: t('command:play/error/noChannel'), ephemeral: true });
       return;
     }
 
@@ -51,7 +51,7 @@ class GuildPlayer {
       }
 
       const player = this.client.music.createPlayer({
-        guildId: context.guild?.id,
+        guildId: context.guild?.id as string,
         voiceChannelId: voiceChannelID,
         textChannelId: context.channel.id,
         selfDeaf: true,
