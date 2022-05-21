@@ -2,6 +2,7 @@ import { Client, ClientUser, GatewayIntentBits } from 'discord.js';
 import { setTimeout as sleep } from 'timers/promises';
 import { Dispatcher, request } from 'undici';
 import { UrlObject } from 'url';
+// @ts-ignore
 import config from './Config/config';
 import { CommandManager, DatabaseManager, EventManager } from './Managers';
 import { PlayerHandler } from './Music';
