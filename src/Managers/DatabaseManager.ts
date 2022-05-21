@@ -30,12 +30,6 @@ class DatabaseManager {
     return document;
   }
 
-  async getAllUsers() {
-    const usersDBData = await this.userDB.find({});
-
-    return usersDBData.map(user => user.toJSON());
-  }
-
   async deleteUserSchema(id: string) {
     const userDBData = await this.userDB.findOne({ id });
 
@@ -55,11 +49,6 @@ class DatabaseManager {
     }
 
     return document;
-  }
-
-  async getAllGuilds() {
-    const guildsDBData = await this.guildDB.find({});
-    return guildsDBData.map(guild => guild.toJSON());
   }
 
   async deleteGuildSchema(guildId: string) {

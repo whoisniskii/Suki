@@ -26,12 +26,7 @@ class LanguageManager {
     }
   }
 
-  get(lang: SupportedLocales, path: AllLocalePaths, args?: string) {
-    if (args) {
-      const data = i18next.getFixedT(lang, path, args);
-      return data(path);
-    }
-
+  get(lang: SupportedLocales, path: AllLocalePaths) {
     const data = i18next.getFixedT(lang, path);
     return data(path);
   }
@@ -40,10 +35,10 @@ class LanguageManager {
 export type LocaleCategories = 'command' | 'commandNames' | 'commandDescriptions';
 export type SupportedLocales = 'en-US' | 'pt-BR';
 
-export type CommandLocaleKeys = keyof typeof import('../Locales/en-US/command.json');
-export type CommandDescriptionsKeys = keyof typeof import('../Locales/en-US/commandDescriptions.json');
-export type CommandNamesKeys = keyof typeof import('../Locales/en-US/commandNames.json');
-export type PermissionLocaleKeys = keyof typeof import('../Locales/en-US/permissions.json');
+export type CommandLocaleKeys = keyof typeof import('../Locales/pt-BR/command.json');
+export type CommandDescriptionsKeys = keyof typeof import('../Locales/pt-BR/commandDescriptions.json');
+export type CommandNamesKeys = keyof typeof import('../Locales/pt-BR/commandNames.json');
+export type PermissionLocaleKeys = keyof typeof import('../Locales/pt-BR/permissions.json');
 
 export type AllLocaleKeys = CommandLocaleKeys | CommandNamesKeys | CommandDescriptionsKeys | PermissionLocaleKeys;
 

@@ -1,4 +1,5 @@
-import { Client, GatewayIntentBits } from 'discord.js';
+import { Client, ClientUser, GatewayIntentBits } from 'discord.js';
+import { setTimeout as sleep } from 'timers/promises';
 import { Dispatcher, request } from 'undici';
 import { UrlObject } from 'url';
 import config from './Config/config';
@@ -8,7 +9,7 @@ import { Command, Language } from './Structures';
 
 class SukiClient extends Client {
   config: typeof config;
-  commands: Array<Command>;
+  commands: Command[];
   developers: string[];
   music: PlayerHandler;
   database: DatabaseManager;
@@ -38,27 +39,27 @@ class SukiClient extends Client {
       },
     });
 
-    this.commands = [];
-    this.developers = ['847865068657836033'];
+    this.languages = new Language(this);
     this.request = request;
     this.config = config;
     this.database = new DatabaseManager(this);
     this.music = new PlayerHandler(this);
-    this.languages = new Language(this);
+    this.commands = [];
+    this.developers = ['847865068657836033'];
   }
 
-  connectLavaLink(): void {
+  connectLavaLink() {
     this.on('raw', packet => this.music.handleVoiceUpdate(packet));
-    this.music.start(this.user?.id as string);
+    this.music.start((this.user as ClientUser).id);
   }
 
-  initializate() {
+  async initialize() {
     super.login(this.config.client.token);
+    await sleep(1000);
     new CommandManager(this).loadCommands(`${__dirname}/Commands`);
     new EventManager(this).loadEvents(`${__dirname}/Listeners`);
 
     process.on('uncaughtException', err => console.log(err));
-
     process.on('unhandledRejection', err => console.log(err));
   }
 }

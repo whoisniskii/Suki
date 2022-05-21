@@ -1,12 +1,11 @@
 {
   "eval/code": "código",
 
-  "shell/code": "code",
+  "shell/code": "código",
 
   "lyrics": "letras",
   "lyrics/song": "música",
   "lyrics/artist": "artista",
-  "lyrics/member": "membro",
 
   "play": "tocar",
   "play/song": "música"

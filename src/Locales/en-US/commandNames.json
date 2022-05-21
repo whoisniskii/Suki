@@ -5,8 +5,7 @@
 
   "lyrics": "lyrics",
   "lyrics/song": "song",
-  "lyrics/artist": "artists",
-  "lyrics/member": "member",
+  "lyrics/artist": "artist",
 
   "play": "play",
   "play/song": "song"

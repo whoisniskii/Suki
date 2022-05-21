@@ -2,6 +2,8 @@ import { ActionRowBuilder, ButtonBuilder, ButtonStyle, Message } from 'discord.j
 import { Event } from '../Structures';
 import { SukiClient } from '../SukiClient';
 
+const GetMention = (id: string) => new RegExp(`^<@!?${id}>( |)$`);
+
 export default class MessageCreateEvent extends Event {
   eventName: string;
 
@@ -12,8 +14,6 @@ export default class MessageCreateEvent extends Event {
 
   execute(client: SukiClient, message: Message) {
     if (message.author.bot) return;
-
-    const GetMention = (id: string) => new RegExp(`^<@!?${id}>( |)$`);
 
     const button = new ButtonBuilder()
       .setStyle(ButtonStyle.Link)

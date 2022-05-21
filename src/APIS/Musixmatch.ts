@@ -1,6 +1,13 @@
 import { SukiClient } from '../SukiClient';
 
 const BASE_URL = 'https://api.musixmatch.com/ws/1.1';
+
+interface MatchTrackOptions {
+  track: string;
+  artist: string;
+  album?: string;
+}
+
 class MusixMatch {
   client: SukiClient;
   apiKey: string;
@@ -27,12 +34,6 @@ class MusixMatch {
 
     return req.message.body.lyrics;
   }
-}
-
-interface MatchTrackOptions {
-  track: string;
-  artist: string;
-  album?: string;
 }
 
 export { MusixMatch };

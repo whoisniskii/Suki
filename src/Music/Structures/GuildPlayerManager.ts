@@ -25,7 +25,7 @@ class GuildPlayer {
     }
 
     try {
-      let music = context.options.getString('song', true);
+      let music = context.options.getString('song', false);
 
       if (!music) {
         const activity = context.member?.presence?.activities.find(x => x.name === 'Spotify');

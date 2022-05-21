@@ -12,7 +12,6 @@
   "lyrics": "[ 🎵 Music ] Shows the lyrics of a song.",
   "lyrics/song": "Song Name",
   "lyrics/artist": "Artist Name",
-  "lyrics/member": "Member",
 
   "play": "[ 🎵 Music ] Add a song to play.",
   "play/song": "Song/Playlist URL/Name"

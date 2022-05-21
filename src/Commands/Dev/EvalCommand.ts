@@ -1,3 +1,4 @@
+/* eslint-disable no-eval */
 import { ApplicationCommandOptionType } from 'discord.js';
 import { inspect } from 'util';
 import { Command, CommandExecuteOptions } from '../../Structures';
@@ -38,12 +39,12 @@ export default class EvalCommand extends Command {
 
   async execute({ context, t }: CommandExecuteOptions) {
     if (!this.client.developers.some(x => x === context.user.id)) {
-      context.reply({ content: t('command:eval/error/noPerm'), flags: 1 << 6 });
+      context.reply({ content: t('command:eval/error/noPerm'), ephemeral: true });
       return;
     }
 
     const clean = (text: string) => {
-      if (text === 'string') {
+      if (typeof text === 'string') {
         text
           .slice(0, 1970)
           .replace(/`/g, `\`${String.fromCharCode(8203)}`)

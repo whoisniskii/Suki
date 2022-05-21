@@ -29,7 +29,7 @@ export default class InteractionCreateEvent extends Event {
     if (interaction instanceof ChatInputCommandInteraction) {
       if (!interaction.isChatInputCommand()) return;
 
-      const t = getFixedT(interaction.locale || 'en-US');
+      const t = getFixedT(interaction.locale);
 
       const cmd = client.commands.find(x => x.rawName === interaction.commandName);
       if (!cmd) throw new Error(`Command ${interaction.commandName} does not exist!`);

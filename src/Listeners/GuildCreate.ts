@@ -10,7 +10,7 @@ export default class GuildCreateEvent extends Event {
     this.eventName = 'guildCreate';
   }
 
-  async execute(client: SukiClient, guild: Guild) {
-    await client.database.getGuild(guild.id);
+  execute(client: SukiClient, guild: Guild) {
+    client.database.getGuild(guild.id);
   }
 }

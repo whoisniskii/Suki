@@ -1,4 +1,4 @@
-import { ApplicationCommandOptionType, EmbedBuilder, GuildMember, PermissionFlagsBits } from 'discord.js';
+import { ApplicationCommandOptionType, EmbedBuilder, PermissionFlagsBits } from 'discord.js';
 import { Command, CommandExecuteOptions } from '../../Structures';
 import { SukiClient } from '../../SukiClient';
 
@@ -39,18 +39,6 @@ export default class LyricsCommand extends Command {
             type: ApplicationCommandOptionType.String,
             required: false,
           },
-          {
-            name: client.languages.languageManager.get('en-US', 'commandNames:lyrics/member'),
-            nameLocalizations: {
-              'pt-BR': client.languages.languageManager.get('pt-BR', 'commandNames:lyrics/member'),
-            },
-            description: client.languages.languageManager.get('en-US', 'commandDescriptions:lyrics/member'),
-            descriptionLocalizations: {
-              'pt-BR': client.languages.languageManager.get('pt-BR', 'commandDescriptions:lyrics/member'),
-            },
-            type: ApplicationCommandOptionType.User,
-            required: false,
-          },
         ],
       },
       client,
@@ -68,8 +56,7 @@ export default class LyricsCommand extends Command {
 
     if (!context.options.getString('song', false) && !context.options.getString('artist', false)) {
       if (!context.player || !context.player.current) {
-        const member = (context.options.getMember('member') as GuildMember) ?? context.member;
-        const activity = member.presence?.activities?.find(a => a.name === 'Spotify');
+        const activity = context.member?.presence?.activities?.find(a => a.name === 'Spotify');
 
         if (activity && activity.details) {
           result = await this.getLyrics(activity.details, activity.state as string);

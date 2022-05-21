@@ -22,7 +22,7 @@ class PlayerHandler extends Vulkava {
     this.client = client;
     this.musixmatch = new MusixMatch(this.client.config.apis.musixmatch, client);
 
-    this.on('nodeConnect', (node): void => {
+    this.on('nodeConnect', node => {
       console.log('\x1b[32m[NODES]\x1b[0m', `Node ${node.identifier} successfully logged in.`);
 
       for (const player of [...this.players.values()].filter(p => p.node === node).values()) {
@@ -38,16 +38,16 @@ class PlayerHandler extends Vulkava {
       }, 45000);
     });
 
-    this.on('error', (node, error): void => {
+    this.on('error', (node, error) => {
       console.log('\x1b[31m[NODES]\x1b[0m', `Error on Node ${node.identifier}.\n${error}`);
       if (error.message.startsWith('Unable to connect after')) this.reconnect(node);
     });
 
-    this.on('nodeDisconnect', (node, code, reason): void => {
-      console.log('\x1b[31m[NODES]\x1b[0m', `Node ${node.identifier}. was disconnected\nClose code: ${code}.\nReason: ${reason === '' ? 'Unknown' : reason}`);
-    });
+    this.on('nodeDisconnect', (node, code, reason) =>
+      console.log('\x1b[31m[NODES]\x1b[0m', `Node ${node.identifier}. was disconnected\nClose code: ${code}.\nReason: ${reason === '' ? 'Unknown' : reason}`),
+    );
 
-    this.on('trackStart', async (player, track): Promise<void> => {
+    this.on('trackStart', (player, track) => {
       if (player.reconnect) {
         delete player.reconnect;
         return;
@@ -62,22 +62,20 @@ class PlayerHandler extends Vulkava {
         channel.send(player.lastPlayingMsgID).catch(() => {});
       }
 
-      if (player.trackRepeat) {
-        return;
-      }
+      if (player.trackRepeat) return;
 
-      await channel.send(`Comecei a tocar \`${track.title}\` por \`${track.author}\``);
+      channel.send(`Comecei a tocar \`${track.title}\` por \`${track.author}\``);
     });
 
-    this.on('trackStuck', async (player, track): Promise<void> => {
+    this.on('trackStuck', (player, track) => {
       const channel = this.client.channels.cache.get(player.textChannelId as string);
       if (!channel || channel.type !== 0) return;
 
-      await channel.send(`Ocorreu um erro ao reproduzir a música \`${track.title}\``);
+      channel.send(`Ocorreu um erro ao reproduzir a música \`${track.title}\``);
       player.skip();
     });
 
-    this.on('queueEnd', async (player): Promise<void> => {
+    this.on('queueEnd', async player => {
       const channel = this.client.channels.cache.get(player.textChannelId as string);
       if (!channel || channel.type !== 0) return;
 
@@ -87,17 +85,15 @@ class PlayerHandler extends Vulkava {
 
       player.destroy();
 
-      await channel.send('A fila de músicas acabou, então eu saí do canal de voz.');
+      channel.send('A fila de músicas acabou, então eu saí do canal de voz.');
     });
 
-    this.on('trackException', (player, _track, err): void => {
+    this.on('trackException', (player, _track, err) => {
       if (err && err.message.includes('429')) {
         const newNode = this.nodes.find(node => node.state === 1 && node !== player.node);
 
         if (newNode) player.moveNode(newNode);
-      } else {
-        player.destroy();
-      }
+      } else player.destroy();
 
       player.skip();
     });
@@ -112,9 +108,9 @@ class PlayerHandler extends Vulkava {
       hostname: node.options.hostname,
       port: node.options.port,
       password: node.options.password,
-      maxRetryAttempts: 10,
-      retryAttemptsInterval: 3000,
-      secure: false,
+      maxRetryAttempts: node.options.maxRetryAttempts,
+      retryAttemptsInterval: node.options.retryAttemptsInterval,
+      secure: node.options.secure,
       region: node.options.region,
     });
 

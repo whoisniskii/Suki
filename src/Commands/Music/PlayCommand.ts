@@ -26,7 +26,7 @@ export default class PlayCommand extends Command {
               'pt-BR': client.languages.languageManager.get('pt-BR', 'commandDescriptions:play/song'),
             },
             type: ApplicationCommandOptionType.String,
-            required: true,
+            required: false,
             autocomplete: true,
           },
         ],

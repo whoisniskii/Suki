@@ -1,4 +1,4 @@
-import { AutocompleteInteraction, ChatInputApplicationCommandData, PermissionResolvable } from 'discord.js';
+import { AutocompleteInteraction, ChatInputApplicationCommandData, CommandInteractionOptionResolver, PermissionResolvable } from 'discord.js';
 import { TFunction } from 'i18next';
 import { SukiClient } from '../SukiClient';
 import { CommandContext } from '.';
@@ -33,6 +33,6 @@ abstract class Command<Client = SukiClient> {
 }
 
 export type CommandExecuteOptions = { context: CommandContext; t: TFunction };
-export type AutoCompleteExecuteOptions = { interaction: AutocompleteInteraction; value: string; options?: any };
+export type AutoCompleteExecuteOptions = { interaction: AutocompleteInteraction; value: string; options?: Omit<CommandInteractionOptionResolver<any>, 'getMessage'> };
 
 export { Command };

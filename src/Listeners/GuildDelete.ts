@@ -7,10 +7,10 @@ export default class GuildDeleteEvent extends Event {
 
   constructor() {
     super();
-    this.eventName = 'guilDelete';
+    this.eventName = 'guildDelete';
   }
 
-  async execute(client: SukiClient, guild: Guild) {
-    await client.database.deleteGuildSchema(guild.id);
+  execute(client: SukiClient, guild: Guild) {
+    client.database.deleteGuildSchema(guild.id);
   }
 }
