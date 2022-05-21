@@ -6,53 +6,52 @@ export default class LyricsCommand extends Command {
   constructor(client: SukiClient) {
     super(
       {
-        name: 'lyrics',
+        name: client.languages.languageManager.get('en-US', 'commandNames:lyrics'),
         nameLocalizations: {
-          'pt-BR': 'letras',
+          'pt-BR': client.languages.languageManager.get('pt-BR', 'commandNames:lyrics'),
         },
-        description: '[ 🎵 Music ] Shows the lyrics of a song.',
+        description: client.languages.languageManager.get('en-US', 'commandDescriptions:lyrics'),
         descriptionLocalizations: {
-          'pt-BR': '[ 🎵 Música ] Mostra a letra de uma música.',
+          'pt-BR': client.languages.languageManager.get('pt-BR', 'commandDescriptions:lyrics'),
         },
         options: [
           {
-            name: 'song',
+            name: client.languages.languageManager.get('en-US', 'commandNames:lyrics/song'),
             nameLocalizations: {
-              'pt-BR': 'música',
+              'pt-BR': client.languages.languageManager.get('pt-BR', 'commandNames:lyrics/song'),
             },
-            description: 'Song Name',
+            description: client.languages.languageManager.get('en-US', 'commandDescriptions:lyrics/song'),
             descriptionLocalizations: {
-              'pt-BR': 'Nome da música',
+              'pt-BR': client.languages.languageManager.get('pt-BR', 'commandDescriptions:lyrics/song'),
             },
             type: ApplicationCommandOptionType.String,
             required: false,
           },
           {
-            name: 'artist',
+            name: client.languages.languageManager.get('en-US', 'commandNames:lyrics/artist'),
             nameLocalizations: {
-              'pt-BR': 'artista',
+              'pt-BR': client.languages.languageManager.get('pt-BR', 'commandNames:lyrics/artist'),
             },
-            description: 'Artist Name',
+            description: client.languages.languageManager.get('en-US', 'commandDescriptions:lyrics/artist'),
             descriptionLocalizations: {
-              'pt-BR': 'Nome do artista',
+              'pt-BR': client.languages.languageManager.get('pt-BR', 'commandDescriptions:lyrics/artist'),
             },
             type: ApplicationCommandOptionType.String,
             required: false,
           },
           {
-            name: 'member',
+            name: client.languages.languageManager.get('en-US', 'commandNames:lyrics/member'),
             nameLocalizations: {
-              'pt-BR': 'membro',
+              'pt-BR': client.languages.languageManager.get('pt-BR', 'commandNames:lyrics/member'),
             },
-            description: 'Member',
+            description: client.languages.languageManager.get('en-US', 'commandDescriptions:lyrics/member'),
             descriptionLocalizations: {
-              'pt-BR': 'Membro',
+              'pt-BR': client.languages.languageManager.get('pt-BR', 'commandDescriptions:lyrics/member'),
             },
             type: ApplicationCommandOptionType.User,
             required: false,
           },
         ],
-        dmPermission: false,
       },
       client,
     );
@@ -77,7 +76,7 @@ export default class LyricsCommand extends Command {
         }
 
         if (!activity) {
-          context.reply(t('commands:lyrics/error/noPlayer'));
+          context.reply(t('command:lyrics/error/noPlayer'));
           return;
         }
 
@@ -92,7 +91,7 @@ export default class LyricsCommand extends Command {
     }
 
     if (!result?.lyrics) {
-      context.reply(t('commands:lyrics/error/notFound'));
+      context.reply(t('command:lyrics/error/notFound'));
       return;
     }
 

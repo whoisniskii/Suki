@@ -9,24 +9,22 @@ class DatabaseManager {
   guildDB: typeof GuildDB;
 
   constructor(client: SukiClient) {
+    this.client = client;
     this.userDB = UserDB;
     this.guildDB = GuildDB;
-    this.client = client;
 
-    this.loaderDatabase();
+    this.loadDatabase();
   }
 
-  async getUser(id: string) {
-    const userDBData = await this.client.users.fetch(id);
+  async getUser(userId: string) {
+    const userDBData = await this.client.users.fetch(userId);
 
     if (!userDBData) return null;
 
-    let document = await this.userDB.findOne({ id });
+    let document = await this.userDB.findOne({ userId });
 
     if (!document) {
-      document = new UserDB({
-        id,
-      });
+      document = new UserDB({ userId });
     }
 
     return document;
@@ -46,12 +44,12 @@ class DatabaseManager {
     userDBData.remove();
   }
 
-  async getGuild(id: string) {
-    let document = await this.guildDB.findOne({ guildID: id });
+  async getGuild(guildId: string) {
+    let document = await this.guildDB.findOne({ guildID: guildId });
 
     if (!document) {
       document = new GuildDB({
-        guildID: id,
+        guildID: guildId,
         forever: false,
       });
     }
@@ -64,16 +62,16 @@ class DatabaseManager {
     return guildsDBData.map(guild => guild.toJSON());
   }
 
-  async deleteGuildSchema(id: string) {
-    const guildDBData = await this.guildDB.findOne({ guildID: id });
+  async deleteGuildSchema(guildId: string) {
+    const guildDBData = await this.guildDB.findOne({ guildID: guildId });
 
     if (!guildDBData) return;
 
     guildDBData.remove();
   }
 
-  loaderDatabase() {
-    return connect(this.client.config.database)
+  loadDatabase() {
+    return connect(this.client.config.database.mongodb)
       .then(() => {
         console.log('\x1b[32m[DATABASE]\x1b[0m', 'Database successfully connected.');
       })

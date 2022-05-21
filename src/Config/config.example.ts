@@ -1,10 +1,14 @@
+import type { NodeOptions } from 'vulkava';
+
 export default {
   client: {
     token: 'BOT TOKEN',
     id: 'CLIENT ID',
     guild: 'GUILD TEST ID',
   },
-  database: 'MONGODB URL',
+  database: {
+    mongodb: 'MONGODB URI',
+  },
   vulkava: {
     spotifyClientId: 'SPOTIFY API CLIENT ID',
     spotifyClientSecret: 'SPOTIFY API CLIENT SECRET',
@@ -19,5 +23,5 @@ export default {
       port: 2333,
       password: 'youshallnotpass',
     },
-  ],
+  ] as NodeOptions[],
 };

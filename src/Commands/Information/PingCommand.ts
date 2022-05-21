@@ -6,11 +6,10 @@ export default class PingCommand extends Command {
     super(
       {
         name: 'ping',
-        description: '[ 📚 Information ] Shows the bot latency.',
+        description: client.languages.languageManager.get('en-US', 'commandDescriptions:ping'),
         descriptionLocalizations: {
-          'pt-BR': '[ 📚 Informação ] Veja a latência do bot.',
+          'pt-BR': client.languages.languageManager.get('pt-BR', 'commandDescriptions:ping'),
         },
-        dmPermission: true,
       },
       client,
     );
@@ -22,6 +21,6 @@ export default class PingCommand extends Command {
   }
 
   execute({ context, t }: CommandExecuteOptions) {
-    context.reply(t('commands:ping/success', { ping: this.client.ws.ping.toString() ?? '0' }));
+    context.reply(t('command:ping/success', { ping: this.client.ws.ping.toString() ?? '0' }));
   }
 }

@@ -1,0 +1,19 @@
+{
+  "eval": "[ 🚀 Desenvolvedores ] Executa um código JavaScript e retorna o seu resultado.",
+  "eval/code": "Código para executar",
+
+  "shell": "[ 🚀 Desenvolvedores ] Execute um código no terminal.",
+  "shell/code": "Código para executar",
+
+  "ping": "[ 📚 Informação ] Veja a latência do bot.",
+
+  "247": "[ 🎵 Música ] Faça o player atual nunca se desconectar.",
+
+  "lyrics": "[ 🎵 Música ] Veja as letras de uma música.",
+  "lyrics/song": "Nome da música",
+  "lyrics/artist": "Nome do artista",
+  "lyrics/member": "Membro",
+
+  "play": "[ 🎵 Música ] Adiciona uma música para tocar.",
+  "play/song": "Música/Playlist URL/Nome"
+}

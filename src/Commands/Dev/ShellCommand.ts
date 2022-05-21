@@ -10,25 +10,24 @@ export default class ShellCommand extends Command {
     super(
       {
         name: 'shell',
-        description: '[ 🚀 Developers ] Run a code',
+        description: client.languages.languageManager.get('en-US', 'commandDescriptions:shell'),
         descriptionLocalizations: {
-          'pt-BR': '[ 🚀 Desenvolvedores ] Execute um código.',
+          'pt-BR': client.languages.languageManager.get('pt-BR', 'commandDescriptions:shell'),
         },
         options: [
           {
-            name: 'code',
+            name: client.languages.languageManager.get('en-US', 'commandNames:shell/code'),
             nameLocalizations: {
-              'pt-BR': 'código',
+              'pt-BR': client.languages.languageManager.get('pt-BR', 'commandNames:shell/code'),
             },
-            description: 'Code to run',
+            description: client.languages.languageManager.get('en-US', 'commandDescriptions:shell/code'),
             descriptionLocalizations: {
-              'pt-BR': 'Código para executar',
+              'pt-BR': client.languages.languageManager.get('pt-BR', 'commandDescriptions:shell/code'),
             },
             type: ApplicationCommandOptionType.String,
             required: true,
           },
         ],
-        dmPermission: true,
       },
       client,
     );
@@ -41,13 +40,13 @@ export default class ShellCommand extends Command {
 
   execute({ context, t }: CommandExecuteOptions) {
     if (!this.client.developers.some(x => x === context.member?.id)) {
-      context.reply({ content: t('commands:shell/error/noPerm'), flags: 1 << 6 });
+      context.reply({ content: t('command:shell/error/noPerm'), flags: 1 << 6 });
       return;
     }
 
     exec(context.options.getString('code', true), async (_err, stdout, stderr) => {
       if (!stdout && !stderr) {
-        context.reply({ content: t('commands:shell/error/noOutput'), flags: 1 << 6 });
+        context.reply({ content: t('command:shell/error/noOutput'), flags: 1 << 6 });
         return;
       }
 

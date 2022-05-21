@@ -1,6 +1,6 @@
 import { ActionRowBuilder, ButtonBuilder, ButtonStyle, Message } from 'discord.js';
-import { SukiClient } from '../SukiClient';
 import { Event } from '../Structures';
+import { SukiClient } from '../SukiClient';
 
 export default class MessageCreateEvent extends Event {
   eventName: string;

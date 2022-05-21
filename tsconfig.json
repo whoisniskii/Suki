@@ -6,6 +6,7 @@
     "allowJs": true,
     "strict": true,
     "strictPropertyInitialization": false,
+    "resolveJsonModule": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,

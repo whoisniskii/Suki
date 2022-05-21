@@ -2,9 +2,9 @@ import { Client, GatewayIntentBits } from 'discord.js';
 import { Dispatcher, request } from 'undici';
 import { UrlObject } from 'url';
 import config from './Config/config';
-import { CommandManager, DatabaseManager, EventManager, LocaleManager } from './Managers';
+import { CommandManager, DatabaseManager, EventManager } from './Managers';
 import { PlayerHandler } from './Music';
-import { Command } from './Structures';
+import { Command, Language } from './Structures';
 
 class SukiClient extends Client {
   config: typeof config;
@@ -12,6 +12,7 @@ class SukiClient extends Client {
   developers: string[];
   music: PlayerHandler;
   database: DatabaseManager;
+  languages: Language;
   request: (
     url: string | URL | UrlObject,
     options?: { dispatcher?: Dispatcher } & Omit<Dispatcher.RequestOptions, 'origin' | 'path' | 'method'> & Partial<Pick<Dispatcher.RequestOptions, 'method'>>,
@@ -43,6 +44,7 @@ class SukiClient extends Client {
     this.config = config;
     this.database = new DatabaseManager(this);
     this.music = new PlayerHandler(this);
+    this.languages = new Language(this);
   }
 
   connectLavaLink(): void {
@@ -54,7 +56,6 @@ class SukiClient extends Client {
     super.login(this.config.client.token);
     new CommandManager(this).loadCommands(`${__dirname}/Commands`);
     new EventManager(this).loadEvents(`${__dirname}/Listeners`);
-    new LocaleManager().loadLocales();
 
     process.on('uncaughtException', err => console.log(err));
 

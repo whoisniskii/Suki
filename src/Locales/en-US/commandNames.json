@@ -1,0 +1,13 @@
+{
+  "eval/code": "code",
+
+  "shell/code": "code",
+
+  "lyrics": "lyrics",
+  "lyrics/song": "song",
+  "lyrics/artist": "artists",
+  "lyrics/member": "member",
+
+  "play": "play",
+  "play/song": "song"
+}

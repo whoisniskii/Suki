@@ -1,7 +1,7 @@
 /* eslint-disable no-await-in-loop */
 import { readdirSync } from 'fs';
-import { SukiClient } from '../SukiClient';
 import { Event } from '../Structures';
+import { SukiClient } from '../SukiClient';
 
 class EventManager {
   client: SukiClient;

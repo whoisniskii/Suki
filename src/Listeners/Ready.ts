@@ -1,6 +1,6 @@
 import { ChatInputApplicationCommandData } from 'discord.js';
-import { SukiClient } from '../SukiClient';
 import { Event } from '../Structures';
+import { SukiClient } from '../SukiClient';
 
 export default class ReadyEvent extends Event {
   eventName: string;

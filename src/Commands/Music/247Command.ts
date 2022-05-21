@@ -7,11 +7,10 @@ export default class TwentyFourHoursCommand extends Command {
     super(
       {
         name: '247',
-        description: '[ 🎵 Music ] Make the current music player never been destroyed.',
+        description: client.languages.languageManager.get('en-US', 'commandDescriptions:247'),
         descriptionLocalizations: {
-          'pt-BR': '[ 🎵 Música ] Faça o player atual nunca se desconectar.',
+          'pt-BR': client.languages.languageManager.get('pt-BR', 'commandDescriptions:247'),
         },
-        dmPermission: false,
       },
       client,
     );
@@ -24,7 +23,7 @@ export default class TwentyFourHoursCommand extends Command {
 
   async execute({ context, t }: CommandExecuteOptions) {
     if (!context.player) {
-      context.reply(t('commands:247/error/noPlayer'));
+      context.reply(t('command:247/error/noPlayer'));
       return;
     }
 
@@ -32,12 +31,12 @@ export default class TwentyFourHoursCommand extends Command {
 
     if (!guildDBData?.forever) {
       await context.database.guildDB.updateOne({ guildID: context.player.guildId }, { $set: { forever: true } });
-      context.reply(t('commands:247/on'));
+      context.reply(t('command:247/on'));
       return;
     }
 
     await context.database.guildDB.updateOne({ guildID: context.player.guildId }, { $set: { forever: false } });
-    context.reply(t('commands:247/off'));
+    context.reply(t('command:247/off'));
     if (!context.player.playing) context.player.disconnect();
   }
 }

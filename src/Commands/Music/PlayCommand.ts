@@ -7,30 +7,29 @@ export default class PlayCommand extends Command {
   constructor(client: SukiClient) {
     super(
       {
-        name: 'play',
+        name: client.languages.languageManager.get('en-US', 'commandNames:play'),
         nameLocalizations: {
-          'pt-BR': 'tocar',
+          'pt-BR': client.languages.languageManager.get('pt-BR', 'commandNames:play'),
         },
-        description: '[ 🎵 Music ] Add a song to play.',
+        description: client.languages.languageManager.get('en-US', 'commandDescriptions:play'),
         descriptionLocalizations: {
-          'pt-BR': '[ 🎵 Música ] Adiciona uma música para tocar.',
+          'pt-BR': client.languages.languageManager.get('pt-BR', 'commandDescriptions:play'),
         },
         options: [
           {
-            name: 'song',
+            name: client.languages.languageManager.get('en-US', 'commandNames:play/song'),
             nameLocalizations: {
-              'pt-BR': 'música',
+              'pt-BR': client.languages.languageManager.get('pt-BR', 'commandNames:play/song'),
             },
-            description: 'Song/Playlist URL/Name',
+            description: client.languages.languageManager.get('en-US', 'commandDescriptions:play/song'),
             descriptionLocalizations: {
-              'pt-BR': 'Música/Playlist URL/Nome',
+              'pt-BR': client.languages.languageManager.get('pt-BR', 'commandDescriptions:play/song'),
             },
             type: ApplicationCommandOptionType.String,
             required: true,
             autocomplete: true,
           },
         ],
-        dmPermission: false,
       },
       client,
     );

@@ -8,25 +8,24 @@ export default class EvalCommand extends Command {
     super(
       {
         name: 'eval',
-        description: '[ 🚀 Developers ] Evaluates JavaScript code and executes it.',
+        description: client.languages.languageManager.get('en-US', 'commandDescriptions:eval'),
         descriptionLocalizations: {
-          'pt-BR': '[ 🚀 Desenvolvedores ] Executa um código JavaScript e retorna o seu resultado.',
+          'pt-BR': client.languages.languageManager.get('pt-BR', 'commandDescriptions:eval'),
         },
         options: [
           {
-            name: 'code',
+            name: client.languages.languageManager.get('en-US', 'commandNames:eval/code'),
             nameLocalizations: {
-              'pt-BR': 'código',
+              'pt-BR': client.languages.languageManager.get('pt-BR', 'commandNames:eval/code'),
             },
-            description: 'Code to evaluate',
+            description: client.languages.languageManager.get('en-US', 'commandDescriptions:eval/code'),
             descriptionLocalizations: {
-              'pt-BR': 'Código para executar',
+              'pt-BR': client.languages.languageManager.get('pt-BR', 'commandDescriptions:eval/code'),
             },
             type: ApplicationCommandOptionType.String,
             required: true,
           },
         ],
-        dmPermission: true,
       },
       client,
     );
@@ -39,7 +38,7 @@ export default class EvalCommand extends Command {
 
   async execute({ context, t }: CommandExecuteOptions) {
     if (!this.client.developers.some(x => x === context.user.id)) {
-      context.reply({ content: t('commands:eval/error/noPerm'), flags: 1 << 6 });
+      context.reply({ content: t('command:eval/error/noPerm'), flags: 1 << 6 });
       return;
     }
 
@@ -61,7 +60,7 @@ export default class EvalCommand extends Command {
       }
 
       context.reply(
-        t('commands:eval/output', {
+        t('command:eval/output', {
           code: `\`\`\`js\n${clean(
             inspect(evaled, { depth: 0 })
               .replace(new RegExp(this.client.token as string, 'gi'), '******************')
@@ -70,7 +69,7 @@ export default class EvalCommand extends Command {
         }),
       );
     } catch (error: any) {
-      context.reply(t('commands:eval/error', { code: `\`\`\`js\n${String(error.stack.slice(0, 1970))}\n\`\`\`` }));
+      context.reply(t('command:eval/error', { code: `\`\`\`js\n${String(error.stack.slice(0, 1970))}\n\`\`\`` }));
     }
   }
 }

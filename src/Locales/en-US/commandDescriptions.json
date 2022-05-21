@@ -1,0 +1,19 @@
+{
+  "eval": "[ 🚀 Developers ] Evaluates JavaScript code and executes it.",
+  "eval/code": "Code to evaluate",
+
+  "shell": "[ 🚀 Developers ] Executes a shell command.",
+  "shell/code": "Code to run",
+
+  "ping": "[ 📚 Information ] Shows the bot latency.",
+
+  "247": "[ 🎵 Music ] Make the current music player never been destroyed.",
+
+  "lyrics": "[ 🎵 Music ] Shows the lyrics of a song.",
+  "lyrics/song": "Song Name",
+  "lyrics/artist": "Artist Name",
+  "lyrics/member": "Member",
+
+  "play": "[ 🎵 Music ] Add a song to play.",
+  "play/song": "Song/Playlist URL/Name"
+}

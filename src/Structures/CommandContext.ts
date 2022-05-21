@@ -13,7 +13,7 @@ import {
 } from 'discord.js';
 import { Player } from 'vulkava';
 import { SukiClient } from '../SukiClient';
-import { MusixMatch } from '../Apis';
+import { MusixMatch } from '../APIS';
 
 class CommandContext {
   client: SukiClient;

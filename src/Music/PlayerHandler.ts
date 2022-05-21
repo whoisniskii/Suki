@@ -1,5 +1,5 @@
 import { Node, Vulkava } from 'vulkava';
-import { MusixMatch } from '../Apis';
+import { MusixMatch } from '../APIS';
 import { SukiClient } from '../SukiClient';
 
 class PlayerHandler extends Vulkava {
