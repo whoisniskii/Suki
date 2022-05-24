@@ -12,7 +12,8 @@ class GuildPlayer {
   }
 
   async createPlayer({ context, t }: CommandExecuteOptions) {
-    const voiceChannelID = context.voice?.channelId;
+    if (!context.interaction.inGuild()) return;
+    const voiceChannelID = context.voice.channelId;
 
     if (!voiceChannelID) {
       context.reply({ content: t('command:play/error/noChannel'), ephemeral: true });
@@ -25,18 +26,7 @@ class GuildPlayer {
     }
 
     try {
-      let music = context.options.getString('song', false);
-
-      if (!music) {
-        const activity = context.member?.presence?.activities.find(x => x.name === 'Spotify');
-
-        if (!activity) {
-          context.reply({ content: t('command:play/error/noArgs'), flags: 64 });
-          return;
-        }
-
-        music = `https://open.spotify.com/track/${activity.party?.id}`;
-      }
+      const music = context.options.getString('song', true);
 
       const result = await this.client.music.search(music, 'youtube');
 
@@ -51,7 +41,7 @@ class GuildPlayer {
       }
 
       const player = this.client.music.createPlayer({
-        guildId: context.guild?.id as string,
+        guildId: context.interaction.guildId,
         voiceChannelId: voiceChannelID,
         textChannelId: context.channel.id,
         selfDeaf: true,
@@ -74,7 +64,7 @@ class GuildPlayer {
           .addFields([
             {
               name: t('command:play/embed/field/duration'),
-              value: dayjs(result.playlistInfo?.duration).format('DD:HH:mm'),
+              value: dayjs(result.playlistInfo.duration).format('DD:HH:mm'),
               inline: true,
             },
             {
