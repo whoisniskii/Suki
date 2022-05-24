@@ -1,5 +1,5 @@
 import { Node, Vulkava } from 'vulkava';
-import { MusixMatch } from '../APIS';
+import { MusixMatch } from '../Apis';
 import { SukiClient } from '../SukiClient';
 
 class PlayerHandler extends Vulkava {
@@ -17,6 +17,7 @@ class PlayerHandler extends Vulkava {
         clientSecret: client.config.vulkava.spotifyClientSecret,
       },
       unresolvedSearchSource: 'youtube',
+      defaultSearchSource: 'youtube',
     });
 
     this.client = client;

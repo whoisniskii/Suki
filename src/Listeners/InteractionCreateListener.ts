@@ -1,4 +1,4 @@
-import { AutocompleteInteraction, ChatInputCommandInteraction, GuildMember, Interaction, PermissionsBitField } from 'discord.js';
+import { ChatInputCommandInteraction, GuildMember, Interaction, PermissionsBitField } from 'discord.js';
 import { getFixedT, TFunction } from 'i18next';
 import { Command, CommandContext, Event } from '../Structures';
 import { SukiClient } from '../SukiClient';
@@ -12,7 +12,7 @@ export default class InteractionCreateEvent extends Event {
   }
 
   execute(client: SukiClient, interaction: Interaction) {
-    if (interaction instanceof AutocompleteInteraction) {
+    if (interaction.isAutocomplete()) {
       if (!interaction.member) return;
       const cmd = client.commands.find(c => c.rawName === interaction.commandName);
 
@@ -26,9 +26,7 @@ export default class InteractionCreateEvent extends Event {
       return;
     }
 
-    if (interaction instanceof ChatInputCommandInteraction) {
-      if (!interaction.isChatInputCommand()) return;
-
+    if (interaction.isChatInputCommand()) {
       const t = getFixedT(interaction.locale);
 
       const cmd = client.commands.find(x => x.rawName === interaction.commandName);

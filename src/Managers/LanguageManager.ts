@@ -32,16 +32,22 @@ class LanguageManager {
   }
 }
 
-export type LocaleCategories = 'command' | 'commandNames' | 'commandDescriptions';
+export type LocaleCategories = 'command' | 'commandNames' | 'commandDescriptions' | 'events';
 export type SupportedLocales = 'en-US' | 'pt-BR';
 
 export type CommandLocaleKeys = keyof typeof import('../Locales/pt-BR/command.json');
 export type CommandDescriptionsKeys = keyof typeof import('../Locales/pt-BR/commandDescriptions.json');
 export type CommandNamesKeys = keyof typeof import('../Locales/pt-BR/commandNames.json');
 export type PermissionLocaleKeys = keyof typeof import('../Locales/pt-BR/permissions.json');
+export type EventLocaleKeys = keyof typeof import('../Locales/pt-BR/events.json');
 
-export type AllLocaleKeys = CommandLocaleKeys | CommandNamesKeys | CommandDescriptionsKeys | PermissionLocaleKeys;
+export type AllLocaleKeys = CommandLocaleKeys | CommandNamesKeys | CommandDescriptionsKeys | EventLocaleKeys | PermissionLocaleKeys;
 
-export type AllLocalePaths = `command:${CommandLocaleKeys}` | `commandDescriptions:${CommandDescriptionsKeys}` | `commandNames:${CommandNamesKeys}` | `permissions:${PermissionLocaleKeys}`;
+export type AllLocalePaths =
+  | `command:${CommandLocaleKeys}`
+  | `commandDescriptions:${CommandDescriptionsKeys}`
+  | `commandNames:${CommandNamesKeys}`
+  | `events:${EventLocaleKeys}`
+  | `permissions:${PermissionLocaleKeys}`;
 
 export { LanguageManager };

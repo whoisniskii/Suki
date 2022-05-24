@@ -1,10 +1,10 @@
 import mongoose, { Schema } from 'mongoose';
 
-export interface User {
+export interface UserDB {
   id: string;
 }
 
-const userSchema = new Schema<User>({
+const userSchema = new Schema<UserDB>({
   id: {
     type: mongoose.SchemaTypes.String,
     required: true,

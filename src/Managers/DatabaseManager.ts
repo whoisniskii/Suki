@@ -1,6 +1,6 @@
 import { connect } from 'mongoose';
-import GuildDB from '../Database/guildDB';
-import UserDB from '../Database/userDB';
+import GuildDB from '../Schemas/guildDB';
+import UserDB from '../Schemas/userDB';
 import { SukiClient } from '../SukiClient';
 
 class DatabaseManager {

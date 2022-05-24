@@ -10,11 +10,11 @@ import { Command, Language } from './Structures';
 
 class SukiClient extends Client {
   config: typeof config;
+  languages: Language;
+  database: DatabaseManager;
+  music: PlayerHandler;
   commands: Command[];
   developers: string[];
-  music: PlayerHandler;
-  database: DatabaseManager;
-  languages: Language;
   request: (
     url: string | URL | UrlObject,
     options?: { dispatcher?: Dispatcher } & Omit<Dispatcher.RequestOptions, 'origin' | 'path' | 'method'> & Partial<Pick<Dispatcher.RequestOptions, 'method'>>,
@@ -40,9 +40,9 @@ class SukiClient extends Client {
       },
     });
 
-    this.languages = new Language(this);
-    this.request = request;
     this.config = config;
+    this.request = request;
+    this.languages = new Language(this);
     this.database = new DatabaseManager(this);
     this.music = new PlayerHandler(this);
     this.commands = [];

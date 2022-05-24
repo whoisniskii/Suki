@@ -1,11 +1,11 @@
 import mongoose, { Schema } from 'mongoose';
 
-export interface Guild {
+export interface GuildDB {
   guildID: string;
   forever: boolean;
 }
 
-const guildSchema = new Schema<Guild>({
+const guildSchema = new Schema<GuildDB>({
   guildID: {
     type: mongoose.SchemaTypes.String,
     required: true,
