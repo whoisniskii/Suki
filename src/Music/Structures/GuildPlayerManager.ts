@@ -13,44 +13,41 @@ class GuildPlayer {
 
   async createPlayer({ context, t }: CommandExecuteOptions) {
     if (!context.interaction.inGuild()) return;
-    const voiceChannelID = context.voice.channelId;
 
-    if (!voiceChannelID) {
+    if (!context.voice.channelId) {
       context.reply({ content: t('command:play/error/noChannel'), ephemeral: true });
       return;
     }
 
-    if (context.player && voiceChannelID !== context.player.voiceChannelId) {
+    if (context.player && context.voice.channelId !== context.player.voiceChannelId) {
       context.reply({ content: t('command:play/error/noChannel'), ephemeral: true });
       return;
     }
 
     try {
-      const music = context.options.getString('song', true);
+      const res = await this.client.music.search(context.options.getString('song', true));
 
-      const result = await this.client.music.search(music, 'youtube');
-
-      if (result.loadType === 'LOAD_FAILED') {
-        context.reply({ content: t('command:play/error/invalidLink'), flags: 64 });
+      if (res.loadType === 'LOAD_FAILED') {
+        context.reply({ content: t('command:play/error/invalidLink'), ephemeral: true });
         return;
       }
 
-      if (result.loadType === 'NO_MATCHES') {
-        context.reply({ content: t('command:play/error/noMatches'), flags: 64 });
+      if (res.loadType === 'NO_MATCHES') {
+        context.reply({ content: t('command:play/error/noMatches'), ephemeral: true });
         return;
       }
 
       const player = this.client.music.createPlayer({
         guildId: context.interaction.guildId,
-        voiceChannelId: voiceChannelID,
+        voiceChannelId: context.voice.channelId,
         textChannelId: context.channel.id,
         selfDeaf: true,
       });
 
       player.connect();
 
-      if (result.loadType === 'PLAYLIST_LOADED') {
-        for (const track of result.tracks) {
+      if (res.loadType === 'PLAYLIST_LOADED') {
+        for (const track of res.tracks) {
           player.queue.push(track);
           track.setRequester(context.user);
         }
@@ -58,29 +55,28 @@ class GuildPlayer {
         if (!player.playing) player.play();
 
         const embed = new EmbedBuilder()
-          .setTitle(`${result.playlistInfo.name}`)
+          .setTitle(res.playlistInfo.name)
           .setTimestamp()
           .setColor('Purple')
           .addFields([
             {
               name: t('command:play/embed/field/duration'),
-              value: dayjs(result.playlistInfo.duration).format('DD:HH:mm'),
+              value: dayjs(res.playlistInfo.duration).format('DD:HH:mm'),
               inline: true,
             },
             {
               name: t('command:play/embed/field/amountTracks'),
-              value: `${t('command:play/embed/value/amount', { tracks: result.tracks.length.toString() })}`,
+              value: `${t('command:play/embed/value/amount', { tracks: res.tracks.length.toString() })}`,
             },
           ])
-          .setFooter({ text: `${context.user.username}#${context.user.discriminator}`, iconURL: context.user.displayAvatarURL() });
+          .setFooter({ text: `${context.user.tag}`, iconURL: context.user.displayAvatarURL({ extension: 'jpg' }) });
 
-        const regex = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\\+.~#?&//=]*)/;
-
-        regex.test(context.options.getString('song', true)) && embed.setURL(context.options.getString('song', true));
+        /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\\+.~#?&//=]*)/.test(context.options.getString('song', true)) &&
+          embed.setURL(context.options.getString('song', true));
 
         context.reply({ embeds: [embed] });
       } else {
-        const { tracks } = result;
+        const { tracks } = res;
         const msc = tracks[0];
         msc.setRequester(context.user);
         player.queue.push(msc);

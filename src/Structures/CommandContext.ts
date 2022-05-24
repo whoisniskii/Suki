@@ -15,7 +15,7 @@ class CommandContext {
   }
 
   get member() {
-    return this.interaction.member as GuildMember;
+    return (this.interaction.member as GuildMember) ?? this.client.guilds.cache.get(this.interaction.guildId as string)?.members.cache.get(this.interaction.user.id);
   }
 
   get guild() {
@@ -44,17 +44,13 @@ class CommandContext {
   }
 
   async reply(options: InteractionReplyOptions) {
-    if (this.interaction.deferred) {
-      await this.interaction.editReply(options);
-    } else {
-      await this.interaction.reply(options);
-    }
+    if (this.interaction.deferred) await this.interaction.editReply(options);
+
+    await this.interaction.reply(options);
   }
 
   async defer(options?: InteractionDeferReplyOptions) {
-    if (this.interaction.isChatInputCommand()) {
-      await this.interaction.deferReply(options);
-    }
+    if (this.interaction.isChatInputCommand()) await this.interaction.deferReply(options);
   }
 }
 

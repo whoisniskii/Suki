@@ -39,14 +39,14 @@ export default class ShellCommand extends Command {
   }
 
   execute({ context, t }: CommandExecuteOptions) {
-    if (!this.client.developers.some(x => x === context.member?.id)) {
-      context.reply({ content: t('command:shell/error/noPerm'), flags: 1 << 6 });
+    if (!this.client.developers.some(x => x === context.user.id)) {
+      context.reply({ content: t('command:shell/error/noPerm'), ephemeral: true });
       return;
     }
 
     exec(context.options.getString('code', true), async (_err, stdout, stderr) => {
       if (!stdout && !stderr) {
-        context.reply({ content: t('command:shell/error/noOutput'), flags: 1 << 6 });
+        context.reply({ content: t('command:shell/error/noOutput'), ephemeral: true });
         return;
       }
 
