@@ -55,10 +55,10 @@ class SukiClient extends Client {
   }
 
   async initialize() {
-    super.login(this.config.client.token);
     await sleep(1000);
     new CommandManager(this).loadCommands(`${__dirname}/Commands`);
     new EventManager(this).loadEvents(`${__dirname}/Listeners`);
+    super.login(this.config.client.token);
 
     process.on('uncaughtException', err => console.log(err));
     process.on('unhandledRejection', err => console.log(err));

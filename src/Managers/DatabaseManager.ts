@@ -21,17 +21,15 @@ class DatabaseManager {
 
     if (!userDBData) return null;
 
-    let document = await this.userDB.findOne({ userId });
+    let document = await this.userDB.findOne({ id: userId });
 
-    if (!document) {
-      document = new UserDB({ userId });
-    }
+    if (!document) document = new UserDB({ id: userId });
 
     return document;
   }
 
-  async deleteUserSchema(id: string) {
-    const userDBData = await this.userDB.findOne({ id });
+  async deleteUserSchema(userId: string) {
+    const userDBData = await this.userDB.findOne({ id: userId });
 
     if (!userDBData) return;
 
@@ -41,12 +39,11 @@ class DatabaseManager {
   async getGuild(guildId: string) {
     let document = await this.guildDB.findOne({ guildID: guildId });
 
-    if (!document) {
+    if (!document)
       document = new GuildDB({
         guildID: guildId,
         forever: false,
       });
-    }
 
     return document;
   }
