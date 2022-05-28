@@ -59,10 +59,10 @@ class DatabaseManager {
   loadDatabase() {
     return connect(this.client.config.database.mongodb)
       .then(() => {
-        console.log('\x1b[32m[DATABASE]\x1b[0m', 'Database successfully connected.');
+        this.client.logger.info('Database successfully connected.', 'DATABASE');
       })
       .catch((err: Error | null) => {
-        console.log('\x1b[31m[DATABASE]\x1b[0m', `Error connecting to database.\n${err}`);
+        this.client.logger.error(`Error connecting to database.\n${err}`, 'DATABASE');
       });
   }
 }

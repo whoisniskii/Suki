@@ -7,6 +7,7 @@ import config from './Config/config';
 import { CommandManager, DatabaseManager, EventManager } from './Managers';
 import { PlayerHandler } from './Music';
 import { Command, Language } from './Structures';
+import Logger from './Utils/Logger';
 
 class SukiClient extends Client {
   config: typeof config;
@@ -15,6 +16,7 @@ class SukiClient extends Client {
   music: PlayerHandler;
   commands: Command[];
   developers: string[];
+  logger: Logger;
   request: (
     url: string | URL | UrlObject,
     options?: { dispatcher?: Dispatcher } & Omit<Dispatcher.RequestOptions, 'origin' | 'path' | 'method'> & Partial<Pick<Dispatcher.RequestOptions, 'method'>>,
@@ -42,6 +44,7 @@ class SukiClient extends Client {
 
     this.config = config;
     this.request = request;
+    this.logger = new Logger();
     this.languages = new Language(this);
     this.database = new DatabaseManager(this);
     this.music = new PlayerHandler(this);
@@ -60,8 +63,8 @@ class SukiClient extends Client {
     new EventManager(this).loadEvents(`${__dirname}/Listeners`);
     super.login(this.config.client.token);
 
-    process.on('uncaughtException', err => console.log(err));
-    process.on('unhandledRejection', err => console.log(err));
+    process.on('uncaughtException', err => this.logger.error(err.message));
+    process.on('unhandledRejection', err => this.logger.error(err as string));
   }
 }
 

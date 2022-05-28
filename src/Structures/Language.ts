@@ -9,7 +9,7 @@ class Language {
     this.client = client;
     this.client.languages = this;
 
-    this.languageManager = new LanguageManager();
+    this.languageManager = new LanguageManager(client);
     this.languageManager.loadLocales();
   }
 }

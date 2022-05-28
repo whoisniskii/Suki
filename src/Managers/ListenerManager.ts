@@ -21,7 +21,7 @@ class EventManager {
       this.client.on(event.eventName, (...args: any[]) => event.execute(this.client, ...args));
     }
 
-    console.log('\x1b[32m[EVENTS]\x1b[0m', 'Events loaded successfully.');
+    this.client.logger.info('Events loaded successfully.', 'EVENTS');
   }
 }
 

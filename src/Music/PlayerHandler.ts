@@ -24,7 +24,7 @@ class PlayerHandler extends Vulkava {
     this.musixmatch = new MusixMatch(this.client.config.apis.musixmatch, client);
 
     this.on('nodeConnect', node => {
-      console.log('\x1b[32m[NODES]\x1b[0m', `Node ${node.identifier} successfully logged in.`);
+      this.client.logger.info(`Node ${node.identifier} successfully logged in.`, 'NODES');
 
       for (const player of [...this.players.values()].filter(p => p.node === node).values()) {
         const { position } = player;
@@ -40,12 +40,12 @@ class PlayerHandler extends Vulkava {
     });
 
     this.on('error', (node, error) => {
-      console.log('\x1b[31m[NODES]\x1b[0m', `Error on Node ${node.identifier}.\n${error}`);
+      this.client.logger.error(`Error on Node ${node.identifier}.\n${error}`, 'NODES');
       if (error.message.startsWith('Unable to connect after')) this.reconnect(node);
     });
 
     this.on('nodeDisconnect', (node, code, reason) =>
-      console.log('\x1b[31m[NODES]\x1b[0m', `Node ${node.identifier}. was disconnected\nClose code: ${code}.\nReason: ${reason === '' ? 'Unknown' : reason}`),
+      this.client.logger.error(`Node ${node.identifier}. was disconnected\nClose code: ${code}.\nReason: ${reason === '' ? 'Unknown' : reason}`, 'NODES'),
     );
 
     this.on('trackStart', (player, track) => {

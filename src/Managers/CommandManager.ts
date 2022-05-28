@@ -21,7 +21,7 @@ class CommandManager {
       }
     }
 
-    console.log('\x1b[32m[COMMANDS]\x1b[0m', 'Commands loaded successfully.');
+    this.client.logger.info('Commands loaded successfully.', 'COMMANDS');
   }
 }
 
