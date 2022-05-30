@@ -26,9 +26,6 @@ Now you can run bot using:
 yarn start
 ```
 
-## ⛔ Issues:
-If you have any problems open a issue
-
 ## 🚀 Contributing
 
 1. Fork it!
