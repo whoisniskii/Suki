@@ -1,0 +1,5 @@
+{
+  "trackStart/trackNow": "🎵 **|** Started playing {{title}} by {{author}}",
+  "trackStuck/trackNow": "❌ **|** There was an error playing the song {{title}}",
+  "queueEnd/playerDelete": "👋 **|** The song queue ended, so I left the voice channel."
+}

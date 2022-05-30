@@ -1,3 +1,4 @@
+import i18next from 'i18next';
 import { Node, Vulkava } from 'vulkava';
 import { MusixMatch } from '../Api';
 import { SukiClient } from '../SukiClient';
@@ -65,14 +66,14 @@ class PlayerHandler extends Vulkava {
 
       if (player.trackRepeat) return;
 
-      channel.send(`Comecei a tocar \`${track.title}\` por \`${track.author}\``);
+      channel.send(this.Translate(player.guildId, 'musicEvents:trackStart/trackNow', { title: `\`${track.title}\``, author: `\`${track.author}\`` }));
     });
 
     this.on('trackStuck', (player, track) => {
       const channel = this.client.channels.cache.get(player.textChannelId as string);
       if (!channel || channel.type !== 0) return;
 
-      channel.send(`Ocorreu um erro ao reproduzir a música \`${track.title}\``);
+      channel.send(this.Translate(player.guildId, 'musicEvents:trackStuck/trackNow', { title: `\`${track.title}\`` }));
       player.skip();
     });
 
@@ -86,7 +87,7 @@ class PlayerHandler extends Vulkava {
 
       player.destroy();
 
-      channel.send('A fila de músicas acabou, então eu saí do canal de voz.');
+      channel.send(this.Translate(player.guildId, 'musicEvents:queueEnd/playerDelete'));
     });
 
     this.on('trackException', (player, _track, err) => {
@@ -98,6 +99,18 @@ class PlayerHandler extends Vulkava {
 
       player.skip();
     });
+  }
+
+  Translate(guildId: string, path: string, options?: object) {
+    const guildLanguage = this.client.guilds.cache.get(guildId)?.preferredLocale;
+
+    const data = i18next.getFixedT(guildLanguage ?? 'en-US', 'musicEvents');
+
+    if (options) {
+      return data(path, options);
+    }
+
+    return data(path);
   }
 
   private reconnect(node: Node) {

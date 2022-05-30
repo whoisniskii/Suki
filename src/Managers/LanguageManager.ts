@@ -12,7 +12,7 @@ class LanguageManager {
   async loadLocales() {
     try {
       await i18next.use(i18nbackend).init({
-        ns: ['commandNames', 'commandDescriptions', 'command', 'events', 'permissions'],
+        ns: ['commandNames', 'commandDescriptions', 'command', 'events', 'musicEvents', 'permissions'],
         defaultNS: 'command',
         preload: readdirSync('src/Locales'),
         fallbackLng: 'en-US',
