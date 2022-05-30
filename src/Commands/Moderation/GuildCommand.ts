@@ -5,7 +5,7 @@ export default class GuildCommand extends Command {
   constructor(client: SukiClient) {
     super(client);
 
-    this.rawName = 'GUILD';
+    this.rawName = 'guild';
     this.permissions = {
       bot: [],
       user: [],

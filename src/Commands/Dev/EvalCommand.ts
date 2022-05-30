@@ -7,6 +7,7 @@ export default class EvalCommand extends Command {
   constructor(client: SukiClient) {
     super(client);
 
+    this.rawName = 'eval';
     this.permissions = {
       bot: [],
       user: [],

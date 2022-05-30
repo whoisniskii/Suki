@@ -4,10 +4,12 @@ import { Command, CommandExecuteOptions } from '../../Structures';
 import { SukiClient } from '../../SukiClient';
 
 const ANSI_REGEX = /[\u001b\u009b][[()#;?]*(?:[0-9]{1,4}(?:;[0-9]{0,4})*)?[0-9A-ORZcf-nqry=><]/g;
+
 export default class ShellCommand extends Command {
   constructor(client: SukiClient) {
     super(client);
 
+    this.rawName = 'shell';
     this.permissions = {
       bot: [],
       user: [],

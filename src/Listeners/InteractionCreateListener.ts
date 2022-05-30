@@ -13,10 +13,8 @@ export default class InteractionCreateEvent extends Event {
   }
 
   execute(client: SukiClient, interaction: Interaction) {
-    if (interaction.isAutocomplete()) {
-      if (!interaction.member) return;
-      const cmd = client.commands.get(interaction.commandName);
-
+    if (interaction.isAutocomplete() && interaction.inGuild()) {
+      const cmd = client.commands.find(c => c.rawName === interaction.commandName);
       if (!cmd) throw new Error(`Command ${interaction.commandName} does not exist!`);
 
       const { options } = interaction;
@@ -30,7 +28,7 @@ export default class InteractionCreateEvent extends Event {
     if (interaction.isChatInputCommand()) {
       const t = getFixedT(InteractionCreateEvent.recommendedLocale(interaction.locale));
 
-      const cmd = client.commands.get(interaction.commandName);
+      const cmd = client.commands.find(c => c.rawName === interaction.commandName);
       if (!cmd) throw new Error(`Command ${interaction.commandName} does not exist!`);
 
       if (interaction.inGuild()) {
@@ -38,7 +36,7 @@ export default class InteractionCreateEvent extends Event {
         if (!InteractionCreateEvent.checkMemberPermissions(interaction, cmd, t)) return;
       }
 
-      if (cmd.config.devOnly === true && client.developers.some(x => x !== interaction.user.id)) {
+      if (cmd.config.devOnly && client.developers.some(x => x !== interaction.user.id)) {
         interaction.reply(`❌ **|** ${t('events:interactionCreate/permissions/devOnly')}`);
         return;
       }
