@@ -12,9 +12,9 @@
     "url": "https://github.com/Niskii3/Suki-Rewrite/issues"
   },
   "scripts": {
-    "build": "npx sucrase ./src -d ./build --esModuleInterop --transforms typescript,imports",
+    "build": "tsc --project tsconfig.json",
     "build:check": "yarn types:check && yarn build",
-    "start": "node ./build/Initializer.js",
+    "start": "cd build && node Initializer.js",
     "lint": "npx eslint src --ext .ts",
     "lint:fix": "npx eslint src --ext .ts --fix",
     "lint:prettier": "npx prettier -w src",
@@ -42,7 +42,6 @@
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-prettier": "^4.0.0",
     "prettier": "^2.6.2",
-    "sucrase": "^3.21.0",
     "typescript": "^4.7.2"
   }
 }

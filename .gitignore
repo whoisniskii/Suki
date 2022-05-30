@@ -1,4 +1,7 @@
 node_modules
 build
 src/Commands/Dev/TestCommand.ts
+src/Command/Dev/data/test.ts
 src/Config/config.ts
+yarn.lock
+package-lock.json

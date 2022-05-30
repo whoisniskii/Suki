@@ -19,5 +19,6 @@
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true
   },
-  "include": ["src/**/*.ts", "*.ts", "src/Locales/**/*.json"]
+  "include": ["src/**/*.ts", "*.ts", "src/Locales/**/*.json"],
+  "exclude": ["node_modues"]
 }
