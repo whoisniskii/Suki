@@ -14,9 +14,9 @@ class LanguageManager {
       await i18next.use(i18nbackend).init({
         ns: ['commandNames', 'commandDescriptions', 'command', 'events', 'musicEvents', 'permissions'],
         defaultNS: 'command',
-        preload: readdirSync('src/Locales'),
-        fallbackLng: 'en-US',
-        backend: { loadPath: 'src/Locales/{{lng}}/{{ns}}.json' },
+        preload: readdirSync('./Locales'),
+        fallbackLng: 'pt-BR',
+        backend: { loadPath: './Locales/{{lng}}/{{ns}}.json' },
         load: 'all',
         interpolation: {
           escapeValue: false,

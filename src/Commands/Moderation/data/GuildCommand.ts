@@ -1,10 +1,11 @@
 import { ApplicationCommandOptionType } from 'discord.js';
-import { AutoCompleteExecuteOptions, Command, CommandExecuteOptions } from '../../Structures';
-import { SukiClient } from '../../SukiClient';
+import { CommandDataStructure } from '../../../Structures';
+import { SukiClient } from '../../../SukiClient';
 
-export default class GuildCommand extends Command {
+export default class ServerData extends CommandDataStructure {
   constructor(client: SukiClient) {
-    super(client, {
+    super(client);
+    this.data = {
       name: 'guild',
       description: client.languages.languageManager.get('en-US', 'commandDescriptions:guild'),
       descriptionLocalizations: {
@@ -35,31 +36,6 @@ export default class GuildCommand extends Command {
           ],
         },
       ],
-    });
-
-    this.permissions = {
-      bot: [],
-      user: [],
     };
-    this.config = {
-      registerSlashCommands: true,
-      devOnly: false,
-    };
-  }
-
-  execute({ context, t }: CommandExecuteOptions) {
-    switch (context.options.getSubcommand()) {
-      case 'bans': {
-        this.client.commands.find(x => x.rawName === 'BanInfoSubCommand')?.execute({ context, t });
-        break;
-      }
-    }
-  }
-
-  executeAutoComplete({ interaction, value, options }: AutoCompleteExecuteOptions) {
-    if (interaction.options.getSubcommand(false) === 'bans') {
-      const cmd = this.client.commands.find(x => x.rawName === 'BanInfoSubCommand');
-      cmd?.executeAutoComplete({ interaction, value, options });
-    }
   }
 }

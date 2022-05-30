@@ -25,7 +25,7 @@ export default class BanInfoSubCommand extends Command {
       return;
     }
 
-    const ban = await context.guild?.bans.fetch().then(x => x.get(str));
+    const ban = await context.guild?.bans.fetch(str);
 
     if (!ban) {
       context.reply({ content: t('command:guild/ban/error/noBan'), ephemeral: true });
@@ -63,7 +63,10 @@ export default class BanInfoSubCommand extends Command {
     const t = i18next.getFixedT(interaction.locale);
     const bans = await interaction.guild?.bans.fetch({ cache: true, limit: 25 });
 
-    if (!bans) return;
+    if (!bans) {
+      interaction.respond([]);
+      return;
+    }
 
     if (bans.size === 0) {
       interaction.respond([{ value: 'none', name: t('command:guild/bans/autocomplete/noBans') }]);

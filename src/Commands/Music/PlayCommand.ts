@@ -1,36 +1,13 @@
-import { ApplicationCommandOptionType, PermissionFlagsBits } from 'discord.js';
+import { PermissionFlagsBits } from 'discord.js';
 import { GuildPlayer } from '../../Music';
 import { AutoCompleteExecuteOptions, Command, CommandExecuteOptions } from '../../Structures';
 import { SukiClient } from '../../SukiClient';
 
 export default class PlayCommand extends Command {
   constructor(client: SukiClient) {
-    super(client, {
-      name: client.languages.languageManager.get('en-US', 'commandNames:play'),
-      nameLocalizations: {
-        'pt-BR': client.languages.languageManager.get('pt-BR', 'commandNames:play'),
-      },
-      description: client.languages.languageManager.get('en-US', 'commandDescriptions:play'),
-      descriptionLocalizations: {
-        'pt-BR': client.languages.languageManager.get('pt-BR', 'commandDescriptions:play'),
-      },
-      options: [
-        {
-          name: client.languages.languageManager.get('en-US', 'commandNames:play/song'),
-          nameLocalizations: {
-            'pt-BR': client.languages.languageManager.get('pt-BR', 'commandNames:play/song'),
-          },
-          description: client.languages.languageManager.get('en-US', 'commandDescriptions:play/song'),
-          descriptionLocalizations: {
-            'pt-BR': client.languages.languageManager.get('pt-BR', 'commandDescriptions:play/song'),
-          },
-          type: ApplicationCommandOptionType.String,
-          required: true,
-          autocomplete: true,
-        },
-      ],
-    });
+    super(client);
 
+    this.rawName = 'play';
     this.permissions = {
       bot: [PermissionFlagsBits.EmbedLinks],
       user: [],

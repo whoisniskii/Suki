@@ -17,11 +17,10 @@ abstract class Command<Client = SukiClient> {
     user: PermissionResolvable[];
   };
 
-  constructor(client: Client, data?: ChatInputApplicationCommandData) {
+  constructor(client: Client) {
     this.client = client;
 
-    this.options = (data as ChatInputApplicationCommandData) ?? '';
-    this.rawName = data?.name ?? '';
+    this.rawName = '';
     this.permissions = {
       bot: [],
       user: [],
@@ -38,6 +37,10 @@ abstract class Command<Client = SukiClient> {
 
   executeAutoComplete({ interaction, value, options }: AutoCompleteExecuteOptions): unknown {
     return { interaction, value, options };
+  }
+
+  addOptions(options: ChatInputApplicationCommandData): void {
+    this.options = options;
   }
 }
 

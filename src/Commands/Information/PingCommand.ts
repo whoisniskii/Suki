@@ -3,14 +3,9 @@ import { SukiClient } from '../../SukiClient';
 
 export default class PingCommand extends Command {
   constructor(client: SukiClient) {
-    super(client, {
-      name: 'ping',
-      description: client.languages.languageManager.get('en-US', 'commandDescriptions:ping'),
-      descriptionLocalizations: {
-        'pt-BR': client.languages.languageManager.get('pt-BR', 'commandDescriptions:ping'),
-      },
-    });
+    super(client);
 
+    this.rawName = 'ping';
     this.permissions = {
       bot: [],
       user: [],

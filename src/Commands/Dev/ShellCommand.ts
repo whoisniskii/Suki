@@ -1,33 +1,12 @@
 /* eslint-disable no-control-regex */
 import { exec } from 'child_process';
-import { ApplicationCommandOptionType } from 'discord.js';
 import { Command, CommandExecuteOptions } from '../../Structures';
 import { SukiClient } from '../../SukiClient';
 
 const ANSI_REGEX = /[\u001b\u009b][[()#;?]*(?:[0-9]{1,4}(?:;[0-9]{0,4})*)?[0-9A-ORZcf-nqry=><]/g;
 export default class ShellCommand extends Command {
   constructor(client: SukiClient) {
-    super(client, {
-      name: 'shell',
-      description: client.languages.languageManager.get('en-US', 'commandDescriptions:shell'),
-      descriptionLocalizations: {
-        'pt-BR': client.languages.languageManager.get('pt-BR', 'commandDescriptions:shell'),
-      },
-      options: [
-        {
-          name: client.languages.languageManager.get('en-US', 'commandNames:shell/code'),
-          nameLocalizations: {
-            'pt-BR': client.languages.languageManager.get('pt-BR', 'commandNames:shell/code'),
-          },
-          description: client.languages.languageManager.get('en-US', 'commandDescriptions:shell/code'),
-          descriptionLocalizations: {
-            'pt-BR': client.languages.languageManager.get('pt-BR', 'commandDescriptions:shell/code'),
-          },
-          type: ApplicationCommandOptionType.String,
-          required: true,
-        },
-      ],
-    });
+    super(client);
 
     this.permissions = {
       bot: [],
