@@ -14,5 +14,9 @@
   "lyrics/artist": "Artist Name",
 
   "play": "[ 🎵 Music ] Add a song to play.",
-  "play/song": "Song/Playlist URL/Name"
+  "play/song": "Song/Playlist URL/Name",
+
+  "guild": "See server information.",
+  "guild/bans": "[ 🔨 Moderation ] View a banned user information on the server.",
+  "guild/bans/user": "User who wants to see ban information."
 }

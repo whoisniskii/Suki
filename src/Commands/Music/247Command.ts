@@ -4,20 +4,20 @@ import { SukiClient } from '../../SukiClient';
 
 export default class TwentyFourHoursCommand extends Command {
   constructor(client: SukiClient) {
-    super(
-      {
-        name: '247',
-        description: client.languages.languageManager.get('en-US', 'commandDescriptions:247'),
-        descriptionLocalizations: {
-          'pt-BR': client.languages.languageManager.get('pt-BR', 'commandDescriptions:247'),
-        },
+    super(client, {
+      name: '247',
+      description: client.languages.languageManager.get('en-US', 'commandDescriptions:247'),
+      descriptionLocalizations: {
+        'pt-BR': client.languages.languageManager.get('pt-BR', 'commandDescriptions:247'),
       },
-      client,
-    );
+    });
 
     this.permissions = {
       bot: [],
       user: [PermissionFlagsBits.ManageGuild],
+    };
+    this.config = {
+      registerSlashCommands: true,
     };
   }
 

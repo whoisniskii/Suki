@@ -7,19 +7,26 @@ abstract class Command<Client = SukiClient> {
   client: Client;
   options: ChatInputApplicationCommandData;
   rawName: string;
+  config: {
+    registerSlashCommands: boolean;
+  };
+
   permissions: {
     bot: PermissionResolvable[];
     user: PermissionResolvable[];
   };
 
-  constructor(data: ChatInputApplicationCommandData, client: Client) {
+  constructor(client: Client, data?: ChatInputApplicationCommandData) {
     this.client = client;
 
-    this.options = data;
-    this.rawName = data.name;
+    this.options = (data as ChatInputApplicationCommandData) ?? '';
+    this.rawName = data?.name ?? '';
     this.permissions = {
       bot: [],
       user: [],
+    };
+    this.config = {
+      registerSlashCommands: true,
     };
   }
 

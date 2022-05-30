@@ -14,7 +14,7 @@ export default class ReadyEvent extends Event {
     client.logger.info(`Client successfully logged in ${client.user?.tag}.`, 'CLIENT');
 
     client.connectLavaLink();
-    const commands = client.commands.filter(x => x.options).map(x => x.options) as ChatInputApplicationCommandData[];
+    const commands = client.commands.filter(x => x.options && x.config.registerSlashCommands === true).map(x => x.options) as ChatInputApplicationCommandData[];
 
     await client.application?.commands.set(commands);
     // (await client.guilds.fetch(client.config.client.guild)).commands.set(commands);

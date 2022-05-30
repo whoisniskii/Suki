@@ -12,14 +12,14 @@ export default class Logger {
   }
 
   error(content: string, path?: string) {
-    return console.error(`${Logger.currentTime} ${Logger.Colors.RED}[${path ?? 'ERROR'}]${Logger.Colors.RESET} ${content}`);
+    return console.error(`${Logger.currentTime} - ${Logger.Colors.RED}[${path ?? 'ERROR'}]${Logger.Colors.RESET} ${content}`);
   }
 
   info(content: string, path?: string) {
-    return console.log(`${Logger.currentTime} ${Logger.Colors.GREEN}[${path ?? 'INFO'}]${Logger.Colors.RESET} ${content}`);
+    return console.log(`${Logger.currentTime} - ${Logger.Colors.GREEN}[${path ?? 'INFO'}]${Logger.Colors.RESET} ${content}`);
   }
 
   warn(content: string, path?: string) {
-    return console.warn(`${Logger.currentTime} ${Logger.Colors.YELLOW}[${path ?? 'WARN'}]${Logger.Colors.RESET} ${content}`);
+    return console.warn(`${Logger.currentTime} - ${Logger.Colors.YELLOW}[${path ?? 'WARN'}]${Logger.Colors.RESET} ${content}`);
   }
 }

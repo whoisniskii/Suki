@@ -4,54 +4,54 @@ import { SukiClient } from '../../SukiClient';
 
 export default class LyricsCommand extends Command {
   constructor(client: SukiClient) {
-    super(
-      {
-        name: client.languages.languageManager.get('en-US', 'commandNames:lyrics'),
-        nameLocalizations: {
-          'pt-BR': client.languages.languageManager.get('pt-BR', 'commandNames:lyrics'),
-        },
-        description: client.languages.languageManager.get('en-US', 'commandDescriptions:lyrics'),
-        descriptionLocalizations: {
-          'pt-BR': client.languages.languageManager.get('pt-BR', 'commandDescriptions:lyrics'),
-        },
-        options: [
-          {
-            name: client.languages.languageManager.get('en-US', 'commandNames:lyrics/song'),
-            nameLocalizations: {
-              'pt-BR': client.languages.languageManager.get('pt-BR', 'commandNames:lyrics/song'),
-            },
-            description: client.languages.languageManager.get('en-US', 'commandDescriptions:lyrics/song'),
-            descriptionLocalizations: {
-              'pt-BR': client.languages.languageManager.get('pt-BR', 'commandDescriptions:lyrics/song'),
-            },
-            type: ApplicationCommandOptionType.String,
-            required: false,
-          },
-          {
-            name: client.languages.languageManager.get('en-US', 'commandNames:lyrics/artist'),
-            nameLocalizations: {
-              'pt-BR': client.languages.languageManager.get('pt-BR', 'commandNames:lyrics/artist'),
-            },
-            description: client.languages.languageManager.get('en-US', 'commandDescriptions:lyrics/artist'),
-            descriptionLocalizations: {
-              'pt-BR': client.languages.languageManager.get('pt-BR', 'commandDescriptions:lyrics/artist'),
-            },
-            type: ApplicationCommandOptionType.String,
-            required: false,
-          },
-        ],
+    super(client, {
+      name: client.languages.languageManager.get('en-US', 'commandNames:lyrics'),
+      nameLocalizations: {
+        'pt-BR': client.languages.languageManager.get('pt-BR', 'commandNames:lyrics'),
       },
-      client,
-    );
+      description: client.languages.languageManager.get('en-US', 'commandDescriptions:lyrics'),
+      descriptionLocalizations: {
+        'pt-BR': client.languages.languageManager.get('pt-BR', 'commandDescriptions:lyrics'),
+      },
+      options: [
+        {
+          name: client.languages.languageManager.get('en-US', 'commandNames:lyrics/song'),
+          nameLocalizations: {
+            'pt-BR': client.languages.languageManager.get('pt-BR', 'commandNames:lyrics/song'),
+          },
+          description: client.languages.languageManager.get('en-US', 'commandDescriptions:lyrics/song'),
+          descriptionLocalizations: {
+            'pt-BR': client.languages.languageManager.get('pt-BR', 'commandDescriptions:lyrics/song'),
+          },
+          type: ApplicationCommandOptionType.String,
+          required: false,
+        },
+        {
+          name: client.languages.languageManager.get('en-US', 'commandNames:lyrics/artist'),
+          nameLocalizations: {
+            'pt-BR': client.languages.languageManager.get('pt-BR', 'commandNames:lyrics/artist'),
+          },
+          description: client.languages.languageManager.get('en-US', 'commandDescriptions:lyrics/artist'),
+          descriptionLocalizations: {
+            'pt-BR': client.languages.languageManager.get('pt-BR', 'commandDescriptions:lyrics/artist'),
+          },
+          type: ApplicationCommandOptionType.String,
+          required: false,
+        },
+      ],
+    });
 
     this.permissions = {
       bot: [PermissionFlagsBits.EmbedLinks],
       user: [],
     };
+    this.config = {
+      registerSlashCommands: true,
+    };
   }
 
   async execute({ context, t }: CommandExecuteOptions) {
-    await context.defer({ fetchReply: true });
+    await context.defer();
     let result;
 
     if (!context.options.getString('song', false) && !context.options.getString('artist', false)) {

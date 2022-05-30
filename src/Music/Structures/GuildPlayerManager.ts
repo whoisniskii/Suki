@@ -45,6 +45,7 @@ class GuildPlayer {
       });
 
       player.connect();
+      player.textChannelId = context.channel.id;
 
       if (res.loadType === 'PLAYLIST_LOADED') {
         for (const track of res.tracks) {
@@ -85,8 +86,8 @@ class GuildPlayer {
 
         context.reply(t('command:play/queue', { track: `\`${msc.title}\``, author: `\`${msc.author}\`` }));
       }
-    } catch (error) {
-      throw new Error('Error while playing music');
+    } catch (err: any) {
+      context.reply(t('command:play/error', { error: `\`${err.message}\`` }));
     }
   }
 }

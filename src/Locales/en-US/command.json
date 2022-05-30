@@ -1,26 +1,36 @@
 {
-    "ping/success": ":ping_pong: **|** API Ping: {{ping}}ms",
+    "ping/success": "🏓 **|** API Ping: {{ping}}ms",
 
-    "play/error/noChannel": ":x: **|** You're not on a voice channel or you're not on the same channel as me",
-    "play/error/noArgs": ":x: **|** You need to put a song or url for me to play!",
-    "play/error/invalidLink": ":x: **|** Sorry but the link/name you entered is not valid.",
-    "play/error/noMatches": ":x: **|** I didn't find the song you ant.",
+    "play/error/noChannel": "❌ **|** You're not on a voice channel or you're not on the same channel as me",
+    "play/error/noArgs": "❌ **|** You need to put a song or url for me to play!",
+    "play/error/invalidLink": "❌ **|** Sorry but the link/name you entered is not valid.",
+    "play/error/noMatches": "❌ **|** I didn't find the song you ant.",
     "play/embed/field/duration": "Duration",
     "play/embed/field/amountTracks": "Number of songs",
     "play/embed/value/amount": "**{{tracks}}** songs",
     "play/queue": "Song {{track}} by {{author}} added to play queue.",
+    "play/error": "An error occurred while searching for the song.\nError: {{error}}",
 
-    "eval/error/noPerm": ":x: **|** You cannot use this command!",
-    "eval/output": ":white_check_mark: **|** Output: {{code}}",
-    "eval/error": ":x: **|** Error: {{code}}",
+    "eval/error/noPerm": "❌ **|** You cannot use this command!",
+    "eval/output": "✅ **|** Output: {{code}}",
+    "eval/error": "❌ **|** Error: {{code}}",
 
-    "shell/error/noPerm": ":x: **|** You cannot use this command!",
-    "shell/error/noOutput": ":x: **|** No output!",
+    "shell/error/noPerm": "❌ **|** You cannot use this command!",
+    "shell/error/noOutput": "❌ **|** No output!",
 
-    "247/error/noPlayer": ":x: **|** I'm not playing music on this server.",
-    "247/on": ":white_check_mark: **|** 24/7 successfully activated.",
-    "247/off": ":white_check_mark: **|** 24/7 successfully disabled.",
+    "247/error/noPlayer": "❌ **|** I'm not playing music on this server.",
+    "247/on": "✅ **|** 24/7 successfully activated.",
+    "247/off": "✅ **|** 24/7 successfully disabled.",
 
-    "lyrics/error/noPlayer": ":x: **|** I'm not playing music on this server.",
-    "lyrics/error/notFound": ":x: **|** I couldn't find any lyrics for this song."
+    "lyrics/error/noPlayer": "❌ **|** I'm not playing music on this server.",
+    "lyrics/error/notFound": "❌ **|** I couldn't find any lyrics for this song.",
+
+    "guild/bans/error/noUser": "❌ **|** No users found.",
+    "guild/bans/error/noBan": "❌ **|** This user is not banned.",
+    "guild/bans/embed/title": "🔨 Ban information from {{user}}",
+    "guild/bans/embed/field/name/tag": "🏷️ Tag on Discord",
+    "guild/bans/embed/field/name/id": "💻 ID on Discord",
+    "guild/bans/embed/field/name/reason": "📖 Reason for Ban",
+    "guild/bans/embed/field/value/reason": "No reason",
+    "guild/bans/autocomplete/noBans": "❌ | No users found."
 }

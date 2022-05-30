@@ -5,38 +5,38 @@ import { SukiClient } from '../../SukiClient';
 
 export default class PlayCommand extends Command {
   constructor(client: SukiClient) {
-    super(
-      {
-        name: client.languages.languageManager.get('en-US', 'commandNames:play'),
-        nameLocalizations: {
-          'pt-BR': client.languages.languageManager.get('pt-BR', 'commandNames:play'),
-        },
-        description: client.languages.languageManager.get('en-US', 'commandDescriptions:play'),
-        descriptionLocalizations: {
-          'pt-BR': client.languages.languageManager.get('pt-BR', 'commandDescriptions:play'),
-        },
-        options: [
-          {
-            name: client.languages.languageManager.get('en-US', 'commandNames:play/song'),
-            nameLocalizations: {
-              'pt-BR': client.languages.languageManager.get('pt-BR', 'commandNames:play/song'),
-            },
-            description: client.languages.languageManager.get('en-US', 'commandDescriptions:play/song'),
-            descriptionLocalizations: {
-              'pt-BR': client.languages.languageManager.get('pt-BR', 'commandDescriptions:play/song'),
-            },
-            type: ApplicationCommandOptionType.String,
-            required: true,
-            autocomplete: true,
-          },
-        ],
+    super(client, {
+      name: client.languages.languageManager.get('en-US', 'commandNames:play'),
+      nameLocalizations: {
+        'pt-BR': client.languages.languageManager.get('pt-BR', 'commandNames:play'),
       },
-      client,
-    );
+      description: client.languages.languageManager.get('en-US', 'commandDescriptions:play'),
+      descriptionLocalizations: {
+        'pt-BR': client.languages.languageManager.get('pt-BR', 'commandDescriptions:play'),
+      },
+      options: [
+        {
+          name: client.languages.languageManager.get('en-US', 'commandNames:play/song'),
+          nameLocalizations: {
+            'pt-BR': client.languages.languageManager.get('pt-BR', 'commandNames:play/song'),
+          },
+          description: client.languages.languageManager.get('en-US', 'commandDescriptions:play/song'),
+          descriptionLocalizations: {
+            'pt-BR': client.languages.languageManager.get('pt-BR', 'commandDescriptions:play/song'),
+          },
+          type: ApplicationCommandOptionType.String,
+          required: true,
+          autocomplete: true,
+        },
+      ],
+    });
 
     this.permissions = {
       bot: [PermissionFlagsBits.EmbedLinks],
       user: [],
+    };
+    this.config = {
+      registerSlashCommands: true,
     };
   }
 
@@ -53,7 +53,7 @@ export default class PlayCommand extends Command {
     }
 
     const res = await this.client
-      .request(`https://clients1.google.com/complete/search?client=youtube&hl=pt-BR&ds=yt&q=${encodeURIComponent(value)}`, {
+      .request(`https://clients1.google.com/complete/search?client=youtube&hl=${interaction.locale}&ds=yt&q=${encodeURIComponent(value)}`, {
         headers: {
           'user-agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.60 Safari/537.36',
         },

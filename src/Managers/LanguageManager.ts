@@ -15,7 +15,7 @@ class LanguageManager {
         ns: ['commandNames', 'commandDescriptions', 'command', 'events', 'permissions'],
         defaultNS: 'command',
         preload: readdirSync('src/Locales'),
-        fallbackLng: 'pt-BR',
+        fallbackLng: 'en-US',
         backend: { loadPath: 'src/Locales/{{lng}}/{{ns}}.json' },
         load: 'all',
         interpolation: {

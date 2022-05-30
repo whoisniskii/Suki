@@ -8,5 +8,7 @@
   "lyrics/artist": "artist",
 
   "play": "play",
-  "play/song": "song"
+  "play/song": "song",
+
+  "guild/bans/user": "user"
 }

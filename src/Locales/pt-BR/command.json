@@ -1,26 +1,36 @@
 {
-    "ping/success": ":ping_pong: **|** Ping da API: **{{ping}}ms**",
+    "ping/success": "🏓 **|** Ping da API: **{{ping}}ms**",
 
-    "play/error/noChannel": ":x: **|** Você não está em um canal de voz ou não está no mesmo canal que eu.",
-    "play/error/noArgs": ":x: **|** Você precisa inserir o nome/url da música para eu começar a tocar.",
-    "play/error/invalidLink": ":x: **|** Desculpe mas o link/nome que você inseriu não é válido.",
-    "play/error/noMatches": ":x: **|** Eu não achei a música que você quer.",
+    "play/error/noChannel": "❌ **|** Você não está em um canal de voz ou não está no mesmo canal que eu.",
+    "play/error/noArgs": "❌ **|** Você precisa inserir o nome/url da música para eu começar a tocar.",
+    "play/error/invalidLink": "❌ **|** Desculpe mas o link/nome que você inseriu não é válido.",
+    "play/error/noMatches": "❌ **|** Eu não achei a música que você quer.",
     "play/embed/field/duration": "Duração",
     "play/embed/field/amountTracks": "Quantidade de músicas",
     "play/embed/value/amount": "**{{tracks}}** Músicas",
     "play/queue": "Música {{track}} por {{author}} adicionada a fila de reprodução.",
+    "play/error": "Ocorreu um erro ao procurar a música.\nErro: {{error}}",
 
-    "eval/error/noPerm": ":x: **|** Você não tem permissão para usar este comando!",
-    "eval/output": ":white_check_mark: **|** Saída do código: {{code}}",
-    "eval/error": ":x: **|** Erro: {{code}}",
+    "eval/error/noPerm": "❌ **|** Você não tem permissão para usar este comando!",
+    "eval/output": "✅ **|** Saída do código: {{code}}",
+    "eval/error": "❌ **|** Erro: {{code}}",
 
-    "shell/error/noPerm": ":x: **|** Você não tem permissão para usar este comando!",
-    "shell/error/noOutput": ":x: **|** Não há saída para este código!",
+    "shell/error/noPerm": "❌ **|** Você não tem permissão para usar este comando!",
+    "shell/error/noOutput": "❌ **|** Não há saída para este código!",
 
-    "247/error/noPlayer": ":x: **|** Eu não estou tocando música neste servidor..",
-    "247/on": ":white_check_mark: **|** 24/7 ativado com sucesso.",
-    "247/off": ":white_check_mark: **|** 24/7 desativado com sucesso.",
+    "247/error/noPlayer": "❌ **|** Eu não estou tocando música neste servidor..",
+    "247/on": "✅ **|** 24/7 ativado com sucesso.",
+    "247/off": "✅ **|** 24/7 desativado com sucesso.",
 
-    "lyrics/error/noPlayer": ":x: **|** Eu não estou tocando música neste servidor.",
-    "lyrics/error/notFound": ":x: **|** Eu não consegui encontrar a letra dessa música."
+    "lyrics/error/noPlayer": "❌ **|** Eu não estou tocando música neste servidor.",
+    "lyrics/error/notFound": "❌ **|** Eu não consegui encontrar a letra dessa música.",
+
+    "guild/bans/error/noUser": "❌ **|** Nenhum usuário encontrado.",
+    "guild/bans/error/noBan": "❌ **|** Este usuário não está banido.",
+    "guild/bans/embed/title": "🔨 Informações do banimento de {{user}}",
+    "guild/bans/embed/field/name/tag": "🏷️ Tag no Discord",
+    "guild/bans/embed/field/name/id": "💻 ID no Discord",
+    "guild/bans/embed/field/name/reason": "📖 Motivo do Banimento",
+    "guild/bans/embed/field/value/reason": "Motivo não informado",
+    "guild/bans/autocomplete/noBans": "❌ | Nenhum usuário encontrado."
 }
