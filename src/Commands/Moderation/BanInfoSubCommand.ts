@@ -9,6 +9,7 @@ export default class BanInfoSubCommand extends Command {
     this.rawName = 'BanInfoSubCommand';
     this.config = {
       registerSlashCommands: false,
+      devOnly: false,
     };
     this.permissions = {
       bot: [PermissionFlagsBits.BanMembers],

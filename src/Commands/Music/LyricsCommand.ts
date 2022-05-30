@@ -47,6 +47,7 @@ export default class LyricsCommand extends Command {
     };
     this.config = {
       registerSlashCommands: true,
+      devOnly: false,
     };
   }
 

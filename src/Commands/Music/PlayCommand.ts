@@ -37,6 +37,7 @@ export default class PlayCommand extends Command {
     };
     this.config = {
       registerSlashCommands: true,
+      devOnly: false,
     };
   }
 

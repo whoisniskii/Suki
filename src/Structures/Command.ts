@@ -9,6 +9,7 @@ abstract class Command<Client = SukiClient> {
   rawName: string;
   config: {
     registerSlashCommands: boolean;
+    devOnly: boolean;
   };
 
   permissions: {
@@ -27,6 +28,7 @@ abstract class Command<Client = SukiClient> {
     };
     this.config = {
       registerSlashCommands: true,
+      devOnly: false,
     };
   }
 

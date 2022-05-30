@@ -37,6 +37,11 @@ export default class InteractionCreateEvent extends Event {
         if (!InteractionCreateEvent.checkMemberPermissions(interaction, cmd, t)) return;
       }
 
+      if (cmd.config.devOnly === true && client.developers.some(x => x !== interaction.user.id)) {
+        interaction.reply(`❌ **|** ${t('events:interactionCreate/permissions/devOnly')}`);
+        return;
+      }
+
       const context = new CommandContext(client, interaction);
 
       try {

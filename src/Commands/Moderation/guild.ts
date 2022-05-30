@@ -43,6 +43,7 @@ export default class GuildCommand extends Command {
     };
     this.config = {
       registerSlashCommands: true,
+      devOnly: false,
     };
   }
 

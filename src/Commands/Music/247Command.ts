@@ -18,6 +18,7 @@ export default class TwentyFourHoursCommand extends Command {
     };
     this.config = {
       registerSlashCommands: true,
+      devOnly: false,
     };
   }
 

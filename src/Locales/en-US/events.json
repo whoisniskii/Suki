@@ -1,4 +1,5 @@
 {
     "interactionCreate/permissions/bot/missing": "I don't have the permissions {{perms}} to run this command",
-    "interactionCreate/permissions/user/missing": "You don't have the permissions {{perms}} to run this command"
+    "interactionCreate/permissions/user/missing": "You don't have the permissions {{perms}} to run this command",
+    "interactionCreate/permissions/devOnly": "You cannot use this command!"
 }

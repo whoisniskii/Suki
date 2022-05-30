@@ -5,17 +5,15 @@
     "play/error/noArgs": "❌ **|** You need to put a song or url for me to play!",
     "play/error/invalidLink": "❌ **|** Sorry but the link/name you entered is not valid.",
     "play/error/noMatches": "❌ **|** I didn't find the song you ant.",
-    "play/embed/field/duration": "Duration",
-    "play/embed/field/amountTracks": "Number of songs",
+    "play/embed/field/duration": "⏱️ Duration",
+    "play/embed/field/amountTracks": "🔢 Number of songs",
     "play/embed/value/amount": "**{{tracks}}** songs",
-    "play/queue": "Song {{track}} by {{author}} added to play queue.",
-    "play/error": "An error occurred while searching for the song.\nError: {{error}}",
+    "play/queue": "🎵 **|** Song {{track}} by {{author}} added to play queue.",
+    "play/error": "❌ **|** An error occurred while searching for the song.\nError: {{error}}",
 
-    "eval/error/noPerm": "❌ **|** You cannot use this command!",
     "eval/output": "✅ **|** Output: {{code}}",
     "eval/error": "❌ **|** Error: {{code}}",
 
-    "shell/error/noPerm": "❌ **|** You cannot use this command!",
     "shell/error/noOutput": "❌ **|** No output!",
 
     "247/error/noPlayer": "❌ **|** I'm not playing music on this server.",

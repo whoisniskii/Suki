@@ -35,15 +35,11 @@ export default class ShellCommand extends Command {
     };
     this.config = {
       registerSlashCommands: true,
+      devOnly: true,
     };
   }
 
   execute({ context, t }: CommandExecuteOptions) {
-    if (!this.client.developers.some(x => x === context.user.id)) {
-      context.reply({ content: t('command:shell/error/noPerm'), ephemeral: true });
-      return;
-    }
-
     exec(context.options.getString('code', true), async (_err, stdout, stderr) => {
       if (!stdout && !stderr) {
         context.reply({ content: t('command:shell/error/noOutput'), ephemeral: true });

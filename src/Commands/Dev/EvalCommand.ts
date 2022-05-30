@@ -34,15 +34,11 @@ export default class EvalCommand extends Command {
     };
     this.config = {
       registerSlashCommands: true,
+      devOnly: true,
     };
   }
 
   async execute({ context, t }: CommandExecuteOptions) {
-    if (!this.client.developers.some(x => x === context.user.id)) {
-      context.reply({ content: t('command:eval/error/noPerm'), ephemeral: true });
-      return;
-    }
-
     const clean = (text: string) => {
       if (typeof text === 'string') {
         text

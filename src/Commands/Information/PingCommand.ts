@@ -17,6 +17,7 @@ export default class PingCommand extends Command {
     };
     this.config = {
       registerSlashCommands: true,
+      devOnly: false,
     };
   }
 
