@@ -1,11 +1,11 @@
 import { Command, CommandExecuteOptions } from '../../Structures';
 import { SukiClient } from '../../SukiClient';
 
-export default class BotCommand extends Command {
+export default class SukiCommand extends Command {
   constructor(client: SukiClient) {
     super(client);
 
-    this.rawName = 'bot';
+    this.rawName = 'suki';
     this.permissions = {
       bot: [],
       user: [],
@@ -19,7 +19,7 @@ export default class BotCommand extends Command {
   execute({ context, t }: CommandExecuteOptions) {
     switch (context.options.getSubcommand()) {
       case 'ping': {
-        this.client.commands.get('BotPingSubCommand')?.execute({ context, t });
+        this.client.commands.get('SukiPingSubCommand')?.execute({ context, t });
         break;
       }
     }

@@ -2,22 +2,22 @@ import { ApplicationCommandOptionType } from 'discord.js';
 import { CommandDataStructure } from '../../../Structures';
 import { SukiClient } from '../../../SukiClient';
 
-export default class BotData extends CommandDataStructure {
+export default class SukiData extends CommandDataStructure {
   constructor(client: SukiClient) {
     super(client);
     this.data = {
-      name: 'bot',
-      description: client.languages.languageManager.get('en-US', 'commandDescriptions:bot'),
+      name: 'suki',
+      description: client.languages.languageManager.get('en-US', 'commandDescriptions:suki'),
       descriptionLocalizations: {
-        'pt-BR': client.languages.languageManager.get('pt-BR', 'commandDescriptions:bot'),
+        'pt-BR': client.languages.languageManager.get('pt-BR', 'commandDescriptions:suki'),
       },
       options: [
         {
           type: ApplicationCommandOptionType.Subcommand,
           name: 'ping',
-          description: client.languages.languageManager.get('en-US', 'commandDescriptions:bot/ping'),
+          description: client.languages.languageManager.get('en-US', 'commandDescriptions:suki/ping'),
           descriptionLocalizations: {
-            'pt-BR': client.languages.languageManager.get('pt-BR', 'commandDescriptions:bot/ping'),
+            'pt-BR': client.languages.languageManager.get('pt-BR', 'commandDescriptions:suki/ping'),
           },
         },
       ],

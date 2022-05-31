@@ -80,11 +80,10 @@ class SukiClient extends Client {
   }
 
   async initialize() {
+    await sleep(1000);
     new EventManager(this).loadEvents(`${__dirname}/Listeners`);
     this.loadCommands(this);
-    await sleep(2500);
     this.loadCommandData(this);
-    await sleep(2500);
     super.login(this.config.client.token);
 
     process.on('uncaughtException', err => this.logger.error(err.message));

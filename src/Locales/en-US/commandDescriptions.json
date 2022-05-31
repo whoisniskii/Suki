@@ -6,8 +6,8 @@
   "dev/shell": "[ 🚀 Developers ] Executes a shell command.",
   "dev/shell/code": "Code to run",
 
-  "bot": "Shows the bot information.",
-  "bot/ping": "[ 📚 Information ] Shows the bot latency.",
+  "suki": "Shows the bot information.",
+  "suki/ping": "[ 📚 Information ] Shows the bot latency.",
 
   "guild": "See server information.",
   "guild/bans": "[ 🔨 Moderation ] View a banned user information on the server.",
