@@ -1,9 +1,10 @@
 {
-  "eval": "[ 🚀 Developers ] Evaluates JavaScript code and executes it.",
-  "eval/code": "Code to evaluate",
+  "dev": "Commands for developers.",
+  "dev/eval": "[ 🚀 Developers ] Evaluates JavaScript code and executes it.",
+  "dev/eval/code": "Code to evaluate",
 
-  "shell": "[ 🚀 Developers ] Executes a shell command.",
-  "shell/code": "Code to run",
+  "dev/shell": "[ 🚀 Developers ] Executes a shell command.",
+  "dev/shell/code": "Code to run",
 
   "bot": "Shows the bot information.",
   "bot/ping": "[ 📚 Information ] Shows the bot latency.",

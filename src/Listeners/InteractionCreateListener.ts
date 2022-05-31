@@ -36,7 +36,7 @@ export default class InteractionCreateEvent extends Event {
       }
 
       if (cmd.config.devOnly && client.developers.some(x => x !== interaction.user.id)) {
-        interaction.reply(`❌ **|** ${t('events:interactionCreate/permissions/devOnly')}`);
+        interaction.reply({ content: `❌ **|** ${t('events:interactionCreate/permissions/devOnly')}`, ephemeral: true });
         return;
       }
 

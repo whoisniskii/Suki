@@ -1,9 +1,10 @@
 {
-  "eval": "[ 🚀 Desenvolvedores ] Executa um código JavaScript e retorna o seu resultado.",
-  "eval/code": "Código para executar",
+  "dev": "Comando para desenvovedores.",
+  "dev/eval": "[ 🚀 Desenvolvedores ] Executa um código JavaScript e retorna o seu resultado.",
+  "dev/eval/code": "Código para executar",
 
-  "shell": "[ 🚀 Desenvolvedores ] Execute um código no terminal.",
-  "shell/code": "Código para executar",
+  "dev/shell": "[ 🚀 Desenvolvedores ] Execute um código no terminal.",
+  "dev/shell/code": "Código para executar",
 
   "bot": "Veja as informações do bot.",
   "bot/ping": "[ 📚 Informação ] Veja a latência do bot.",

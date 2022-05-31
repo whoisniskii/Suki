@@ -5,7 +5,7 @@ import { SukiClient } from '../../SukiClient';
 
 const ANSI_REGEX = /[\u001b\u009b][[()#;?]*(?:[0-9]{1,4}(?:;[0-9]{0,4})*)?[0-9A-ORZcf-nqry=><]/g;
 
-export default class ShellCommand extends Command {
+export default class DevShellSubCommand extends Command {
   constructor(client: SukiClient) {
     super(client);
 
@@ -23,7 +23,7 @@ export default class ShellCommand extends Command {
   execute({ context, t }: CommandExecuteOptions) {
     exec(context.options.getString('code', true), async (_err, stdout, stderr) => {
       if (!stdout && !stderr) {
-        context.reply({ content: t('command:shell/error/noOutput'), ephemeral: true });
+        context.reply({ content: t('command:dev/shell/error/noOutput'), ephemeral: true });
         return;
       }
 

@@ -3,7 +3,7 @@ import { inspect } from 'util';
 import { Command, CommandExecuteOptions } from '../../Structures';
 import { SukiClient } from '../../SukiClient';
 
-export default class EvalCommand extends Command {
+export default class DevEvalSubCommand extends Command {
   constructor(client: SukiClient) {
     super(client);
 
@@ -37,7 +37,7 @@ export default class EvalCommand extends Command {
       }
 
       context.reply(
-        t('command:eval/output', {
+        t('command:dev/eval/output', {
           code: `\`\`\`js\n${clean(
             inspect(evaled, { depth: 0 })
               .replace(new RegExp(this.client.token as string, 'gi'), '******************')
@@ -46,7 +46,7 @@ export default class EvalCommand extends Command {
         }),
       );
     } catch (error: any) {
-      context.reply(t('command:eval/error', { code: `\`\`\`js\n${String(error.stack.slice(0, 1970))}\n\`\`\`` }));
+      context.reply(t('command:dev/eval/error', { code: `\`\`\`js\n${String(error.stack.slice(0, 1970))}\n\`\`\`` }));
     }
   }
 }

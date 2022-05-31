@@ -1,7 +1,6 @@
 {
-  "eval/code": "código",
-
-  "shell/code": "código",
+  "dev": "desenvolvedor",
+  "dev/shell/code": "código",
 
   "guild/bans/user": "usuário"
 }

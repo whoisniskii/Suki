@@ -1,10 +1,10 @@
 {
     "bot/ping/success": "🏓 **|** Ping da API: **{{ping}}ms**",
 
-    "eval/output": "✅ **|** Saída do código: {{code}}",
-    "eval/error": "❌ **|** Erro: {{code}}",
+    "dev/eval/output": "✅ **|** Saída do código: {{code}}",
+    "dev/eval/error": "❌ **|** Erro: {{code}}",
 
-    "shell/error/noOutput": "❌ **|** Não há saída para este código!",
+    "dev/shell/error/noOutput": "❌ **|** Não há saída para este código!",
 
     "guild/bans/error/noUser": "❌ **|** Nenhum usuário encontrado.",
     "guild/bans/error/noBan": "❌ **|** Este usuário não está banido.",

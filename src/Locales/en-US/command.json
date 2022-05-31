@@ -1,10 +1,10 @@
 {
     "bot/ping/success": "🏓 **|** API Ping: {{ping}}ms",
 
-    "eval/output": "✅ **|** Output: {{code}}",
-    "eval/error": "❌ **|** Error: {{code}}",
+    "dev/eval/output": "✅ **|** Output: {{code}}",
+    "dev/eval/error": "❌ **|** Error: {{code}}",
 
-    "shell/error/noOutput": "❌ **|** No output!",
+    "dev/shell/error/noOutput": "❌ **|** No output!",
 
     "guild/bans/error/noUser": "❌ **|** No users found.",
     "guild/bans/error/noBan": "❌ **|** This user is not banned.",
