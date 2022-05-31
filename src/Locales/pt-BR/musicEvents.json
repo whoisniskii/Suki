@@ -1,5 +1,0 @@
-{
-  "trackStart/trackNow": "🎵 **|** Comecei a tocar {{title}} por {{author}}",
-  "trackStuck/trackNow": "❌ **|** Ocorreu um erro ao reproduzir a música {{title}}",
-  "queueEnd/playerDelete": "👋 **|** A fila de músicas acabou, então eu saí do canal de voz."
-}

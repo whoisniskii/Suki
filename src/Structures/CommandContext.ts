@@ -26,11 +26,6 @@ class CommandContext {
     return this.interaction.channel as TextChannel;
   }
 
-  get player() {
-    if (!this.guild) return null;
-    return this.client.music.players.get(this.guild.id);
-  }
-
   get options() {
     return this.interaction.options as CommandInteractionOptionResolver;
   }

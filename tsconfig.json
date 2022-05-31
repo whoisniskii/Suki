@@ -12,7 +12,6 @@
     "noFallthroughCasesInSwitch": true,
     "moduleResolution": "node",
     "typeRoots": [
-      "src/@types",
       "node_modules/@types"
     ],
     "esModuleInterop": true,
@@ -20,5 +19,5 @@
     "forceConsistentCasingInFileNames": true
   },
   "include": ["src/**/*.ts", "*.ts", "src/Locales/**/*.json"],
-  "exclude": ["node_modues"]
+  "exclude": ["node_modules"]
 }

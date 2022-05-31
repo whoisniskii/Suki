@@ -1,6 +1,5 @@
-import { ChatInputCommandInteraction, GuildMember, Interaction, Locale, PermissionsBitField } from 'discord.js';
+import { ChatInputCommandInteraction, GuildMember, Interaction, PermissionsBitField } from 'discord.js';
 import { getFixedT, TFunction } from 'i18next';
-import { SupportedLocales } from '../Managers';
 import { Command, CommandContext, Event } from '../Structures';
 import { SukiClient } from '../SukiClient';
 
@@ -19,14 +18,14 @@ export default class InteractionCreateEvent extends Event {
 
       const { options } = interaction;
 
-      const value = options.data.find(o => o.focused)?.value as string;
+      const value = interaction.options.data.find(o => o.focused)?.value as string;
 
       cmd.executeAutoComplete({ interaction, value, options });
       return;
     }
 
     if (interaction.isChatInputCommand()) {
-      const t = getFixedT(InteractionCreateEvent.recommendedLocale(interaction.locale));
+      const t = getFixedT(client.languages.languageManager.recommendedLocale(interaction.locale));
 
       const cmd = client.commands.find(c => c.rawName === interaction.commandName);
       if (!cmd) throw new Error(`Command ${interaction.commandName} does not exist!`);
@@ -49,21 +48,6 @@ export default class InteractionCreateEvent extends Event {
         interaction.editReply(`\`\`\`${error.message}\`\`\``);
       }
     }
-  }
-
-  static recommendedLocale(locale: Locale) {
-    let recommendedLocale = 'en-US' as SupportedLocales;
-
-    switch (locale.replace('_', '-')) {
-      case Locale.EnglishUS:
-      case Locale.EnglishGB:
-        recommendedLocale = 'en-US';
-        break;
-      case Locale.PortugueseBR:
-        recommendedLocale = 'pt-BR';
-        break;
-    }
-    return recommendedLocale;
   }
 
   static checkBotPermissions(interaction: ChatInputCommandInteraction, command: Command, t: TFunction): boolean {

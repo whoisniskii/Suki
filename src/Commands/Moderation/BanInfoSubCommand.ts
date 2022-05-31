@@ -21,14 +21,14 @@ export default class BanInfoSubCommand extends Command {
     const str = context.options.getString('user', true);
 
     if (str === 'none') {
-      context.reply({ content: t('command:guild/ban/error/noUser'), ephemeral: true });
+      context.reply({ content: t('command:guild/bans/error/noUser'), ephemeral: true });
       return;
     }
 
     const ban = await context.guild?.bans.fetch(str);
 
     if (!ban) {
-      context.reply({ content: t('command:guild/ban/error/noBan'), ephemeral: true });
+      context.reply({ content: t('command:guild/bans/error/noBan'), ephemeral: true });
       return;
     }
 
@@ -60,7 +60,7 @@ export default class BanInfoSubCommand extends Command {
   }
 
   async executeAutoComplete({ interaction }: AutoCompleteExecuteOptions) {
-    const t = i18next.getFixedT(interaction.locale);
+    const t = i18next.getFixedT(this.client.languages.languageManager.recommendedLocale(interaction.locale));
     const bans = await interaction.guild?.bans.fetch({ cache: true, limit: 25 });
 
     if (!bans) {

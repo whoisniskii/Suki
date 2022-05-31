@@ -1,7 +1,7 @@
 import { Command, CommandExecuteOptions } from '../../Structures';
 import { SukiClient } from '../../SukiClient';
 
-export default class PingCommand extends Command {
+export default class BotPingSubCommand extends Command {
   constructor(client: SukiClient) {
     super(client);
 
@@ -11,12 +11,12 @@ export default class PingCommand extends Command {
       user: [],
     };
     this.config = {
-      registerSlashCommands: true,
+      registerSlashCommands: false,
       devOnly: false,
     };
   }
 
   execute({ context, t }: CommandExecuteOptions) {
-    context.reply(t('command:ping/success', { ping: this.client.ws.ping.toString() }));
+    context.reply(t('command:bot/ping/success', { ping: this.client.ws.ping.toString() }));
   }
 }

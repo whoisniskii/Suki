@@ -13,10 +13,10 @@ export default class ReadyEvent extends Event {
   async execute(client: SukiClient) {
     client.logger.info(`Client successfully logged in ${client.user?.tag}.`, 'CLIENT');
 
-    client.connectLavaLink();
     const commands = client.commands.filter(x => x.options && x.config.registerSlashCommands === true).map(x => x.options) as ChatInputApplicationCommandData[];
 
     await client.application?.commands.set(commands);
+    // await client.guilds.cache.get(client.config.client.guild)?.commands.set(commands);
     client.logger.info(`Posted ${commands.length} commands to Discord!`, 'COMMANDS');
 
     // if (client.user?.id === process.env.CLIENT_TEST_ID) {

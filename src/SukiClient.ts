@@ -1,13 +1,10 @@
 /* eslint-disable no-await-in-loop */
-import { Client, ClientUser, Collection, GatewayIntentBits } from 'discord.js';
+import { Client, Collection, GatewayIntentBits } from 'discord.js';
 import { readdir } from 'node:fs/promises';
 import { setTimeout as sleep } from 'timers/promises';
-import { Dispatcher, request } from 'undici';
-import { UrlObject } from 'url';
 // @ts-ignore
 import config from './Config/config';
 import { DatabaseManager, EventManager } from './Managers';
-import { PlayerHandler } from './Music';
 import { Command, CommandDataStructure, Language } from './Structures';
 import Logger from './Utils/Logger';
 
@@ -15,14 +12,9 @@ class SukiClient extends Client {
   config: typeof config;
   languages: Language;
   database: DatabaseManager;
-  music: PlayerHandler;
   commands: Collection<string, Command>;
   developers: string[];
   logger: Logger;
-  request: (
-    url: string | URL | UrlObject,
-    options?: { dispatcher?: Dispatcher } & Omit<Dispatcher.RequestOptions, 'origin' | 'path' | 'method'> & Partial<Pick<Dispatcher.RequestOptions, 'method'>>,
-  ) => Promise<Dispatcher.ResponseData>;
 
   constructor() {
     super({
@@ -45,18 +37,11 @@ class SukiClient extends Client {
     });
 
     this.config = config;
-    this.request = request;
     this.logger = new Logger();
     this.languages = new Language(this);
     this.database = new DatabaseManager(this);
-    this.music = new PlayerHandler(this);
     this.commands = new Collection();
     this.developers = ['847865068657836033'];
-  }
-
-  connectLavaLink() {
-    this.on('raw', packet => this.music.handleVoiceUpdate(packet));
-    this.music.start((this.user as ClientUser).id);
   }
 
   async loadCommands(client: SukiClient) {

@@ -1,27 +1,10 @@
 {
-    "ping/success": "🏓 **|** Ping da API: **{{ping}}ms**",
-
-    "play/error/noChannel": "❌ **|** Você não está em um canal de voz ou não está no mesmo canal que eu.",
-    "play/error/noArgs": "❌ **|** Você precisa inserir o nome/url da música para eu começar a tocar.",
-    "play/error/invalidLink": "❌ **|** Desculpe mas o link/nome que você inseriu não é válido.",
-    "play/error/noMatches": "❌ **|** Eu não achei a música que você quer.",
-    "play/embed/field/duration": "⏱️ Duração",
-    "play/embed/field/amountTracks": "🔢 Quantidade de músicas",
-    "play/embed/value/amount": "**{{tracks}}** Músicas",
-    "play/queue": "🎵 **|** Música {{track}} por {{author}} adicionada a fila de reprodução.",
-    "play/error": "❌ **|** Ocorreu um erro ao procurar a música.\nErro: {{error}}",
+    "bot/ping/success": "🏓 **|** Ping da API: **{{ping}}ms**",
 
     "eval/output": "✅ **|** Saída do código: {{code}}",
     "eval/error": "❌ **|** Erro: {{code}}",
 
     "shell/error/noOutput": "❌ **|** Não há saída para este código!",
-
-    "247/error/noPlayer": "❌ **|** Eu não estou tocando música neste servidor..",
-    "247/on": "✅ **|** 24/7 ativado com sucesso.",
-    "247/off": "✅ **|** 24/7 desativado com sucesso.",
-
-    "lyrics/error/noPlayer": "❌ **|** Eu não estou tocando música neste servidor.",
-    "lyrics/error/notFound": "❌ **|** Eu não consegui encontrar a letra dessa música.",
 
     "guild/bans/error/noUser": "❌ **|** Nenhum usuário encontrado.",
     "guild/bans/error/noBan": "❌ **|** Este usuário não está banido.",
@@ -29,6 +12,6 @@
     "guild/bans/embed/field/name/tag": "🏷️ Tag no Discord",
     "guild/bans/embed/field/name/id": "💻 ID no Discord",
     "guild/bans/embed/field/name/reason": "📖 Motivo do Banimento",
-    "guild/bans/embed/field/value/reason": "Motivo não informado",
+    "guild/bans/embed/field/value/reason": "Nenhum motivo fornecido",
     "guild/bans/autocomplete/noBans": "❌ | Nenhum usuário encontrado."
 }

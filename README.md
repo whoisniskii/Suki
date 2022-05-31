@@ -15,7 +15,7 @@ yarn
 ```
 
 ## 💻 | Compiling
-To compile the bot run:
+To transpile the bot run:
 
 ```bash
 yarn build

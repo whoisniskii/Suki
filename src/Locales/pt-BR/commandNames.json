@@ -3,12 +3,5 @@
 
   "shell/code": "código",
 
-  "lyrics": "letras",
-  "lyrics/song": "música",
-  "lyrics/artist": "artista",
-
-  "play": "tocar",
-  "play/song": "música",
-
   "guild/bans/user": "usuário"
 }

@@ -5,16 +5,8 @@
   "shell": "[ 🚀 Desenvolvedores ] Execute um código no terminal.",
   "shell/code": "Código para executar",
 
-  "ping": "[ 📚 Informação ] Veja a latência do bot.",
-
-  "247": "[ 🎵 Música ] Faça o player atual nunca se desconectar.",
-
-  "lyrics": "[ 🎵 Música ] Veja as letras de uma música.",
-  "lyrics/song": "Nome da música",
-  "lyrics/artist": "Nome do artista",
-
-  "play": "[ 🎵 Música ] Adiciona uma música para tocar.",
-  "play/song": "Música/Playlist URL/Nome",
+  "bot": "Veja as informações do bot.",
+  "bot/ping": "[ 📚 Informação ] Veja a latência do bot.",
 
   "guild": "Veja as informações do servidor.",
   "guild/bans": "[ 🔨 Moderação ] Veja a informação de um usuário banido no servidor.",
