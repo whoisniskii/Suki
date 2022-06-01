@@ -22,6 +22,16 @@ export default class UserCommand extends Command {
         this.client.commands.get('UserInfoSubCommand')?.execute({ context, t });
         break;
       }
+
+      case 'banner': {
+        this.client.commands.get('UserBannerSubCommand')?.execute({ context, t });
+        break;
+      }
+
+      case 'avatar': {
+        this.client.commands.get('UserAvatarSubCommand')?.execute({ context, t });
+        break;
+      }
     }
   }
 }

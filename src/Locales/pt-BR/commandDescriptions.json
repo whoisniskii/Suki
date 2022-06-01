@@ -13,6 +13,12 @@
   "user/info": "[ 📚 Informação ] Veja informações sobre um usuário.",
   "user/info/user": "Usuário que deseja ver as informações.",
 
+  "user/avatar": "[ 📷 Imagem ] Veja o avatar de um usuário.",
+  "user/avatar/user": "Usuário que deseja ver o avatar.",
+
+  "user/banner": "[ 📷 Imagem ] Veja o banner de um usuário.",
+  "user/banner/user": "Usuário que deseja ver o banner.",
+
   "guild": "Veja as informações do servidor.",
   "guild/bans": "[ 🔨 Moderação ] Veja a informação de um usuário banido no servidor.",
   "guild/bans/user": "Usuário que deseja ver a informação do banimento."

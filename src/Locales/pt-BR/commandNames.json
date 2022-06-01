@@ -2,7 +2,7 @@
   "dev": "desenvolvedor",
   "dev/shell/code": "código",
 
-  "user/info/user": "usuário",
+  "user/options/user": "usuário",
 
   "guild/bans/user": "usuário"
 }

@@ -20,7 +20,7 @@ export default class UserInfoSubCommand extends Command {
   async execute({ context, t }: CommandExecuteOptions) {
     const user = context.options.getUser('user') ?? context.user;
     if (!user) {
-      context.reply(t('command:user/info/error/noUser'));
+      context.reply({ content: t('command:user/info/error/noUser'), ephemeral: true });
       return;
     }
 

@@ -13,6 +13,12 @@
   "user/info": "[ 📚 Information ] Shows a user information.",
   "user/info/user": "User to show information.",
 
+  "user/avatar": "[ 📷 Images ] Shows a user avatar.",
+  "user/avatar/user": "User to show avatar.",
+
+  "user/banner": "[ 📷 Images ] Shows a user banner.",
+  "user/banner/user": "User to show banner.",
+
   "guild": "See server information.",
   "guild/bans": "[ 🔨 Moderation ] View a banned user information on the server.",
   "guild/bans/user": "User who wants to see ban information."

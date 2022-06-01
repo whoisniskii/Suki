@@ -29,5 +29,13 @@
     "user/info/createApplicationEmbed/fields/error/marks": "Sem marcadores",
     "user/info/createApplicationEmbed/fields/name/slug": "🐛 Slug",
     "user/info/createApplicationEmbed/fields/error/slug": "Não tem",
-    "user/info/createApplicationEmbed/fields/name/httpKey": "💻 Chave pública de Requisições HTTP"
+    "user/info/createApplicationEmbed/fields/name/httpKey": "💻 Chave pública de Requisições HTTP",
+
+    "user/banner/error/noUser": "❌ **|** Nenhum usuário encontrado.",
+    "user/banner/error/noBanner": "❌ **|** Este usuário não tem um banner.",
+    "user/banner/button/label": "Abrir banner no navegador",
+
+    "user/avatar/error/noUser": "❌ **|** Nenhum usuário encontrado.",
+    "user/avatar/error/noUserAvatar": "❌ **|** Este usuário não tem um avatar.",
+    "user/avatar/button/label": "Abrir avatar no navegador"
 }
