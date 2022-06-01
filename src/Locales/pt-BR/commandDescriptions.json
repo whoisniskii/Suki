@@ -9,6 +9,10 @@
   "suki": "Veja as informações do bot.",
   "suki/ping": "[ 📚 Informação ] Veja a latência do bot.",
 
+  "user": "Veja informações sobre o usuário.",
+  "user/info": "[ 📚 Informação ] Veja informações sobre um usuário.",
+  "user/info/user": "Usuário que deseja ver as informações.",
+
   "guild": "Veja as informações do servidor.",
   "guild/bans": "[ 🔨 Moderação ] Veja a informação de um usuário banido no servidor.",
   "guild/bans/user": "Usuário que deseja ver a informação do banimento."

@@ -18,7 +18,7 @@ export default class MessageCreateEvent extends Event {
     const button = new ButtonBuilder()
       .setStyle(ButtonStyle.Link)
       .setLabel('Add me')
-      .setURL(`https://discord.com/api/oauth2/authorize?client_id=${client.user?.id}&permissions=271641686&scope=applications.commands%20bot`);
+      .setURL(`https://discord.com/api/oauth2/authorize?client_id=${client.user?.id}&permissions=1516056734967&scope=applications.commands%20bot`);
 
     const row = new ActionRowBuilder<ButtonBuilder>().addComponents([button]);
 

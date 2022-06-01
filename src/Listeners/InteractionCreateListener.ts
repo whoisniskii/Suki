@@ -93,7 +93,6 @@ export default class InteractionCreateEvent extends Event {
     };
 
     const subCommand = findSubCommand(interaction.options.getSubcommand(false));
-    console.log(subCommand);
     if (subCommand) {
       if (!interaction.memberPermissions?.has(subCommand.permissions.user)) return sendPermissionError(subCommand);
     }

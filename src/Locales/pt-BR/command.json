@@ -13,5 +13,21 @@
     "guild/bans/embed/field/name/id": "💻 ID no Discord",
     "guild/bans/embed/field/name/reason": "📖 Motivo do Banimento",
     "guild/bans/embed/field/value/reason": "Nenhum motivo fornecido",
-    "guild/bans/autocomplete/noBans": "❌ | Nenhum usuário encontrado."
+    "guild/bans/autocomplete/noBans": "❌ | Nenhum usuário encontrado.",
+
+    "user/info/error/noUser": "❌ **|** Nenhum usuário encontrado.",
+    "user/info/createMemberEmbed/author": "Informação do usuário",
+    "user/info/createMemberEmbed/fields/name/userId": "💻 ID no Discord",
+    "user/info/createMemberEmbed/fields/name/userTag": "🏷️ Tag no Discord",
+    "user/info/createMemberEmbed/fields/name/accountCreated": "📅 Data de criação da conta",
+    "user/info/createMemberEmbed/fields/name/joinedAt": "📅 Data de entrada no servidor",
+
+    "user/info/createApplicationEmbed/author": "Informações da Aplicação",
+    "user/info/createApplicationEmbed/fields/name/guildId": "💻 ID do servidor de suporte",
+    "user/info/createApplicationEmbed/fields/error/guildId": "Sem servidor de suporte",
+    "user/info/createApplicationEmbed/fields/name/marks": "🏷️ Marcadores",
+    "user/info/createApplicationEmbed/fields/error/marks": "Sem marcadores",
+    "user/info/createApplicationEmbed/fields/name/slug": "🐛 Slug",
+    "user/info/createApplicationEmbed/fields/error/slug": "Não tem",
+    "user/info/createApplicationEmbed/fields/name/httpKey": "💻 Chave pública de Requisições HTTP"
 }

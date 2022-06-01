@@ -1,7 +1,7 @@
 # Suki-Rewrite
 
 ## ⚠ Requirements
-- NodeJS 16 or higher
+- NodeJS 18 or higher
 - yarn
 
 
