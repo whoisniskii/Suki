@@ -1,11 +1,12 @@
 /* eslint-disable no-await-in-loop */
 import { Client, Collection, GatewayIntentBits } from 'discord.js';
+import { readdirSync } from 'node:fs';
 import { readdir } from 'node:fs/promises';
 import { setTimeout as sleep } from 'timers/promises';
 // @ts-ignore
 import config from './Config/config';
-import { DatabaseManager, EventManager } from './Managers';
-import { Command, CommandDataStructure, Language } from './Structures';
+import { DatabaseManager } from './Managers';
+import { Command, CommandDataStructure, Event, Language } from './Structures';
 import Logger from './Utils/Logger';
 
 class SukiClient extends Client {
@@ -79,11 +80,27 @@ class SukiClient extends Client {
     this.logger.info('Data loaded successfully.', 'COMMANDS');
   }
 
+  async loadEvents(client: SukiClient) {
+    const eventFiles = readdirSync(`./Listeners`);
+
+    for (const file of eventFiles) {
+      if (!file.endsWith('.js')) continue;
+
+      const { default: EventClass }: { default: new () => Event } = await import(`./Listeners/${file}`);
+      const event = new EventClass();
+      client.on(event.eventName, (...args: any[]) => event.execute(client, ...args));
+    }
+
+    client.logger.info('Events loaded successfully.', 'EVENTS');
+  }
+
   async initialize() {
     await sleep(1000);
-    new EventManager(this).loadEvents(`${__dirname}/Listeners`);
+    this.loadEvents(this);
     this.loadCommands(this);
+    await sleep(2500);
     this.loadCommandData(this);
+    await sleep(2500);
     super.login(this.config.client.token);
 
     process.on('uncaughtException', err => this.logger.error(err.message));

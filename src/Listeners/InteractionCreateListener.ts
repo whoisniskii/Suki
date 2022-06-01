@@ -1,4 +1,4 @@
-import { ChatInputCommandInteraction, GuildMember, Interaction, PermissionsBitField } from 'discord.js';
+import { ChatInputCommandInteraction, Interaction, PermissionsBitField } from 'discord.js';
 import { getFixedT, TFunction } from 'i18next';
 import { Command, CommandContext, Event } from '../Structures';
 import { SukiClient } from '../SukiClient';
@@ -50,29 +50,56 @@ export default class InteractionCreateEvent extends Event {
     }
   }
 
-  static checkBotPermissions(interaction: ChatInputCommandInteraction, command: Command, t: TFunction): boolean {
-    if (command.permissions.bot.length === 0) return true;
-    if (!interaction.guild?.members.me?.permissions.has(command.permissions.bot)) {
-      const permissions = new PermissionsBitField(command.permissions.bot)
+  static checkBotPermissions(interaction: ChatInputCommandInteraction, command: Command, t: TFunction) {
+    const sendPermissionError = (cmd: Command<SukiClient>) => {
+      const permissions = new PermissionsBitField(cmd.permissions.bot)
         .toArray()
         .map(p => t(`permissions:${p}`))
         .join(', ');
       interaction.reply({ content: `❌ ${interaction.user} **|** ${t('events:interactionCreate/permissions/bot/missing', { perms: `\`${permissions.toString()}\`` })}`, ephemeral: true });
       return false;
+    };
+
+    const findSubCommand = (name: string | null) => {
+      if (!name) return undefined;
+      const subCommand = (interaction.client as SukiClient).commands.find(c => c.rawName.toLowerCase().includes(name) && c.rawName.endsWith('SubCommand'));
+      return subCommand;
+    };
+
+    const subCommand = findSubCommand(interaction.options.getSubcommand(false));
+    if (subCommand) {
+      if (!interaction.guild?.members.me?.permissions.has(subCommand.permissions.bot)) return sendPermissionError(subCommand);
     }
+
+    if (command.permissions.bot.length === 0) return true;
+    if (!interaction.guild?.members.me?.permissions.has(command.permissions.bot)) return sendPermissionError(command);
     return true;
   }
 
-  static checkMemberPermissions(interaction: ChatInputCommandInteraction, command: Command, t: TFunction): boolean {
-    if (command.permissions.user.length === 0) return true;
-    if (!(interaction.member as GuildMember).permissions.has(command.permissions.user)) {
-      const permissions = new PermissionsBitField(command.permissions.user)
+  static checkMemberPermissions(interaction: ChatInputCommandInteraction, command: Command, t: TFunction) {
+    const sendPermissionError = (cmd: Command<SukiClient>) => {
+      const permissions = new PermissionsBitField(cmd.permissions.user)
         .toArray()
         .map(p => t(`permissions:${p}`))
         .join(', ');
       interaction.reply({ content: `❌ ${interaction.user} **|** ${t('events:interactionCreate/permissions/user/missing', { perms: `\`${permissions.toString()}\`` })}`, ephemeral: true });
       return false;
+    };
+
+    const findSubCommand = (name: string | null) => {
+      if (!name) return undefined;
+      const subCommand = (interaction.client as SukiClient).commands.find(c => c.rawName.toLowerCase().includes(name) && c.rawName.endsWith('SubCommand'));
+      return subCommand;
+    };
+
+    const subCommand = findSubCommand(interaction.options.getSubcommand(false));
+    console.log(subCommand);
+    if (subCommand) {
+      if (!interaction.memberPermissions?.has(subCommand.permissions.user)) return sendPermissionError(subCommand);
     }
+
+    if (!command.permissions.user.length) return true;
+    if (!interaction.memberPermissions?.has(command.permissions.user)) return sendPermissionError(command);
     return true;
   }
 }

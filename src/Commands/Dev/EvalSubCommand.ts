@@ -3,11 +3,11 @@ import { inspect } from 'util';
 import { Command, CommandExecuteOptions } from '../../Structures';
 import { SukiClient } from '../../SukiClient';
 
-export default class DevEvalSubCommand extends Command {
+export default class EvalSubCommand extends Command {
   constructor(client: SukiClient) {
     super(client);
 
-    this.rawName = 'eval';
+    this.rawName = 'EvalSubCommand';
     this.permissions = {
       bot: [],
       user: [],

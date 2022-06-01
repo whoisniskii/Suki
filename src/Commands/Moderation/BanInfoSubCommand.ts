@@ -6,7 +6,7 @@ import { SukiClient } from '../../SukiClient';
 export default class BanInfoSubCommand extends Command {
   constructor(client: SukiClient) {
     super(client);
-    this.rawName = 'BanInfoSubCommand';
+    this.rawName = 'BansInfoSubCommand';
     this.config = {
       registerSlashCommands: false,
       devOnly: false,
@@ -36,7 +36,7 @@ export default class BanInfoSubCommand extends Command {
       .setTimestamp()
       .setColor('Purple')
       .setTitle(t('command:guild/bans/embed/title', { user: ban.user.tag }))
-      .setThumbnail(ban?.user.displayAvatarURL({ extension: 'jpg' }))
+      .setThumbnail(ban?.user.displayAvatarURL({ extension: 'png' }))
       .addFields([
         {
           name: t('command:guild/bans/embed/field/name/id'),
@@ -60,6 +60,11 @@ export default class BanInfoSubCommand extends Command {
   }
 
   async executeAutoComplete({ interaction }: AutoCompleteExecuteOptions) {
+    if (!interaction.memberPermissions?.has(PermissionFlagsBits.BanMembers) && !interaction.memberPermissions?.has(PermissionFlagsBits.BanMembers)) {
+      interaction.respond([]);
+      return;
+    }
+
     const t = i18next.getFixedT(this.client.languages.languageManager.recommendedLocale(interaction.locale));
     const bans = await interaction.guild?.bans.fetch({ cache: true, limit: 25 });
 

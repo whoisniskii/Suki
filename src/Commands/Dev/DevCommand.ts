@@ -19,12 +19,12 @@ export default class DevCommand extends Command {
   execute({ context, t }: CommandExecuteOptions) {
     switch (context.options.getSubcommand()) {
       case 'eval': {
-        this.client.commands.get('DevEvalSubCommand')?.execute({ context, t });
+        this.client.commands.get('EvalSubCommand')?.execute({ context, t });
         break;
       }
 
       case 'shell': {
-        this.client.commands.get('DevShellSubCommand')?.execute({ context, t });
+        this.client.commands.get('ShellSubCommand')?.execute({ context, t });
         break;
       }
     }

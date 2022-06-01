@@ -1,3 +1,4 @@
+import { PermissionFlagsBits } from 'discord.js';
 import { Command, CommandExecuteOptions } from '../../Structures';
 import { SukiClient } from '../../SukiClient';
 
@@ -5,9 +6,9 @@ export default class SukiPingSubCommand extends Command {
   constructor(client: SukiClient) {
     super(client);
 
-    this.rawName = 'ping';
+    this.rawName = 'PingSubCommand';
     this.permissions = {
-      bot: [],
+      bot: [PermissionFlagsBits.EmbedLinks],
       user: [],
     };
     this.config = {

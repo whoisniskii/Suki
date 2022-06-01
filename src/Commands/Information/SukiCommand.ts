@@ -19,7 +19,7 @@ export default class SukiCommand extends Command {
   execute({ context, t }: CommandExecuteOptions) {
     switch (context.options.getSubcommand()) {
       case 'ping': {
-        this.client.commands.get('SukiPingSubCommand')?.execute({ context, t });
+        this.client.commands.get('PingSubCommand')?.execute({ context, t });
         break;
       }
     }

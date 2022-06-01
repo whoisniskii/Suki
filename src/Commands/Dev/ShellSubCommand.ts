@@ -5,11 +5,11 @@ import { SukiClient } from '../../SukiClient';
 
 const ANSI_REGEX = /[\u001b\u009b][[()#;?]*(?:[0-9]{1,4}(?:;[0-9]{0,4})*)?[0-9A-ORZcf-nqry=><]/g;
 
-export default class DevShellSubCommand extends Command {
+export default class ShellSubCommand extends Command {
   constructor(client: SukiClient) {
     super(client);
 
-    this.rawName = 'shell';
+    this.rawName = 'ShellSubCommand';
     this.permissions = {
       bot: [],
       user: [],
