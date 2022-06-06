@@ -41,9 +41,7 @@ class CommandContext {
   async reply(options: InteractionReplyOptions | string) {
     if (this.interaction.deferred) {
       await this.interaction.editReply(options);
-    } else {
-      await this.interaction.reply(options);
-    }
+    } else await this.interaction.reply(options);
 
     if (this.interaction.fetchReply) {
       return this.interaction.fetchReply();

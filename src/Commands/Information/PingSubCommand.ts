@@ -2,7 +2,7 @@ import { PermissionFlagsBits } from 'discord.js';
 import { Command, CommandExecuteOptions } from '../../Structures';
 import { SukiClient } from '../../SukiClient';
 
-export default class SukiPingSubCommand extends Command {
+export default class PingSubCommand extends Command {
   constructor(client: SukiClient) {
     super(client);
 

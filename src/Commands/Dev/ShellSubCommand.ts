@@ -31,9 +31,7 @@ export default class ShellSubCommand extends Command {
 
       if (stderr) {
         await context.reply({ content: `**Stderr**: \`\`\`sh\n${res.slice(0, 1970)}\n\`\`\`` });
-      } else {
-        await context.reply({ content: `**Stdout:** \`\`\`sh\n${res.slice(0, 1970)}\n\`\`\`` });
-      }
+      } else await context.reply({ content: `**Stdout:** \`\`\`sh\n${res.slice(0, 1970)}\n\`\`\`` });
     });
   }
 }

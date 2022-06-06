@@ -18,7 +18,7 @@ export default class UserInfoSubCommand extends Command {
   }
 
   async execute({ context, t }: CommandExecuteOptions) {
-    const user = context.options.getUser('user') ?? context.user;
+    const user = await (context.options.getUser('user') ?? context.user).fetch();
     if (!user) {
       context.reply({ content: t('command:user/info/error/noUser'), ephemeral: true });
       return;
@@ -29,8 +29,8 @@ export default class UserInfoSubCommand extends Command {
     } else context.reply({ embeds: [await this.createMemberEmbed({ context, t })] });
   }
 
-  createMemberEmbed({ context, t }: CommandExecuteOptions): APIEmbed {
-    const user = context.options.getUser('user') ?? context.user;
+  async createMemberEmbed({ context, t }: CommandExecuteOptions): Promise<APIEmbed> {
+    const user = await (context.options.getUser('user') ?? context.user).fetch();
 
     const tempMember = context.options.getMember('user') as GuildMember;
     const member = user.id === tempMember?.id ? tempMember : undefined;

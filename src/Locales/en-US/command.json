@@ -1,11 +1,15 @@
 {
+    // Suki ping
     "suki/ping/success": "🏓 **|** API Ping: {{ping}}ms",
 
+    // Dev eval
     "dev/eval/output": "✅ **|** Output: {{code}}",
     "dev/eval/error": "❌ **|** Error: {{code}}",
 
+    // Dev shell
     "dev/shell/error/noOutput": "❌ **|** No output!",
 
+    // Guild bans
     "guild/bans/error/noUser": "❌ **|** No users found.",
     "guild/bans/error/noBan": "❌ **|** This user is not banned.",
     "guild/bans/embed/title": "🔨 Ban information from {{user}}",
@@ -15,13 +19,13 @@
     "guild/bans/embed/field/value/reason": "No reason provided",
     "guild/bans/autocomplete/noBans": "❌ | No users found.",
 
+    // User info
     "user/info/error/noUser": "❌ **|** No users found.",
     "user/info/createMemberEmbed/author": "User information",
     "user/info/createMemberEmbed/fields/name/userId": "💻 ID on Discord",
     "user/info/createMemberEmbed/fields/name/userTag": "🏷️ Tag on Discord",
     "user/info/createMemberEmbed/fields/name/accountCreated": "📅 Account Creation Date",
     "user/info/createMemberEmbed/fields/name/joinedAt": "📅 Server Entry Date",
-
     "user/info/createApplicationEmbed/author": "Application Information",
     "user/info/createApplicationEmbed/fields/name/guildId": "💻 Support Server ID",
     "user/info/createApplicationEmbed/fields/error/guildId": "No support server",
@@ -31,10 +35,12 @@
     "user/info/createApplicationEmbed/fields/error/slug": "Does not have",
     "user/info/createApplicationEmbed/fields/name/httpKey": "💻 HTTP Request Public Key",
 
+    // User banner
     "user/banner/error/noUser": "❌ **|** No users found.",
     "user/banner/error/noBanner": "❌ **|** This user does not have a banner.",
     "user/banner/button/label": "Open in browser",
 
+    // User avatar
     "user/avatar/error/noUser": "❌ **|** No users found.",
     "user/avatar/error/noUserAvatar": "❌ **|** This user does not have an avatar.",
     "user/avatar/button/label": "Open in browser"

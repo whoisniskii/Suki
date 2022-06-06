@@ -2,11 +2,11 @@ import { ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder } from 'disc
 import { Command, CommandExecuteOptions } from '../../Structures';
 import { SukiClient } from '../../SukiClient';
 
-export default class UserInfoSubCommand extends Command {
+export default class UserBannerSubCommand extends Command {
   constructor(client: SukiClient) {
     super(client);
 
-    this.rawName = 'UserInfoSubCommand';
+    this.rawName = 'UserBannerSubCommand';
     this.permissions = {
       bot: [],
       user: [],
@@ -35,7 +35,7 @@ export default class UserInfoSubCommand extends Command {
 
     const bannerUrl = `https://cdn.discordapp.com/banners/${user.id}/${user.banner}.${extension}?size=512`;
 
-    const embed = new EmbedBuilder().setColor('Purple').setTitle(`🖼️ ${user.username}`).setImage(bannerUrl);
+    const embed = new EmbedBuilder().setColor('Purple').setTitle(user.username).setImage(bannerUrl);
 
     const row = new ActionRowBuilder<ButtonBuilder>({ components: [new ButtonBuilder().setStyle(ButtonStyle.Link).setURL(bannerUrl).setLabel(t('command:user/banner/button/label'))] });
 
