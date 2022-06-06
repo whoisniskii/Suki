@@ -1,35 +1,32 @@
-# Suki-Rewrite
+# 🤖 Suki
+
+> Suki is a multipurpose [Discord](https://discord.com) bot, built with [Node.js](https://nodejs.org), [TypeScript](https://www.typescriptlang.org/) and [discord.js](https://discord.js.org).
 
 ## ⚠ Requirements
 - NodeJS 18 or higher
 - yarn
 
-
 ## 💻 Self-Hosting
 
-- ⚙️ Rename `src/Config/config.example.ts` to `config.ts` and fill out the values.
+> ⚠️ Support will not be provided for self-hosted instances. Issues with self-hosted instances opened in this repository will be closed immediately.
 
-- Install all dependencies
+- ⚙️ Rename the `config.example.ts` file, found in `src/Config` to `config.ts` and fill out the values.
+
+### Install all the dependencies with:
 ```bash
 yarn
 ```
 
-## 💻 | Compiling
-To transpile the bot run:
+### Transpile the code to JavaScript with:
 
 ```bash
 yarn build
 ```
 
-Now you can run bot using:
+**Run the bot using**:
 ```bash
 yarn start
 ```
 
-## 🚀 Contributing
-
-1. Fork it!
-2. Create your feature branch: `git checkout -b my-new-feature`
-3. Commit your changes: `git commit -am 'Add some feature'`
-4. Push to the branch: `git push origin my-new-feature`
-5. Submit a pull request
+## 📚 License
+This projects uses [GNU General Public License v3.0](https://www.gnu.org/licenses/gpl-3.0.html).
