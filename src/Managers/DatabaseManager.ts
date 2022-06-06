@@ -1,70 +1,106 @@
-import { connect } from 'mongoose';
-import GuildDB from '../Schemas/guildDB';
-import UserDB from '../Schemas/userDB';
+import { Pool, QueryResult } from 'pg';
+import GuildTable from '../Database/tables/guilds.json';
 import { SukiClient } from '../SukiClient';
 
-class DatabaseManager {
+class DatabaseManager extends Pool {
   client: SukiClient;
-  userDB: typeof UserDB;
-  guildDB: typeof GuildDB;
 
   constructor(client: SukiClient) {
+    super({
+      user: client.config.databaseConfig.user,
+      host: client.config.databaseConfig.host,
+      database: client.config.databaseConfig.database,
+      password: client.config.databaseConfig.password,
+      port: client.config.databaseConfig.port,
+      ssl: {
+        rejectUnauthorized: false,
+      },
+    });
+
     this.client = client;
-    this.userDB = UserDB;
-    this.guildDB = GuildDB;
-
-    this.loadDatabase();
   }
 
-  async getUser(userId: string) {
-    const userDBData = await this.client.users.fetch(userId);
-
-    if (!userDBData) return null;
-
-    let document = await this.userDB.findOne({ id: userId });
-
-    if (!document) document = new UserDB({ id: userId });
-
-    return document;
+  async connectDatabase(): Promise<void> {
+    await this.runQuery(`SELECT NOW() as now`);
+    this.client.logger.info('Database successfully connected', 'POSTGRESQL');
   }
 
-  async deleteUserSchema(userId: string) {
-    const userDBData = await this.userDB.findOne({ id: userId });
-
-    if (!userDBData) return;
-
-    userDBData.remove();
+  async createRequiredTables() {
+    await this.createTable(GuildTable);
   }
 
-  async getGuild(guildId: string) {
-    let document = await this.guildDB.findOne({ guildID: guildId });
+  async runQuery(query: string): Promise<any[]> {
+    const res: QueryResult = await this.query(query);
 
-    if (!document)
-      document = new GuildDB({
-        guildID: guildId,
-        forever: false,
-      });
-
-    return document;
+    return res.rows;
   }
 
-  async deleteGuildSchema(guildId: string) {
-    const guildDBData = await this.guildDB.findOne({ guildID: guildId });
+  async getGuildData(guildId: string) {
+    const query: QueryResult = await this.query(`SELECT * FROM guilds WHERE guild_id=$1`, [guildId]);
+    const data: GuildData | undefined = query.rows[0];
 
-    if (!guildDBData) return;
-
-    guildDBData.remove();
+    return data;
   }
 
-  loadDatabase() {
-    return connect(this.client.config.database.mongodb)
-      .then(() => {
-        this.client.logger.info('Database successfully connected.', 'DATABASE');
-      })
-      .catch((err: Error | null) => {
-        this.client.logger.error(`Error connecting to database.\n${err}`, 'DATABASE');
-      });
+  async createTable(tableData: ITable): Promise<boolean> {
+    let textData = ``;
+
+    tableData.columns.map((column: ITableColumn, index: number) => {
+      let extraData = ``;
+
+      if (column.isUnique) {
+        extraData += `UNIQUE `;
+      }
+
+      if (column.required) {
+        extraData += `NOT NULL `;
+      }
+
+      if (column.default) {
+        extraData += `DEFAULT ${column.default}`;
+      }
+
+      extraData = extraData.trimEnd();
+
+      if (index === tableData.columns.length - 1) {
+        textData += `\t${column.name} ${column.type} ${extraData}\n`;
+      } else {
+        textData += `\t${column.name} ${column.type} ${extraData},\n`;
+      }
+
+      return textData;
+    });
+
+    await this.runQuery(`CREATE TABLE IF NOT EXISTS ${tableData.tableName} (\n${textData})`);
+
+    return true;
   }
 }
 
 export { DatabaseManager };
+
+interface ITableColumn {
+  name: string;
+  type: string;
+  required: boolean;
+  isUnique: boolean;
+  primary: boolean;
+  default?: string;
+}
+
+interface ITable {
+  tableName: string;
+  createOnConnect: boolean;
+  columns: ITableColumn[];
+}
+
+export interface GuildInterface {
+  database_id?: number;
+  guild_id: string;
+  guild_data: GuildData;
+  created_at: Date;
+}
+
+interface GuildData {
+  forever: boolean;
+}

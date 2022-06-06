@@ -95,12 +95,12 @@ class SukiClient extends Client {
   }
 
   async initialize() {
+    await this.database.connectDatabase();
     await sleep(1000);
     this.loadEvents(this);
     this.loadCommands(this);
     await sleep(2500);
     this.loadCommandData(this);
-    await sleep(2500);
     super.login(this.config.client.token);
 
     process.on('uncaughtException', err => this.logger.error(err.message));

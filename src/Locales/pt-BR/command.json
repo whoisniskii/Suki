@@ -1,15 +1,11 @@
 {
-    // Suki ping
     "suki/ping/success": "🏓 **|** Ping da API: **{{ping}}ms**",
 
-    // Dev eval
     "dev/eval/output": "✅ **|** Saída do código: {{code}}",
     "dev/eval/error": "❌ **|** Erro: {{code}}",
 
-    // Dev shell
     "dev/shell/error/noOutput": "❌ **|** Não há saída para este código!",
 
-    // Guild bans
     "guild/bans/error/noUser": "❌ **|** Nenhum usuário encontrado.",
     "guild/bans/error/noBan": "❌ **|** Este usuário não está banido.",
     "guild/bans/embed/title": "🔨 Informações do banimento de {{user}}",
@@ -19,7 +15,6 @@
     "guild/bans/embed/field/value/reason": "Nenhum motivo fornecido",
     "guild/bans/autocomplete/noBans": "❌ | Nenhum usuário encontrado.",
 
-    // User info
     "user/info/error/noUser": "❌ **|** Nenhum usuário encontrado.",
     "user/info/createMemberEmbed/author": "Informação do usuário",
     "user/info/createMemberEmbed/fields/name/userId": "💻 ID no Discord",
@@ -35,12 +30,10 @@
     "user/info/createApplicationEmbed/fields/error/slug": "Não tem",
     "user/info/createApplicationEmbed/fields/name/httpKey": "💻 Chave pública de Requisições HTTP",
 
-    // User banner
     "user/banner/error/noUser": "❌ **|** Nenhum usuário encontrado.",
     "user/banner/error/noBanner": "❌ **|** Este usuário não tem um banner.",
     "user/banner/button/label": "Abrir no navegador",
 
-    // User avatar
     "user/avatar/error/noUser": "❌ **|** Nenhum usuário encontrado.",
     "user/avatar/error/noUserAvatar": "❌ **|** Este usuário não tem um avatar.",
     "user/avatar/button/label": "Abrir no navegador"

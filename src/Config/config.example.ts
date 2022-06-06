@@ -5,7 +5,11 @@ export default {
     id: 'CLIENT ID',
     guild: 'GUILD TEST ID',
   },
-  database: {
-    mongodb: 'MONGODB URI',
+  databaseConfig: {
+    user: 'POSTGRESQL USER',
+    host: 'POSTGRESQL HOST',
+    database: 'POSTGRESQL DATABASE',
+    password: 'POSTGRESQL PASSWORD',
+    port: 22,
   },
 };

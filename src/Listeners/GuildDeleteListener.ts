@@ -10,7 +10,13 @@ export default class GuildDeleteEvent extends Event {
     this.eventName = 'guildDelete';
   }
 
-  execute(client: SukiClient, guild: Guild) {
-    client.database.deleteGuildSchema(guild.id);
+  async execute(client: SukiClient, guild: Guild) {
+    const guildData = await client.database.getGuildData(guild.id);
+
+    if (!guildData) {
+      return;
+    }
+
+    await client.database.query('DELETE FROM guilds WHERE guild_id=$1', [guild.id]);
   }
 }
