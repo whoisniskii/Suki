@@ -2,11 +2,11 @@ import { Locale } from 'discord.js';
 import { readdirSync } from 'fs';
 import i18next from 'i18next';
 import i18nbackend from 'i18next-fs-backend';
-import { SukiClient } from '../SukiClient';
+import { Suki } from '../Suki';
 
 class LanguageManager {
-  client: SukiClient;
-  constructor(client: SukiClient) {
+  client: Suki;
+  constructor(client: Suki) {
     this.client = client;
   }
 

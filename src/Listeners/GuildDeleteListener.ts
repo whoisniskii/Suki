@@ -1,6 +1,6 @@
 import { Guild } from 'discord.js';
 import { Event } from '../Structures';
-import { SukiClient } from '../SukiClient';
+import { Suki } from '../Suki';
 
 export default class GuildDeleteEvent extends Event {
   eventName: string;
@@ -10,7 +10,7 @@ export default class GuildDeleteEvent extends Event {
     this.eventName = 'guildDelete';
   }
 
-  async execute(client: SukiClient, guild: Guild) {
+  async execute(client: Suki, guild: Guild) {
     await client.database.deleteGuildData(guild.id);
   }
 }

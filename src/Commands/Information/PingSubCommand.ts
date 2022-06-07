@@ -1,9 +1,9 @@
 import { PermissionFlagsBits } from 'discord.js';
 import { Command, CommandExecuteOptions } from '../../Structures';
-import { SukiClient } from '../../SukiClient';
+import { Suki } from '../../Suki';
 
 export default class PingSubCommand extends Command {
-  constructor(client: SukiClient) {
+  constructor(client: Suki) {
     super(client);
 
     this.rawName = 'PingSubCommand';
@@ -18,6 +18,6 @@ export default class PingSubCommand extends Command {
   }
 
   execute({ context, t }: CommandExecuteOptions) {
-    context.reply(t('command:suki/ping/success', { ping: this.client.ws.ping.toString() }));
+    context.sendMessage(t('command:suki/ping/success', { ping: this.client.ws.ping.toString() }));
   }
 }

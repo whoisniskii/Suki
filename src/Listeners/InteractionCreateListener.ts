@@ -1,7 +1,7 @@
 import { ChatInputCommandInteraction, Interaction, PermissionsBitField } from 'discord.js';
 import { getFixedT, TFunction } from 'i18next';
 import { Command, CommandContext, Event } from '../Structures';
-import { SukiClient } from '../SukiClient';
+import { Suki } from '../Suki';
 
 export default class InteractionCreateEvent extends Event {
   eventName: string;
@@ -11,7 +11,7 @@ export default class InteractionCreateEvent extends Event {
     this.eventName = 'interactionCreate';
   }
 
-  execute(client: SukiClient, interaction: Interaction) {
+  execute(client: Suki, interaction: Interaction) {
     if (interaction.isAutocomplete() && interaction.inGuild()) {
       const cmd = client.commands.find(c => c.rawName === interaction.commandName);
       if (!cmd) throw new Error(`Command ${interaction.commandName} does not exist!`);
@@ -35,7 +35,7 @@ export default class InteractionCreateEvent extends Event {
         if (!InteractionCreateEvent.checkMemberPermissions(interaction, cmd, t)) return;
       }
 
-      if (cmd.config.devOnly && client.developers.some(x => x !== interaction.user.id)) {
+      if (cmd.config.devOnly && !client.developers.some(x => x === interaction.user.id)) {
         interaction.reply({ content: `❌ **|** ${t('events:interactionCreate/permissions/devOnly')}`, ephemeral: true });
         return;
       }
@@ -51,7 +51,7 @@ export default class InteractionCreateEvent extends Event {
   }
 
   static checkBotPermissions(interaction: ChatInputCommandInteraction, command: Command, t: TFunction) {
-    const sendPermissionError = (cmd: Command<SukiClient>) => {
+    const sendPermissionError = (cmd: Command<Suki>) => {
       const permissions = new PermissionsBitField(cmd.permissions.bot)
         .toArray()
         .map(p => t(`permissions:${p}`))
@@ -62,7 +62,7 @@ export default class InteractionCreateEvent extends Event {
 
     const findSubCommand = (name: string | null) => {
       if (!name) return undefined;
-      const subCommand = (interaction.client as SukiClient).commands.find(c => c.rawName.toLowerCase().includes(name) && c.rawName.endsWith('SubCommand'));
+      const subCommand = (interaction.client as Suki).commands.find(c => c.rawName.toLowerCase().includes(name) && c.rawName.endsWith('SubCommand'));
       return subCommand;
     };
 
@@ -77,7 +77,7 @@ export default class InteractionCreateEvent extends Event {
   }
 
   static checkMemberPermissions(interaction: ChatInputCommandInteraction, command: Command, t: TFunction) {
-    const sendPermissionError = (cmd: Command<SukiClient>) => {
+    const sendPermissionError = (cmd: Command<Suki>) => {
       const permissions = new PermissionsBitField(cmd.permissions.user)
         .toArray()
         .map(p => t(`permissions:${p}`))
@@ -88,7 +88,7 @@ export default class InteractionCreateEvent extends Event {
 
     const findSubCommand = (name: string | null) => {
       if (!name) return undefined;
-      const subCommand = (interaction.client as SukiClient).commands.find(c => c.rawName.toLowerCase().includes(name) && c.rawName.endsWith('SubCommand'));
+      const subCommand = (interaction.client as Suki).commands.find(c => c.rawName.toLowerCase().includes(name) && c.rawName.endsWith('SubCommand'));
       return subCommand;
     };
 

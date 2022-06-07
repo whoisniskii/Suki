@@ -1,6 +1,6 @@
 import { Guild } from 'discord.js';
 import { Event } from '../Structures';
-import { SukiClient } from '../SukiClient';
+import { Suki } from '../Suki';
 
 export default class GuildCreateEvent extends Event {
   eventName: string;
@@ -10,7 +10,7 @@ export default class GuildCreateEvent extends Event {
     this.eventName = 'guildCreate';
   }
 
-  async execute(client: SukiClient, guild: Guild) {
+  async execute(client: Suki, guild: Guild) {
     await client.database.createGuildData(guild.id);
   }
 }

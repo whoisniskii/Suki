@@ -1,8 +1,8 @@
 import { Command, CommandExecuteOptions } from '../../Structures';
-import { SukiClient } from '../../SukiClient';
+import { Suki } from '../../Suki';
 
 export default class SukiCommand extends Command {
-  constructor(client: SukiClient) {
+  constructor(client: Suki) {
     super(client);
 
     this.rawName = 'suki';

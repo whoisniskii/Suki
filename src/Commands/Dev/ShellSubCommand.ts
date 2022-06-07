@@ -1,12 +1,12 @@
 /* eslint-disable no-control-regex */
 import { exec } from 'child_process';
 import { Command, CommandExecuteOptions } from '../../Structures';
-import { SukiClient } from '../../SukiClient';
+import { Suki } from '../../Suki';
 
 const ANSI_REGEX = /[\u001b\u009b][[()#;?]*(?:[0-9]{1,4}(?:;[0-9]{0,4})*)?[0-9A-ORZcf-nqry=><]/g;
 
 export default class ShellSubCommand extends Command {
-  constructor(client: SukiClient) {
+  constructor(client: Suki) {
     super(client);
 
     this.rawName = 'ShellSubCommand';
@@ -23,15 +23,15 @@ export default class ShellSubCommand extends Command {
   execute({ context, t }: CommandExecuteOptions) {
     exec(context.options.getString('code', true), async (_err, stdout, stderr) => {
       if (!stdout && !stderr) {
-        context.reply({ content: t('command:dev/shell/error/noOutput'), ephemeral: true });
+        context.sendMessage({ content: t('command:dev/shell/error/noOutput'), ephemeral: true });
         return;
       }
 
       const res = (stdout || stderr).replace(ANSI_REGEX, '');
 
       if (stderr) {
-        await context.reply({ content: `**Stderr**: \`\`\`sh\n${res.slice(0, 1970)}\n\`\`\`` });
-      } else await context.reply({ content: `**Stdout:** \`\`\`sh\n${res.slice(0, 1970)}\n\`\`\`` });
+        await context.sendMessage({ content: `**Stderr**: \`\`\`sh\n${res.slice(0, 1970)}\n\`\`\`` });
+      } else await context.sendMessage({ content: `**Stdout:** \`\`\`sh\n${res.slice(0, 1970)}\n\`\`\`` });
     });
   }
 }

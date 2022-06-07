@@ -1,11 +1,11 @@
 import { LanguageManager } from '../Managers';
-import { SukiClient } from '../SukiClient';
+import { Suki } from '../Suki';
 
 class Language {
-  client: SukiClient;
+  client: Suki;
   languageManager: LanguageManager;
 
-  constructor(client: SukiClient) {
+  constructor(client: Suki) {
     this.client = client;
     this.client.languages = this;
 

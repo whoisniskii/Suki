@@ -1,12 +1,12 @@
 import type { ChatInputApplicationCommandData } from 'discord.js';
-import type { SukiClient } from '../SukiClient';
+import type { Suki } from '../Suki';
 
-class CommandDataStructure {
+abstract class CommandData<Client = Suki> {
   data: ChatInputApplicationCommandData;
-  constructor(client: SukiClient);
+  constructor(client: Client);
 
   // eslint-disable-next-line no-useless-constructor, @typescript-eslint/no-empty-function
   constructor() {}
 }
 
-export { CommandDataStructure };
+export { CommandData };

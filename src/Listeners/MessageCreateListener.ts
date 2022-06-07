@@ -1,6 +1,6 @@
 import { ActionRowBuilder, ButtonBuilder, ButtonStyle, Message } from 'discord.js';
 import { Event } from '../Structures';
-import { SukiClient } from '../SukiClient';
+import { Suki } from '../Suki';
 
 const GetMention = (id: string) => new RegExp(`^<@!?${id}>( |)$`);
 
@@ -12,7 +12,7 @@ export default class MessageCreateEvent extends Event {
     this.eventName = 'messageCreate';
   }
 
-  execute(client: SukiClient, message: Message) {
+  execute(client: Suki, message: Message) {
     if (message.author.bot) return;
 
     const button = new ButtonBuilder()

@@ -1,10 +1,10 @@
 import { EmbedBuilder, PermissionFlagsBits } from 'discord.js';
 import i18next from 'i18next';
 import { AutoCompleteExecuteOptions, Command, CommandExecuteOptions } from '../../Structures';
-import { SukiClient } from '../../SukiClient';
+import { Suki } from '../../Suki';
 
 export default class BanInfoSubCommand extends Command {
-  constructor(client: SukiClient) {
+  constructor(client: Suki) {
     super(client);
     this.rawName = 'BansInfoSubCommand';
     this.config = {
@@ -21,46 +21,46 @@ export default class BanInfoSubCommand extends Command {
     const str = context.options.getString('user', true);
 
     if (str === 'none') {
-      context.reply({ content: t('command:guild/bans/error/noUser'), ephemeral: true });
+      context.sendMessage({ content: t('command:server/bans/error/noUser'), ephemeral: true });
       return;
     }
 
     const ban = await context.guild?.bans.fetch(str);
 
     if (!ban) {
-      context.reply({ content: t('command:guild/bans/error/noBan'), ephemeral: true });
+      context.sendMessage({ content: t('command:server/bans/error/noBan'), ephemeral: true });
       return;
     }
 
     const embed = new EmbedBuilder()
       .setTimestamp()
       .setColor('Purple')
-      .setTitle(t('command:guild/bans/embed/title', { user: ban.user.tag }))
+      .setTitle(t('command:server/bans/embed/title', { user: ban.user.tag }))
       .setThumbnail(ban?.user.displayAvatarURL({ extension: 'png' }))
       .addFields([
         {
-          name: t('command:guild/bans/embed/field/name/id'),
+          name: t('command:server/bans/embed/field/name/id'),
           value: `\`${ban?.user.id}\``,
           inline: false,
         },
         {
-          name: t('command:guild/bans/embed/field/name/tag'),
+          name: t('command:server/bans/embed/field/name/tag'),
           value: `\`${ban?.user.tag}\``,
           inline: false,
         },
         {
-          name: t('command:guild/bans/embed/field/name/reason'),
-          value: `\`${ban?.reason ?? t('command:guild/bans/embed/field/value/reason')}\``,
+          name: t('command:server/bans/embed/field/name/reason'),
+          value: `\`${ban?.reason ?? t('command:server/bans/embed/field/value/reason')}\``,
           inline: false,
         },
       ])
       .setFooter({ text: `${context.user.tag}`, iconURL: context.user.displayAvatarURL({ extension: 'jpg' }) });
 
-    context.reply({ embeds: [embed] });
+    context.sendMessage({ embeds: [embed] });
   }
 
   async executeAutoComplete({ interaction }: AutoCompleteExecuteOptions) {
-    if (!interaction.memberPermissions?.has(PermissionFlagsBits.BanMembers) && !interaction.memberPermissions?.has(PermissionFlagsBits.BanMembers)) {
+    if (!interaction.memberPermissions?.has(PermissionFlagsBits.BanMembers) && !interaction.guild?.members.me?.permissions.has(PermissionFlagsBits.BanMembers)) {
       interaction.respond([]);
       return;
     }
@@ -74,7 +74,7 @@ export default class BanInfoSubCommand extends Command {
     }
 
     if (bans.size === 0) {
-      interaction.respond([{ value: 'none', name: t('command:guild/bans/autocomplete/noBans') }]);
+      interaction.respond([{ value: 'none', name: t('command:server/bans/autocomplete/noBans') }]);
       return;
     }
 

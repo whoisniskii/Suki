@@ -1,9 +1,9 @@
 import { ApplicationCommandOptionType } from 'discord.js';
-import { CommandDataStructure } from '../../../Structures';
-import { SukiClient } from '../../../SukiClient';
+import { CommandData } from '../../../Structures';
+import { Suki } from '../../../Suki';
 
-export default class DevData extends CommandDataStructure {
-  constructor(client: SukiClient) {
+export default class DevData extends CommandData {
+  constructor(client: Suki) {
     super(client);
     this.data = {
       name: client.languages.languageManager.get('en-US', 'commandNames:dev'),

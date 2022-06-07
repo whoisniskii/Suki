@@ -6,10 +6,10 @@ import { setTimeout as sleep } from 'timers/promises';
 // @ts-ignore
 import config from './Config/config';
 import { DatabaseManager } from './Managers';
-import { Command, CommandDataStructure, Event, Language } from './Structures';
+import { Command, CommandData, Event, Language } from './Structures';
 import Logger from './Utils/Logger';
 
-class SukiClient extends Client {
+class Suki extends Client {
   config: typeof config;
   languages: Language;
   database: DatabaseManager;
@@ -39,7 +39,7 @@ class SukiClient extends Client {
     this.developers = ['847865068657836033'];
   }
 
-  async loadCommands(client: SukiClient) {
+  async loadCommands(client: Suki) {
     const categories = await readdir('./Commands/');
     for (const category of categories) {
       const commands = await readdir(`./Commands/${category}`);
@@ -47,7 +47,7 @@ class SukiClient extends Client {
       for (const command of commands) {
         if (!command.endsWith('.js')) continue;
         const commandWithoutExtension = command.replace('.js', '');
-        const { default: CommandClass }: { default: new (_client: SukiClient) => Command } = await import(`./Commands/${category}/${command}`);
+        const { default: CommandClass }: { default: new (_client: Suki) => Command } = await import(`./Commands/${category}/${command}`);
         const cmd = new CommandClass(client);
         client.commands.set(commandWithoutExtension, cmd);
       }
@@ -56,7 +56,7 @@ class SukiClient extends Client {
     this.logger.info('Commands loaded successfully.', 'COMMANDS');
   }
 
-  async loadCommandData(client: SukiClient) {
+  async loadCommandData(client: Suki) {
     const categories = await readdir('./Commands/');
     for (const category of categories) {
       const commands = await readdir(`./Commands/${category}/data`);
@@ -65,7 +65,7 @@ class SukiClient extends Client {
         if (!command.endsWith('.js')) continue;
         const commandDataWithoutExtension = command.replace('.js', '');
 
-        const { default: CommandDataClass }: { default: new (_client: SukiClient) => CommandDataStructure } = await import(`./Commands/${category}/data/${command}`);
+        const { default: CommandDataClass }: { default: new (_client: Suki) => CommandData } = await import(`./Commands/${category}/data/${command}`);
         const cachedCommand = client.commands.get(commandDataWithoutExtension);
         cachedCommand?.addOptions(new CommandDataClass(client).data);
       }
@@ -74,7 +74,7 @@ class SukiClient extends Client {
     this.logger.info('Data loaded successfully.', 'COMMANDS');
   }
 
-  async loadEvents(client: SukiClient) {
+  async loadEvents(client: Suki) {
     const eventFiles = readdirSync(`./Listeners`);
 
     for (const file of eventFiles) {
@@ -102,4 +102,4 @@ class SukiClient extends Client {
   }
 }
 
-export { SukiClient };
+export { Suki };

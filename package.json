@@ -3,7 +3,7 @@
   "description": "Suki is a multipurpose Discord bot. Built with Node.js, TypeScript and discord.js.",
   "version": "1.0.0",
   "private": true,
-  "main": "./build/Initializer.js",
+  "main": "./build/SukiLauncher.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/whoisniskii/Suki.git"
@@ -14,10 +14,8 @@
   "scripts": {
     "build": "tsc --project tsconfig.json",
     "build:check": "yarn types:check && yarn build",
-    "start": "cd build && node Initializer.js",
-    "lint": "npx eslint src --ext .ts",
-    "lint:fix": "npx eslint src --ext .ts --fix",
-    "lint:prettier": "npx prettier -w src",
+    "start": "cd build && node SukiLauncher.js",
+    "lint": "npx eslint src --ext .ts --fix",
     "types:check": "npx tsc --noEmit --incremental false",
     "dev": "yarn build && yarn start"
   },

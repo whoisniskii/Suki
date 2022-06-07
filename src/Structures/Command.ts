@@ -1,9 +1,9 @@
 import { AutocompleteInteraction, ChatInputApplicationCommandData, CommandInteractionOptionResolver, PermissionResolvable } from 'discord.js';
 import { TFunction } from 'i18next';
-import { SukiClient } from '../SukiClient';
+import { Suki } from '../Suki';
 import { CommandContext } from '.';
 
-abstract class Command<Client = SukiClient> {
+abstract class Command<Client = Suki> {
   client: Client;
   options: ChatInputApplicationCommandData;
   rawName: string;

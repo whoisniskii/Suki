@@ -1,6 +1,6 @@
 import { ChatInputApplicationCommandData } from 'discord.js';
 import { Event } from '../Structures';
-import { SukiClient } from '../SukiClient';
+import { Suki } from '../Suki';
 
 export default class ReadyEvent extends Event {
   eventName: string;
@@ -10,7 +10,7 @@ export default class ReadyEvent extends Event {
     this.eventName = 'ready';
   }
 
-  async execute(client: SukiClient) {
+  async execute(client: Suki) {
     client.logger.info(`Client successfully logged in ${client.user?.tag}.`, 'CLIENT');
 
     const commands = client.commands.filter(x => x.options && x.config.registerSlashCommands === true).map(x => x.options) as ChatInputApplicationCommandData[];

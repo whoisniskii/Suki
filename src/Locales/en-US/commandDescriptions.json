@@ -19,7 +19,7 @@
   "user/banner": "[ 📷 Images ] Shows a user banner.",
   "user/banner/user": "User to show banner.",
 
-  "guild": "See server information.",
-  "guild/bans": "[ 🔨 Moderation ] View a banned user information on the server.",
-  "guild/bans/user": "User who wants to see ban information."
+  "server": "See server information.",
+  "server/bans": "[ 🔨 Moderation ] View a banned user information on the server.",
+  "server/bans/user": "User who wants to see ban information."
 }

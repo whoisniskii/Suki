@@ -1,9 +1,9 @@
 import { APIEmbed, EmbedBuilder, GuildMember } from 'discord.js';
 import { Command, CommandExecuteOptions } from '../../Structures';
-import { SukiClient } from '../../SukiClient';
+import { Suki } from '../../Suki';
 
 export default class UserInfoSubCommand extends Command {
-  constructor(client: SukiClient) {
+  constructor(client: Suki) {
     super(client);
 
     this.rawName = 'UserInfoSubCommand';
@@ -20,13 +20,13 @@ export default class UserInfoSubCommand extends Command {
   async execute({ context, t }: CommandExecuteOptions) {
     const user = await (context.options.getUser('user') ?? context.user).fetch();
     if (!user) {
-      context.reply({ content: t('command:user/info/error/noUser'), ephemeral: true });
+      context.sendMessage({ content: t('command:user/info/error/noUser'), ephemeral: true });
       return;
     }
 
     if (user.bot) {
-      context.reply({ embeds: [await this.createMemberEmbed({ context, t }), await this.createApplicationEmbed({ context, t })] });
-    } else context.reply({ embeds: [await this.createMemberEmbed({ context, t })] });
+      context.sendMessage({ embeds: [await this.createMemberEmbed({ context, t }), await this.createApplicationEmbed({ context, t })] });
+    } else context.sendMessage({ embeds: [await this.createMemberEmbed({ context, t })] });
   }
 
   async createMemberEmbed({ context, t }: CommandExecuteOptions): Promise<APIEmbed> {

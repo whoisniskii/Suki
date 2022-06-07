@@ -1,10 +1,10 @@
 import { Pool } from 'pg';
-import { SukiClient } from '../SukiClient';
+import { Suki } from '../Suki';
 
 class DatabaseManager extends Pool {
-  client: SukiClient;
+  client: Suki;
 
-  constructor(client: SukiClient) {
+  constructor(client: Suki) {
     super({
       user: client.config.databaseConfig.user,
       host: client.config.databaseConfig.host,

@@ -1,11 +1,11 @@
 import { AutoCompleteExecuteOptions, Command, CommandExecuteOptions } from '../../Structures';
-import { SukiClient } from '../../SukiClient';
+import { Suki } from '../../Suki';
 
-export default class GuildCommand extends Command {
-  constructor(client: SukiClient) {
+export default class ServerCommand extends Command {
+  constructor(client: Suki) {
     super(client);
 
-    this.rawName = 'guild';
+    this.rawName = 'server';
     this.permissions = {
       bot: [],
       user: [],

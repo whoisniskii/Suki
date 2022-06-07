@@ -4,5 +4,5 @@
 
   "user/options/user": "user",
 
-  "guild/bans/user": "user"
+  "server/bans/user": "user"
 }

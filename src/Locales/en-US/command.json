@@ -6,14 +6,14 @@
 
     "dev/shell/error/noOutput": "❌ **|** No output!",
 
-    "guild/bans/error/noUser": "❌ **|** No users found.",
-    "guild/bans/error/noBan": "❌ **|** This user is not banned.",
-    "guild/bans/embed/title": "🔨 Ban information from {{user}}",
-    "guild/bans/embed/field/name/tag": "🏷️ Tag on Discord",
-    "guild/bans/embed/field/name/id": "💻 ID on Discord",
-    "guild/bans/embed/field/name/reason": "📖 Reason for Ban",
-    "guild/bans/embed/field/value/reason": "No reason provided",
-    "guild/bans/autocomplete/noBans": "❌ | No users found.",
+    "server/bans/error/noUser": "❌ **|** No users found.",
+    "server/bans/error/noBan": "❌ **|** This user is not banned.",
+    "server/bans/embed/title": "🔨 Ban information from {{user}}",
+    "server/bans/embed/field/name/tag": "🏷️ Tag on Discord",
+    "server/bans/embed/field/name/id": "💻 ID on Discord",
+    "server/bans/embed/field/name/reason": "📖 Reason for Ban",
+    "server/bans/embed/field/value/reason": "No reason provided",
+    "server/bans/autocomplete/noBans": "❌ | No users found.",
 
     "user/info/error/noUser": "❌ **|** No users found.",
     "user/info/createMemberEmbed/author": "User information",

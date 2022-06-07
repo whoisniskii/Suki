@@ -1,10 +1,10 @@
 /* eslint-disable no-eval */
 import { inspect } from 'util';
 import { Command, CommandExecuteOptions } from '../../Structures';
-import { SukiClient } from '../../SukiClient';
+import { Suki } from '../../Suki';
 
 export default class EvalSubCommand extends Command {
-  constructor(client: SukiClient) {
+  constructor(client: Suki) {
     super(client);
 
     this.rawName = 'EvalSubCommand';
@@ -36,7 +36,7 @@ export default class EvalSubCommand extends Command {
         evaled = await evaled;
       }
 
-      context.reply(
+      context.sendMessage(
         t('command:dev/eval/output', {
           code: `\`\`\`js\n${clean(
             inspect(evaled, { depth: 0 })
@@ -46,7 +46,7 @@ export default class EvalSubCommand extends Command {
         }),
       );
     } catch (error: any) {
-      context.reply(t('command:dev/eval/error', { code: `\`\`\`js\n${String(error.stack.slice(0, 1970))}\n\`\`\`` }));
+      context.sendMessage(t('command:dev/eval/error', { code: `\`\`\`js\n${String(error.stack.slice(0, 1970))}\n\`\`\`` }));
     }
   }
 }

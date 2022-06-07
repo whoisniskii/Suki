@@ -1,36 +1,36 @@
 import { ApplicationCommandOptionType } from 'discord.js';
-import { CommandDataStructure } from '../../../Structures';
-import { SukiClient } from '../../../SukiClient';
+import { CommandData } from '../../../Structures';
+import { Suki } from '../../../Suki';
 
-export default class ServerData extends CommandDataStructure {
-  constructor(client: SukiClient) {
+export default class ServerData extends CommandData {
+  constructor(client: Suki) {
     super(client);
     this.data = {
-      name: 'guild',
-      description: client.languages.languageManager.get('en-US', 'commandDescriptions:guild'),
+      name: 'server',
+      description: client.languages.languageManager.get('en-US', 'commandDescriptions:server'),
       descriptionLocalizations: {
-        'pt-BR': client.languages.languageManager.get('pt-BR', 'commandDescriptions:guild'),
+        'pt-BR': client.languages.languageManager.get('pt-BR', 'commandDescriptions:server'),
       },
       options: [
         {
           type: ApplicationCommandOptionType.Subcommand,
           name: 'bans',
-          description: client.languages.languageManager.get('en-US', 'commandDescriptions:guild/bans'),
+          description: client.languages.languageManager.get('en-US', 'commandDescriptions:server/bans'),
           descriptionLocalizations: {
-            'pt-BR': client.languages.languageManager.get('pt-BR', 'commandDescriptions:guild/bans'),
+            'pt-BR': client.languages.languageManager.get('pt-BR', 'commandDescriptions:server/bans'),
           },
           options: [
             {
               autocomplete: true,
               required: true,
               type: ApplicationCommandOptionType.String,
-              name: client.languages.languageManager.get('en-US', 'commandNames:guild/bans/user'),
+              name: client.languages.languageManager.get('en-US', 'commandNames:server/bans/user'),
               nameLocalizations: {
-                'pt-BR': client.languages.languageManager.get('pt-BR', 'commandNames:guild/bans/user'),
+                'pt-BR': client.languages.languageManager.get('pt-BR', 'commandNames:server/bans/user'),
               },
-              description: client.languages.languageManager.get('en-US', 'commandDescriptions:guild/bans/user'),
+              description: client.languages.languageManager.get('en-US', 'commandDescriptions:server/bans/user'),
               descriptionLocalizations: {
-                'pt-BR': client.languages.languageManager.get('pt-BR', 'commandDescriptions:guild/bans/user'),
+                'pt-BR': client.languages.languageManager.get('pt-BR', 'commandDescriptions:server/bans/user'),
               },
             },
           ],

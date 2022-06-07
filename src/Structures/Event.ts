@@ -1,7 +1,7 @@
 import { Awaitable } from 'discord.js';
-import { SukiClient } from '../SukiClient';
+import { Suki } from '../Suki';
 
-abstract class Event<Client = SukiClient> {
+abstract class Event<Client = Suki> {
   eventName: string;
 
   constructor() {
