@@ -1,5 +1,4 @@
-import { Pool, QueryResult } from 'pg';
-import GuildTable from '../Database/tables/guilds.json';
+import { Pool } from 'pg';
 import { SukiClient } from '../SukiClient';
 
 class DatabaseManager extends Pool {
@@ -25,21 +24,41 @@ class DatabaseManager extends Pool {
     this.client.logger.info('Database successfully connected', 'POSTGRESQL');
   }
 
-  async createRequiredTables() {
-    await this.createTable(GuildTable);
-  }
-
   async runQuery(query: string): Promise<any[]> {
-    const res: QueryResult = await this.query(query);
+    const res = await this.query(query);
 
     return res.rows;
   }
 
   async getGuildData(guildId: string) {
-    const query: QueryResult = await this.query(`SELECT * FROM guilds WHERE guild_id=$1`, [guildId]);
-    const data: GuildData | undefined = query.rows[0];
+    const query = await this.query(`SELECT * FROM guilds WHERE guild_id=$1`, [guildId]);
+    const data: GuildData = query.rows[0];
 
     return data;
+  }
+
+  async createGuildData(guildId: string) {
+    const guildData = await this.getGuildData(guildId);
+
+    const guildDataObject = {
+      forever: false,
+    };
+
+    if (!guildData) {
+      await this.query(`INSERT INTO guilds (guild_id, guild_data, created_at) VALUES ($1, $2, $3)`, [guildId, guildDataObject, new Date()]);
+    }
+
+    return { guild_id: guildId, guild_data: guildDataObject, createdAt: new Date() };
+  }
+
+  async deleteGuildData(guildId: string) {
+    const guildData = await this.getGuildData(guildId);
+
+    if (!guildData) {
+      return;
+    }
+
+    await this.query('DELETE FROM guilds WHERE guild_id=$1', [guildId]);
   }
 
   async createTable(tableData: ITable): Promise<boolean> {

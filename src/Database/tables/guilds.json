@@ -18,7 +18,7 @@
       },
       {
           "name": "guild_data",
-          "type": "jsonb",
+          "type": "json",
           "required": true,
           "isUnique": false,
           "primary": false

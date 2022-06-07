@@ -11,12 +11,6 @@ export default class GuildDeleteEvent extends Event {
   }
 
   async execute(client: SukiClient, guild: Guild) {
-    const guildData = await client.database.getGuildData(guild.id);
-
-    if (!guildData) {
-      return;
-    }
-
-    await client.database.query('DELETE FROM guilds WHERE guild_id=$1', [guild.id]);
+    await client.database.deleteGuildData(guild.id);
   }
 }
