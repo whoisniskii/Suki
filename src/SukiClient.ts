@@ -1,5 +1,5 @@
 /* eslint-disable no-await-in-loop */
-import { Client, Collection, GatewayIntentBits } from 'discord.js';
+import { Client, Collection, GatewayIntentBits, Partials } from 'discord.js';
 import { readdirSync } from 'node:fs';
 import { readdir } from 'node:fs/promises';
 import { setTimeout as sleep } from 'timers/promises';
@@ -19,14 +19,8 @@ class SukiClient extends Client {
 
   constructor() {
     super({
-      intents: [
-        GatewayIntentBits.Guilds,
-        GatewayIntentBits.GuildMembers,
-        GatewayIntentBits.GuildMessages,
-        GatewayIntentBits.GuildPresences,
-        GatewayIntentBits.GuildVoiceStates,
-        GatewayIntentBits.MessageContent,
-      ],
+      intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMembers, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent],
+      partials: [Partials.Channel, Partials.User, Partials.GuildMember, Partials.Message],
       failIfNotExists: false,
       allowedMentions: {
         parse: ['users'],

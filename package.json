@@ -1,15 +1,15 @@
 {
-  "name": "suki-rewrite",
-  "description": "Suki code rewritten in Typescript",
-  "version": "0.1",
+  "name": "suki",
+  "description": "Suki is a multipurpose Discord bot. Built with Node.js, TypeScript and discord.js.",
+  "version": "1.0.0",
   "private": true,
   "main": "./build/Initializer.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/whoisniskii/Suki-Rewrite.git"
+    "url": "https://github.com/whoisniskii/Suki.git"
   },
   "bugs": {
-    "url": "https://github.com/whoisniskii/Suki-Rewrite/issues"
+    "url": "https://github.com/whoisniskii/Suki/issues"
   },
   "scripts": {
     "build": "tsc --project tsconfig.json",
