@@ -1,4 +1,4 @@
-import { APIEmbed, EmbedBuilder, GuildMember } from 'discord.js';
+import { APIEmbed, EmbedBuilder, GuildMember, PermissionFlagsBits } from 'discord.js';
 import { Command, CommandExecuteOptions } from '../../Structures';
 import { Suki } from '../../Suki';
 
@@ -8,7 +8,7 @@ export default class UserInfoSubCommand extends Command {
 
     this.rawName = 'UserInfoSubCommand';
     this.permissions = {
-      bot: [],
+      bot: [PermissionFlagsBits.EmbedLinks],
       user: [],
     };
     this.config = {
@@ -55,7 +55,9 @@ export default class UserInfoSubCommand extends Command {
           value: `<t:${Math.round(user.createdTimestamp / 1000)}:F> (<t:${Math.round(user.createdTimestamp / 1000)}:R>)`,
           inline: true,
         },
-      ]);
+      ])
+      .setFooter({ text: context.user.tag, iconURL: context.user.displayAvatarURL({ extension: 'png', size: 512 }) })
+      .setTimestamp();
 
     if (member && member.joinedTimestamp) {
       embed.addFields([
@@ -100,7 +102,9 @@ export default class UserInfoSubCommand extends Command {
           value: `\`${applicationData.verify_key}\``,
           inline: true,
         },
-      ]);
+      ])
+      .setFooter({ text: context.user.tag, iconURL: context.user.displayAvatarURL({ extension: 'png', size: 512 }) })
+      .setTimestamp();
 
     if (applicationData.description) applicationEmbed.setDescription(`${applicationData.description.replace(/\n/g, '\n')}`);
 

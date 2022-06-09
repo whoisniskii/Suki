@@ -11,6 +11,6 @@ export default class GuildDeleteEvent extends Event {
   }
 
   async execute(client: Suki, guild: Guild) {
-    await client.database.deleteGuildData(guild.id);
+    await client.database.deleteGuild(guild.id);
   }
 }

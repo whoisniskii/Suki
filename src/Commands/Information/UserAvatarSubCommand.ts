@@ -1,4 +1,4 @@
-import { ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder } from 'discord.js';
+import { ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder, PermissionFlagsBits } from 'discord.js';
 import { Command, CommandExecuteOptions } from '../../Structures';
 import { Suki } from '../../Suki';
 
@@ -8,7 +8,7 @@ export default class UserAvatarSubCommand extends Command {
 
     this.rawName = 'UserAvatarSubCommand';
     this.permissions = {
-      bot: [],
+      bot: [PermissionFlagsBits.EmbedLinks],
       user: [],
     };
     this.config = {
@@ -33,7 +33,12 @@ export default class UserAvatarSubCommand extends Command {
 
     const avatarUrl = `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.${extension}?size=512`;
 
-    const embed = new EmbedBuilder().setColor('Purple').setTitle(user.username).setImage(avatarUrl);
+    const embed = new EmbedBuilder()
+      .setColor('Purple')
+      .setTitle(user.username)
+      .setImage(avatarUrl)
+      .setFooter({ text: context.user.tag, iconURL: context.user.displayAvatarURL({ extension: 'png', size: 512 }) })
+      .setTimestamp();
 
     const row = new ActionRowBuilder<ButtonBuilder>({ components: [new ButtonBuilder().setStyle(ButtonStyle.Link).setURL(avatarUrl).setLabel(t('command:user/avatar/button/label'))] });
 

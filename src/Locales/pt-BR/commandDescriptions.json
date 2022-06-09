@@ -21,5 +21,9 @@
 
   "server": "Veja as informações do servidor.",
   "server/bans": "[ 🔨 Moderação ] Veja a informação de um usuário banido no servidor.",
-  "server/bans/user": "Usuário que deseja ver a informação do banimento."
+  "server/bans/user": "Usuário que deseja ver a informação do banimento.",
+  "server/info": "[ 📚 Informação ] Veja as informações do servidor.",
+  "server/icon": "[ 📷 Imagem ] Veja o ícone do servidor.",
+  "server/splash": "[ 📷 Imagem ] Veja a imagem de fundo do convite do servidor.",
+  "server/banner": "[ 📷 Imagem ] Veja o banner do servidor."
 }

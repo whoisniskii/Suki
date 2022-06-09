@@ -15,12 +15,12 @@ export default class MessageCreateEvent extends Event {
   execute(client: Suki, message: Message) {
     if (message.author.bot) return;
 
-    const button = new ButtonBuilder()
-      .setStyle(ButtonStyle.Link)
-      .setLabel('Add me')
-      .setURL(`https://discord.com/api/oauth2/authorize?client_id=${client.user?.id}&permissions=1516056734967&scope=applications.commands%20bot`);
-
-    const row = new ActionRowBuilder<ButtonBuilder>().addComponents([button]);
+    const row = new ActionRowBuilder<ButtonBuilder>().addComponents([
+      new ButtonBuilder()
+        .setStyle(ButtonStyle.Link)
+        .setLabel('Add me')
+        .setURL(`https://discord.com/api/oauth2/authorize?client_id=${client.user?.id}&permissions=1516056734967&scope=applications.commands%20bot`),
+    ]);
 
     if (message.content.match(GetMention(client.user?.id as string))) {
       message.reply({ content: `Hi ${message.author}, If you need help, use the command **/help**!`, components: [row] });

@@ -20,7 +20,7 @@ class DatabaseManager extends Pool {
   }
 
   async connectDatabase(): Promise<void> {
-    await this.runQuery(`SELECT NOW() as now`);
+    await this.runQuery('SELECT NOW() as now');
     this.client.logger.info('Database successfully connected', 'POSTGRESQL');
   }
 
@@ -30,29 +30,24 @@ class DatabaseManager extends Pool {
     return res.rows;
   }
 
-  async getGuildData(guildId: string) {
-    const query = await this.query(`SELECT * FROM guilds WHERE guild_id=$1`, [guildId]);
-    const data: GuildData = query.rows[0];
+  async getGuild(guildId: string) {
+    const query = await this.query('SELECT * FROM guilds WHERE guild_id=$1', [guildId]);
 
-    return data;
+    return query.rows[0];
   }
 
-  async createGuildData(guildId: string) {
-    const guildData = await this.getGuildData(guildId);
-
-    const guildDataObject = {
-      forever: false,
-    };
+  async createGuild(guildId: string) {
+    const guildData = await this.getGuild(guildId);
 
     if (!guildData) {
-      await this.query(`INSERT INTO guilds (guild_id, guild_data, created_at) VALUES ($1, $2, $3)`, [guildId, guildDataObject, new Date()]);
+      await this.query('INSERT INTO guilds (guild_id, created_at) VALUES ($1, $2)', [guildId, new Date()]);
     }
 
-    return { guild_id: guildId, guild_data: guildDataObject, createdAt: new Date() };
+    return { guild_id: guildId, createdAt: new Date() };
   }
 
-  async deleteGuildData(guildId: string) {
-    const guildData = await this.getGuildData(guildId);
+  async deleteGuild(guildId: string) {
+    const guildData = await this.getGuild(guildId);
 
     if (!guildData) {
       return;
@@ -116,10 +111,5 @@ interface ITable {
 export interface GuildInterface {
   database_id?: number;
   guild_id: string;
-  guild_data: GuildData;
   created_at: Date;
-}
-
-interface GuildData {
-  forever: boolean;
 }

@@ -15,6 +15,10 @@
     "server/bans/embed/field/value/reason": "Nenhum motivo fornecido",
     "server/bans/autocomplete/noBans": "❌ | Nenhum usuário encontrado.",
 
+    "server/icon/error/noIcon": "❌ **|** Este servidor não tem um ícone.",
+    "server/splash/error/noSplash": "❌ **|** Este servidor não tem um fundo do convite do servidor.",
+    "server/banner/error/noBanner": "❌ **|** Este servidor não tem um banner.",
+
     "user/info/error/noUser": "❌ **|** Nenhum usuário encontrado.",
     "user/info/createMemberEmbed/author": "Informação do usuário",
     "user/info/createMemberEmbed/fields/name/userId": "💻 ID no Discord",

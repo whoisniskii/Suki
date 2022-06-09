@@ -1,4 +1,4 @@
-import { ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder } from 'discord.js';
+import { ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder, PermissionFlagsBits } from 'discord.js';
 import { Command, CommandExecuteOptions } from '../../Structures';
 import { Suki } from '../../Suki';
 
@@ -8,7 +8,7 @@ export default class UserBannerSubCommand extends Command {
 
     this.rawName = 'UserBannerSubCommand';
     this.permissions = {
-      bot: [],
+      bot: [PermissionFlagsBits.EmbedLinks],
       user: [],
     };
     this.config = {
@@ -35,7 +35,12 @@ export default class UserBannerSubCommand extends Command {
 
     const bannerUrl = `https://cdn.discordapp.com/banners/${user.id}/${user.banner}.${extension}?size=512`;
 
-    const embed = new EmbedBuilder().setColor('Purple').setTitle(user.username).setImage(bannerUrl);
+    const embed = new EmbedBuilder()
+      .setColor('Purple')
+      .setTitle(user.username)
+      .setImage(bannerUrl)
+      .setFooter({ text: context.user.tag, iconURL: context.user.displayAvatarURL({ extension: 'png', size: 512 }) })
+      .setTimestamp();
 
     const row = new ActionRowBuilder<ButtonBuilder>({ components: [new ButtonBuilder().setStyle(ButtonStyle.Link).setURL(bannerUrl).setLabel(t('command:user/banner/button/label'))] });
 

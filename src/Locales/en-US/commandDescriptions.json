@@ -21,5 +21,9 @@
 
   "server": "See server information.",
   "server/bans": "[ 🔨 Moderation ] View a banned user information on the server.",
-  "server/bans/user": "User who wants to see ban information."
+  "server/bans/user": "User who wants to see ban information.",
+  "server/info": "[ 📚 Information ] Shows server's information.",
+  "server/icon": "[ 📷 Images ] Shows the server's icon.",
+  "server/splash": "[ 📷 Images ] Shows the server's invite background.",
+  "server/banner": "[ 📷 Images ] Shows the server's banner."
 }

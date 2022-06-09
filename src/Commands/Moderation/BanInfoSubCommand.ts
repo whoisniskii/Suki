@@ -12,7 +12,7 @@ export default class BanInfoSubCommand extends Command {
       devOnly: false,
     };
     this.permissions = {
-      bot: [PermissionFlagsBits.BanMembers],
+      bot: [PermissionFlagsBits.BanMembers, PermissionFlagsBits.EmbedLinks],
       user: [PermissionFlagsBits.BanMembers],
     };
   }

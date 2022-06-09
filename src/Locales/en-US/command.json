@@ -15,6 +15,10 @@
     "server/bans/embed/field/value/reason": "No reason provided",
     "server/bans/autocomplete/noBans": "❌ | No users found.",
 
+    "server/icon/error/noIcon": "❌ **|** This server does not have a icon.",
+    "server/splash/error/noSplash": "❌ **|** This server does not have a server invite background.",
+    "server/banner/error/noBanner": "❌ **|** This server does not have a banner.",
+
     "user/info/error/noUser": "❌ **|** No users found.",
     "user/info/createMemberEmbed/author": "User information",
     "user/info/createMemberEmbed/fields/name/userId": "💻 ID on Discord",

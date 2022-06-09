@@ -22,6 +22,21 @@ export default class ServerCommand extends Command {
         this.client.commands.get('BanInfoSubCommand')?.execute({ context, t });
         break;
       }
+
+      case 'icon': {
+        this.client.commands.get('ServerIconSubCommand')?.execute({ context, t });
+        break;
+      }
+
+      case 'banner': {
+        this.client.commands.get('ServerBannerSubCommand')?.execute({ context, t });
+        break;
+      }
+
+      case 'splash': {
+        this.client.commands.get('ServerSplashSubCommand')?.execute({ context, t });
+        break;
+      }
     }
   }
 

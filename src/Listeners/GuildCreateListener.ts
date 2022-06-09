@@ -11,6 +11,6 @@ export default class GuildCreateEvent extends Event {
   }
 
   async execute(client: Suki, guild: Guild) {
-    await client.database.createGuildData(guild.id);
+    await client.database.createGuild(guild.id);
   }
 }
