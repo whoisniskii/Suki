@@ -1,4 +1,4 @@
-import { ChatInputCommandInteraction, Interaction, PermissionsBitField } from 'discord.js';
+import { AutocompleteInteraction, ChatInputCommandInteraction, Interaction, PermissionsBitField } from 'discord.js';
 import { getFixedT, TFunction } from 'i18next';
 import { Command, CommandContext, Event } from '../Structures';
 import { Suki } from '../Suki';
@@ -12,7 +12,7 @@ export default class InteractionCreateEvent extends Event {
   }
 
   execute(client: Suki, interaction: Interaction) {
-    if (interaction.isAutocomplete() && interaction.inGuild()) {
+    if (interaction instanceof AutocompleteInteraction && interaction.inGuild()) {
       const cmd = client.commands.find(c => c.rawName === interaction.commandName);
       if (!cmd) throw new Error(`Command ${interaction.commandName} does not exist!`);
 

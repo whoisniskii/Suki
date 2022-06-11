@@ -21,14 +21,14 @@
   },
   "license": "Apache-2.0",
   "dependencies": {
-    "discord.js": "^14.0.0-dev.1654519696-fba9710",
-    "i18next": "^21.8.8",
+    "discord.js": "^14.0.0-dev.1654906231-c7391db",
+    "i18next": "^21.8.9",
     "i18next-fs-backend": "^1.1.4",
     "pg": "^8.7.3"
   },
   "devDependencies": {
     "@types/i18next-fs-backend": "^1.1.2",
-    "@types/node": "^17.0.40",
+    "@types/node": "^17.0.42",
     "@types/pg": "^8.6.5",
     "@typescript-eslint/eslint-plugin": "^5.27.1",
     "@typescript-eslint/parser": "^5.27.1",
