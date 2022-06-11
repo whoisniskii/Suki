@@ -11,6 +11,7 @@ export default class ServerData extends CommandData {
       descriptionLocalizations: {
         'pt-BR': client.languages.languageManager.get('pt-BR', 'commandDescriptions:server'),
       },
+      dmPermission: false,
       options: [
         {
           type: ApplicationCommandOptionType.Subcommand,

@@ -21,7 +21,7 @@
   },
   "license": "Apache-2.0",
   "dependencies": {
-    "discord.js": "^14.0.0-dev.1654906231-c7391db",
+    "discord.js": "^14.0.0-dev.1654949087-96053ba",
     "i18next": "^21.8.9",
     "i18next-fs-backend": "^1.1.4",
     "pg": "^8.7.3"

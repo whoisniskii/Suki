@@ -14,6 +14,7 @@ export default class DevData extends CommandData {
       descriptionLocalizations: {
         'pt-BR': client.languages.languageManager.get('pt-BR', 'commandDescriptions:dev'),
       },
+      dmPermission: false,
       options: [
         {
           type: ApplicationCommandOptionType.Subcommand,

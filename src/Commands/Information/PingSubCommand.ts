@@ -18,7 +18,6 @@ export default class PingSubCommand extends Command {
   }
 
   async execute({ context, t }: CommandExecuteOptions) {
-    await context.defer();
     const dbPing = await this.client.database.getPing();
 
     context.sendMessage(t('command:suki/ping/success', { clientPing: this.client.ws.ping.toString(), databasePing: dbPing.toString() }));

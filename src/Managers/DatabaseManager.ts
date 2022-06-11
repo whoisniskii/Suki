@@ -36,12 +36,6 @@ class DatabaseManager extends Pool {
     return query.rows[0];
   }
 
-  async getClient() {
-    const query = await this.query('SELECT * FROM clients WHERE client_id=$1', [this.client.user?.id]);
-
-    return query.rows[0];
-  }
-
   async createGuild(guildId: string) {
     const guildData = await this.getGuild(guildId);
 
@@ -64,7 +58,7 @@ class DatabaseManager extends Pool {
 
   async getPing() {
     const start = Date.now();
-    await this.query('INSERT INTO clients (pings) VALUES ($1)', [start]);
+    await this.query('SELECT NOW() as now');
 
     return Date.now() - start;
   }
