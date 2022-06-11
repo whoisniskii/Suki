@@ -1,5 +1,5 @@
 {
-    "suki/ping/success": "🏓 **|** API Ping: {{ping}}ms",
+    "suki/ping/success": "🏓 **|** API Ping: **{{clientPing}}ms**\n☁️ **|** Database Ping: **{{databasePing}}ms**",
 
     "dev/eval/output": "✅ **|** Output: {{code}}",
     "dev/eval/error": "❌ **|** Error: {{code}}",

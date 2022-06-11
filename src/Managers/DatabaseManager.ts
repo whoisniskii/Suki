@@ -36,6 +36,12 @@ class DatabaseManager extends Pool {
     return query.rows[0];
   }
 
+  async getClient() {
+    const query = await this.query('SELECT * FROM clients WHERE client_id=$1', [this.client.user?.id]);
+
+    return query.rows[0];
+  }
+
   async createGuild(guildId: string) {
     const guildData = await this.getGuild(guildId);
 
@@ -56,57 +62,15 @@ class DatabaseManager extends Pool {
     await this.query('DELETE FROM guilds WHERE guild_id=$1', [guildId]);
   }
 
-  async createTable(tableData: ITable): Promise<boolean> {
-    let textData = ``;
+  async getPing() {
+    const start = Date.now();
+    await this.query('INSERT INTO clients (pings) VALUES ($1)', [start]);
 
-    tableData.columns.map((column: ITableColumn, index: number) => {
-      let extraData = ``;
-
-      if (column.isUnique) {
-        extraData += `UNIQUE `;
-      }
-
-      if (column.required) {
-        extraData += `NOT NULL `;
-      }
-
-      if (column.default) {
-        extraData += `DEFAULT ${column.default}`;
-      }
-
-      extraData = extraData.trimEnd();
-
-      if (index === tableData.columns.length - 1) {
-        textData += `\t${column.name} ${column.type} ${extraData}\n`;
-      } else {
-        textData += `\t${column.name} ${column.type} ${extraData},\n`;
-      }
-
-      return textData;
-    });
-
-    await this.runQuery(`CREATE TABLE IF NOT EXISTS ${tableData.tableName} (\n${textData})`);
-
-    return true;
+    return Date.now() - start;
   }
 }
 
 export { DatabaseManager };
-
-interface ITableColumn {
-  name: string;
-  type: string;
-  required: boolean;
-  isUnique: boolean;
-  primary: boolean;
-  default?: string;
-}
-
-interface ITable {
-  tableName: string;
-  createOnConnect: boolean;
-  columns: ITableColumn[];
-}
 
 export interface GuildInterface {
   database_id?: number;
