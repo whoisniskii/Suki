@@ -1,3 +1,5 @@
+import type { ClientConfig } from 'pg';
+
 export default {
   client: {
     token: 'BOT TOKEN',
@@ -8,5 +10,5 @@ export default {
     database: 'POSTGRESQL DATABASE',
     password: 'POSTGRESQL PASSWORD',
     port: 2333,
-  },
+  } as ClientConfig,
 };

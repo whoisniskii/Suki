@@ -5,29 +5,14 @@ class DatabaseManager extends Pool {
   client: Suki;
 
   constructor(client: Suki) {
-    super({
-      user: client.config.databaseConfig.user,
-      host: client.config.databaseConfig.host,
-      database: client.config.databaseConfig.database,
-      password: client.config.databaseConfig.password,
-      port: client.config.databaseConfig.port,
-      ssl: {
-        rejectUnauthorized: false,
-      },
-    });
+    super(client.config.databaseConfig);
 
     this.client = client;
   }
 
   async connectDatabase(): Promise<void> {
-    await this.runQuery('SELECT NOW() as now');
+    await this.query('SELECT NOW() as now');
     this.client.logger.info('Database successfully connected', 'POSTGRESQL');
-  }
-
-  async runQuery(query: string): Promise<any[]> {
-    const res = await this.query(query);
-
-    return res.rows;
   }
 
   async getGuild(guildId: string) {
@@ -65,9 +50,3 @@ class DatabaseManager extends Pool {
 }
 
 export { DatabaseManager };
-
-export interface GuildInterface {
-  database_id?: number;
-  guild_id: string;
-  created_at: Date;
-}
