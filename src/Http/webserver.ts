@@ -3,8 +3,6 @@ import { AutocompleteInteraction, APIInteraction, ApplicationCommandType, ChatIn
 import express from 'express';
 import { Suki } from '../Suki';
 
-const app = express();
-
 export class SlashCommandsWebServer {
   client: Suki;
 
@@ -13,6 +11,7 @@ export class SlashCommandsWebServer {
   }
 
   startWebserver() {
+    const app = express();
     app.get('/', (_, res) => res.send('Alive'));
 
     app.post('/interactions', verifyKeyMiddleware(this.client.config.interactions.publicKey), (request, response) => {
