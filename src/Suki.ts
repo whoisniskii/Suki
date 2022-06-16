@@ -5,7 +5,7 @@ import { readdir } from 'node:fs/promises';
 import { setTimeout as sleep } from 'timers/promises';
 // @ts-ignore
 import config from './Config/config';
-import { SlashCommandsWebServer } from './Http/webserver';
+import { SlashCommandsWebServer } from './Http/Webserver';
 import { DatabaseManager } from './Managers';
 import { Command, CommandData, Event, Language } from './Structures';
 import Logger from './Utils/Logger';
@@ -94,9 +94,9 @@ class Suki extends Client {
     await sleep(1000);
     this.loadEvents(this);
     this.loadCommands(this);
+    if (this.config.interactions.useWebserver) new SlashCommandsWebServer(this).startWebserver();
     await sleep(2500);
     this.loadCommandData(this);
-    if (this.config.interactions.useWebserver) new SlashCommandsWebServer(this).startWebserver();
     super.login(this.config.client.token);
 
     process.on('uncaughtException', err => this.logger.error(err.message));

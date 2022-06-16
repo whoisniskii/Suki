@@ -30,23 +30,19 @@ export default class EvalSubCommand extends Command {
     };
 
     try {
-      let evaled = eval(context.options.getString('code', true));
-
-      if (evaled instanceof Promise) {
-        evaled = await evaled;
-      }
+      const evaluate = await eval(context.options.getString('code', true));
 
       context.sendMessage(
         t('command:dev/eval/output', {
           code: `\`\`\`js\n${clean(
-            inspect(evaled, { depth: 0 })
+            inspect(evaluate, { depth: 0 })
               .replace(new RegExp(this.client.token as string, 'gi'), '******************')
               .slice(0, 1970),
           )}\n\`\`\``,
         }),
       );
     } catch (error: any) {
-      context.sendMessage(t('command:dev/eval/error', { code: `\`\`\`js\n${String(error.stack.slice(0, 1970))}\n\`\`\`` }));
+      context.sendMessage(t('command:dev/eval/error', { code: `\`\`\`js\n${error.stack.slice(0, 1970)}\n\`\`\`` }));
     }
   }
 }

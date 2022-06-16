@@ -2,7 +2,7 @@ import type { ClientConfig } from 'pg';
 
 export default {
   interactions: {
-    useWebserver: true,
+    useWebserver: false,
     port: 3000,
     publicKey: 'YOUR PUBLIC KEY',
   },

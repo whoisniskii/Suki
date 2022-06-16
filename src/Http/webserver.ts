@@ -1,5 +1,5 @@
 import { verifyKeyMiddleware } from 'discord-interactions';
-import { AutocompleteInteraction, APIInteraction, ApplicationCommandType, ChatInputCommandInteraction, InteractionResponseType, InteractionType } from 'discord.js';
+import { APIInteraction, ApplicationCommandType, AutocompleteInteraction, ChatInputCommandInteraction, InteractionResponseType, InteractionType } from 'discord.js';
 import express from 'express';
 import { Suki } from '../Suki';
 
@@ -35,6 +35,7 @@ export class SlashCommandsWebServer {
     });
 
     app.listen(this.client.config.interactions.port);
+    this.client.logger.info(`Slash Commands Web Server started on port ${this.client.config.interactions.port}.`, 'WEBSERVER');
   }
 
   #emitEventToClient(data: APIInteraction) {

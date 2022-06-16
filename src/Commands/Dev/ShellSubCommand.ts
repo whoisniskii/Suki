@@ -3,8 +3,6 @@ import { exec } from 'child_process';
 import { Command, CommandExecuteOptions } from '../../Structures';
 import { Suki } from '../../Suki';
 
-const ANSI_REGEX = /[\u001b\u009b][[()#;?]*(?:[0-9]{1,4}(?:;[0-9]{0,4})*)?[0-9A-ORZcf-nqry=><]/g;
-
 export default class ShellSubCommand extends Command {
   constructor(client: Suki) {
     super(client);
@@ -26,6 +24,8 @@ export default class ShellSubCommand extends Command {
         context.sendMessage({ content: t('command:dev/shell/error/noOutput'), ephemeral: true });
         return;
       }
+
+      const ANSI_REGEX = /[\u001b\u009b][[()#;?]*(?:[0-9]{1,4}(?:;[0-9]{0,4})*)?[0-9A-ORZcf-nqry=><]/g;
 
       const res = (stdout || stderr).replace(ANSI_REGEX, '');
 

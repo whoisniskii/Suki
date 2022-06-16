@@ -27,11 +27,7 @@ export default class UserAvatarSubCommand extends Command {
       context.sendMessage({ content: t('command:user/avatar/error/noUserAvatar'), ephemeral: true });
     }
 
-    let extension = 'png';
-
-    if (user.avatar?.startsWith('a_')) extension = 'gif';
-
-    const avatarUrl = `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.${extension}?size=512`;
+    const avatarUrl = user.displayAvatarURL({ extension: 'png', size: 512 });
 
     const embed = new EmbedBuilder()
       .setColor('Purple')
