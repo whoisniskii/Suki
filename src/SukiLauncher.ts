@@ -1,3 +1,6 @@
+import { config } from 'dotenv';
 import { Suki } from './Suki';
 
-new Suki().initialize();
+config({ path: '../.env' });
+
+new Suki(process.env.BOT_TOKEN as string).initialize();

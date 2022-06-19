@@ -4,3 +4,4 @@ TestCommand*
 src/Config/config.ts
 yarn.lock
 package-lock.json
+.env

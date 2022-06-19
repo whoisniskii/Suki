@@ -1,0 +1,18 @@
+datasource db {
+  url      = env("DATABASE_URL")
+  provider = "postgres"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Guild {
+  guild_id   Int      @id @default(autoincrement())
+  created_at DateTime @default(now())
+}
+
+model User {
+  user_id    Int      @id @default(autoincrement())
+  created_at DateTime @default(now())
+}

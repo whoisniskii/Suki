@@ -18,7 +18,7 @@ class Suki extends Client {
   developers: string[];
   logger: Logger;
 
-  constructor() {
+  constructor(readonly token: string) {
     super({
       intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMembers, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent],
       partials: [Partials.Channel, Partials.User, Partials.GuildMember, Partials.Message],
@@ -90,14 +90,13 @@ class Suki extends Client {
   }
 
   async initialize() {
-    await this.database.connectDatabase();
     await sleep(1000);
     this.loadEvents(this);
     this.loadCommands(this);
     if (this.config.interactions.useWebserver) new SlashCommandsWebServer(this).startWebserver();
     await sleep(2500);
     this.loadCommandData(this);
-    super.login(this.config.client.token);
+    super.login(this.token);
 
     process.on('uncaughtException', err => this.logger.error(err.message));
     process.on('unhandledRejection', err => this.logger.error(err as string));

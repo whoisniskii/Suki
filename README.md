@@ -10,11 +10,16 @@
 
 > ⚠️ Support will not be provided for self-hosted instances. Issues with self-hosted instances opened in this repository will be closed immediately.
 
-- ⚙️ Rename the `config.example.ts` file, found in `src/Config` to `config.ts` and fill out the values.
+- ⚙️ Rename the `.env.example` file to `.env` and fill out the values.
 
 ### Install all the dependencies with:
 ```bash
 yarn
+```
+
+### Generate prisma schema with:
+```bash
+yarn prisma generate
 ```
 
 ### Transpile the code to JavaScript with:
