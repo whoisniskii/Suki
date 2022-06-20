@@ -4,7 +4,7 @@ import { readdirSync } from 'node:fs';
 import { readdir } from 'node:fs/promises';
 import { setTimeout as sleep } from 'timers/promises';
 // @ts-ignore
-import config from './Config/config';
+import config from '../config';
 import { SlashCommandsWebServer } from './Http/Webserver';
 import { DatabaseManager } from './Managers';
 import { Command, CommandData, Event, Language } from './Structures';
@@ -18,7 +18,7 @@ class Suki extends Client {
   developers: string[];
   logger: Logger;
 
-  constructor(readonly token: string) {
+  constructor() {
     super({
       intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMembers, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent],
       partials: [Partials.Channel, Partials.User, Partials.GuildMember, Partials.Message],
@@ -96,7 +96,7 @@ class Suki extends Client {
     if (this.config.interactions.useWebserver) new SlashCommandsWebServer(this).startWebserver();
     await sleep(2500);
     this.loadCommandData(this);
-    super.login(this.token);
+    super.login(process.env.BOT_TOKEN);
 
     process.on('uncaughtException', err => this.logger.error(err.message));
     process.on('unhandledRejection', err => this.logger.error(err as string));

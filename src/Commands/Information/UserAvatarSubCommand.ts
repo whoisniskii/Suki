@@ -23,11 +23,11 @@ export default class UserAvatarSubCommand extends Command {
       context.sendMessage({ content: t('command:user/avatar/error/noUser'), ephemeral: true });
     }
 
-    if (!user.avatar) {
-      context.sendMessage({ content: t('command:user/avatar/error/noUserAvatar'), ephemeral: true });
-    }
+    let avatarUrl = user.displayAvatarURL({ extension: 'png', size: 512 });
 
-    const avatarUrl = user.displayAvatarURL({ extension: 'png', size: 512 });
+    if (!user.avatar) {
+      avatarUrl = `https://cdn.discordapp.com/embed/avatars/${parseInt(user.discriminator.slice(-1), 10) % 5}.png`;
+    }
 
     const embed = new EmbedBuilder()
       .setColor('Purple')

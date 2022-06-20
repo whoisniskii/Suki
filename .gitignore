@@ -1,7 +1,6 @@
 node_modules
-build
-TestCommand*
-src/Config/config.ts
 yarn.lock
 package-lock.json
+build
 .env
+config.ts

@@ -39,6 +39,5 @@
     "user/banner/button/label": "Open in browser",
 
     "user/avatar/error/noUser": "❌ **|** No users found.",
-    "user/avatar/error/noUserAvatar": "❌ **|** This user does not have an avatar.",
     "user/avatar/button/label": "Open in browser"
 }
