@@ -1,4 +1,4 @@
-import { ChatInputCommandInteraction, CommandInteractionOptionResolver, GuildMember, InteractionReplyOptions, TextChannel, VoiceState } from 'discord.js';
+import { ChatInputCommandInteraction, GuildMember, InteractionReplyOptions, TextChannel } from 'discord.js';
 import { Suki } from '../Suki';
 
 class CommandContext {
@@ -15,11 +15,11 @@ class CommandContext {
   }
 
   get member() {
-    return (this.interaction.member as GuildMember) ?? this.client.guilds.cache.get(this.interaction.guildId as string)?.members.cache.get(this.interaction.user.id);
+    return this.interaction.member as GuildMember;
   }
 
   get guild() {
-    return this.interaction.guild ?? this.client.guilds.cache.get(this.interaction.guildId as string);
+    return this.interaction.guild;
   }
 
   get channel() {
@@ -27,11 +27,11 @@ class CommandContext {
   }
 
   get options() {
-    return this.interaction.options as CommandInteractionOptionResolver;
+    return this.interaction.options;
   }
 
   get voice() {
-    return this.member.voice as VoiceState;
+    return this.member.voice;
   }
 
   get database() {
@@ -44,12 +44,6 @@ class CommandContext {
     } else await this.interaction.reply(options);
 
     return { options };
-  }
-
-  async defer() {
-    if (this.interaction.isChatInputCommand()) {
-      await this.interaction.deferReply();
-    }
   }
 }
 

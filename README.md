@@ -3,7 +3,7 @@
 > Suki is a multipurpose [Discord](https://discord.com) bot, built with [Node.js](https://nodejs.org), [TypeScript](https://www.typescriptlang.org/) and [discord.js](https://discord.js.org).
 
 ## ⚠ Requirements
-- NodeJS 18 or higher
+- NodeJS 16 or higher
 - yarn
 
 ## 💻 Self-Hosting

@@ -2,7 +2,9 @@
 import { Client, Collection, GatewayIntentBits, Partials } from 'discord.js';
 import { readdirSync } from 'node:fs';
 import { readdir } from 'node:fs/promises';
+import { UrlObject } from 'node:url';
 import { setTimeout as sleep } from 'timers/promises';
+import { Dispatcher, request } from 'undici';
 // @ts-ignore
 import config from '../config';
 import { SlashCommandsWebServer } from './Http/Webserver';
@@ -17,6 +19,10 @@ class Suki extends Client {
   commands: Collection<string, Command>;
   developers: string[];
   logger: Logger;
+  request: (
+    url: string | URL | UrlObject,
+    options?: { dispatcher?: Dispatcher } & Omit<Dispatcher.RequestOptions, 'origin' | 'path' | 'method'> & Partial<Pick<Dispatcher.RequestOptions, 'method'>>,
+  ) => Promise<Dispatcher.ResponseData>;
 
   constructor() {
     super({
@@ -33,6 +39,7 @@ class Suki extends Client {
     });
 
     this.config = config;
+    this.request = request;
     this.logger = new Logger();
     this.languages = new Language(this);
     this.database = new DatabaseManager(this);

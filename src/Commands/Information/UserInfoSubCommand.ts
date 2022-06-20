@@ -114,7 +114,7 @@ export default class UserInfoSubCommand extends Command {
   }
 
   async getApplicationInfo(applicationId: string | undefined) {
-    const res = await fetch(`https://discord.com/api/v10/applications/${applicationId}/rpc`, { method: 'GET' }).then(data => data.json());
+    const res = await this.client.request(`https://discord.com/api/v10/applications/${applicationId}/rpc`, { method: 'GET' }).then(data => data.body.json());
 
     return res;
   }
